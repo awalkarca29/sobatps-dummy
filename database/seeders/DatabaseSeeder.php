@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -34,7 +35,27 @@ class DatabaseSeeder extends Seeder
             'phone' => '089876543210',
         ]);
 
+        Category::create([
+            'category_name' => "Obat",
+        ]);
+
+        Category::create([
+            'category_name' => "Makanan",
+        ]);
+
+        Category::create([
+            'category_name' => "Bahan Baku",
+        ]);
+
+        Category::create([
+            'category_name' => "Lainnya",
+        ]);
+
         Product::create([
+            'categories' => json_encode([
+                ['id' => 1, 'category_name' => 'Obat'],
+                ['id' => 2, 'category_name' => 'Makanan'],
+            ]),
             'title' => 'produk admin 1',
             'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi, nesciunt.',
             'price' => 10000,
@@ -43,6 +64,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Product::create([
+            'categories' => json_encode([
+                ['id' => 2, 'category_name' => 'Makanan'],
+                ['id' => 3, 'category_name' => 'Herbal'],
+            ]),
             'title' => 'produk admin 1 lagi',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, culpa?',
             'price' => 11000,
@@ -51,6 +76,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Product::create([
+            'categories' => json_encode([
+                ['id' => 3, 'category_name' => 'Herbal'],
+                ['id' => 1, 'category_name' => 'Obat'],
+            ]),
             'title' => 'produk admin 2',
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, maiores.',
             'price' => 20000,
@@ -59,6 +88,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Product::create([
+            'categories' => json_encode([
+                ['id' => 4, 'category_name' => 'Lainnya'],
+            ]),
             'title' => 'produk admin 2 lagi',
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, veniam!',
             'price' => 22000,

@@ -17,6 +17,7 @@ class ProductShow extends JsonResource
         return [
             'id' => $this->id,
             'user' => $this->user->name,
+            'categories' => json_decode($this->categories),
             'title' => $this->title,
             'description' => $this->description,
             'price' => $this->price,

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductShow;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Http\Resources\ProductShow;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -14,15 +14,23 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::latest()->paginate(2);
+        $searchCategory = $request['search_category'];
+        $products = Product::where('categories', 'like', '%' . $searchCategory . '%')->latest()->get();
 
-        return response()->json([
-            "success" => true,
-            "message" => "Product has been showed!",
-            "data" => $products,
-        ]);
+        foreach ($products as $key => $val) {
+            $products[$key]['categories'] = json_decode($val['categories']);
+        }
+
+        return response()->json(
+            // [
+            // "success" => true,
+            // "message" => "Product has been showed!",
+            // "data" =>
+            $products,
+            // ]
+        );
     }
 
     /**
@@ -34,6 +42,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(request()->all(), [
+            'categories' => 'required',
             'title' => 'required',
             'description' => 'required',
             'price' => 'required',
@@ -47,6 +56,7 @@ class ProductController extends Controller
         $user = auth()->user();
 
         $product = $user->products()->create([
+            'categories' => request('categories'),
             'title' => request('title'),
             'description' => request('description'),
             'price' => request('price'),
@@ -74,7 +84,7 @@ class ProductController extends Controller
         return response()->json([
             "success" => true,
             "message" => "Product has been showed!",
-            "data" => new ProductShow($products) ,
+            "data" => new ProductShow($products),
         ]);
     }
 
@@ -88,6 +98,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make(request()->all(), [
+            'categories' => 'required',
             'title' => 'required',
             'description' => 'required',
             'price' => 'required',
@@ -108,13 +119,14 @@ class ProductController extends Controller
         $user = auth()->user();
         $product = Product::find($id);
 
-        if($user->id != $product->user_id) {
+        if ($user->id != $product->user_id) {
             return response()->json([
-            "success" => false,
-            "message" => "You're not the owner of the product!"
-        ], 403);
+                "success" => false,
+                "message" => "You're not the owner of the product!",
+            ], 403);
         }
 
+        $product->categories = $request->categories;
         $product->title = $request->title;
         $product->description = $request->description;
         $product->price = $request->price;
@@ -139,11 +151,11 @@ class ProductController extends Controller
         $user = auth()->user();
         $product = Product::find($id);
 
-        if($user->id != $product->user_id) {
+        if ($user->id != $product->user_id) {
             return response()->json([
-            "success" => false,
-            "message" => "You're not the owner of the product!"
-        ], 403);
+                "success" => false,
+                "message" => "You're not the owner of the product!",
+            ], 403);
         }
 
         $product->delete();
