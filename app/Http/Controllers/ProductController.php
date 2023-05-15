@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ProductShow;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -46,6 +47,7 @@ class ProductController extends Controller
             'title' => 'required',
             'description' => 'required',
             'price' => 'required',
+            'image' => 'required',
             'stock' => 'required',
         ]);
 
@@ -55,6 +57,14 @@ class ProductController extends Controller
 
         $user = auth()->user();
 
+        $data = request('image');
+        $uri = explode(';', $data);
+        $decode = explode(',', $uri[1]);
+        $data = base64_decode($decode[1]);
+        // $data = base64_decode(request('image'));
+        $ekstensi = explode('/', $uri[0]);
+        $ekstensi = $ekstensi[1];
+
         $product = $user->products()->create([
             'categories' => request('categories'),
             'title' => request('title'),
@@ -62,6 +72,12 @@ class ProductController extends Controller
             'price' => request('price'),
             'stock' => request('stock'),
         ]);
+
+        $fileName = date('Ymdhis') . $product->id . '.' . $ekstensi;
+
+        $product->image = "ProductImage/" . $fileName;
+        file_put_contents('../storage/app/ProductImage/' . $fileName, $data);
+        $product->save();
 
         return response()->json([
             "success" => true,
@@ -102,6 +118,7 @@ class ProductController extends Controller
             'title' => 'required',
             'description' => 'required',
             'price' => 'required',
+            'image' => 'required',
             'stock' => 'required',
         ]);
 
@@ -109,6 +126,7 @@ class ProductController extends Controller
             return response()->json($validator->messages(), 422);
         }
 
+        // !! DATA DI POSTMAN KELUARNYA INTEGER
         // $product = Product::where('id', $id)->update([
         //     'title' => request('title'),
         //     'description' => request('description'),
@@ -124,6 +142,20 @@ class ProductController extends Controller
                 "success" => false,
                 "message" => "You're not the owner of the product!",
             ], 403);
+        }
+
+        if ($product->image != "") {
+            Storage::delete($product->image);
+            $data = request('image');
+            $uri = explode(';', $data);
+            $decode = explode(',', $uri[1]);
+            $data = base64_decode($decode[1]);
+            // $data = base64_decode(request('image'));
+            $ekstensi = explode('/', $uri[0]);
+            $ekstensi = $ekstensi[1];
+            $fileName = date('Ymdhis') . $product->id . '.' . $ekstensi;
+            $product->image = "ProductImage/" . $fileName;
+            file_put_contents('../storage/app/ProductImage/' . $fileName, $data);
         }
 
         $product->categories = $request->categories;
@@ -156,6 +188,10 @@ class ProductController extends Controller
                 "success" => false,
                 "message" => "You're not the owner of the product!",
             ], 403);
+        }
+
+        if ($product->image) {
+            Storage::delete($product->image);
         }
 
         $product->delete();

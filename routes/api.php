@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,9 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
 });
 
 Route::apiResource('products', ProductController::class);
+Route::apiResource('user', UserController::class);
+
+// Route::group(['middleware' => 'api', 'prefix' => 'user'], function ($router) {
+//     Route::get('index', [UserController::class, 'index']);
+//     Route::put('update', [UserController::class, 'update']);
+// });
