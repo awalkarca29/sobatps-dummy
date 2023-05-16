@@ -16,7 +16,15 @@ class ProductShow extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => $this->user->name,
+            'user' => [
+                'user_id' => $this->user->id,
+                'user_name' => $this->user->name,
+                'user_email' => $this->user->email,
+                'user_address' => $this->user->address,
+                'user_city' => $this->user->city,
+                'user_phone' => $this->user->phone,
+                'user_image' => $this->user->image,
+            ],
             'categories' => json_decode($this->categories),
             'title' => $this->title,
             'description' => $this->description,

@@ -67,12 +67,60 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
+    public function update(Request $request)
+    {
+        $validator = Validator::make(request()->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'phone' => 'required',
+            'image' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        $user = auth()->user();
+        $user = User::find($user->id);
+
+        $data = request('image');
+        $uri = explode(';', $data);
+        $decode = explode(',', $uri[1]);
+        $data = base64_decode($decode[1]);
+        // $data = base64_decode(request('image'));
+        $ekstensi = explode('/', $uri[0]);
+        $ekstensi = $ekstensi[1];
+        $fileName = date('Ymdhis') . $user->id . '.' . $ekstensi;
+        $user->image = "UserImage/" . $fileName;
+        file_put_contents('../storage/app/UserImage/' . $fileName, $data);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->address = $request->address;
+        $user->city = $request->city;
+        $user->phone = $request->phone;
+        $user->save();
+
+        return response()->json(
+            // [
+            // "success" => true,
+            // "message" => "User has been updated!",
+            // "data" =>
+            $user,
+            // ]
+        );
+    }
+
     /**
      * Get the authenticated User.
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
+    public function user()
     {
         return response()->json(auth()->user());
     }
