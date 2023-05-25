@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
     <div class="container">
-        <a class="navbar-brand" href="/"><img src="img/kaltara.png" alt="..." height="35" width="30"> |
+        <a class="navbar-brand" href="/"><img src="/img/kaltara.png" alt="..." height="35" width="30"> |
             Market</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
