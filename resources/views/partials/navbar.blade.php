@@ -38,13 +38,16 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link {{ $title === 'Home' ? 'active' : '' }}" href="/">Home</a>
+                    <a class="nav-link {{ $active === 'home' ? 'active' : '' }}" href="/">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ $title === 'Products' ? 'active' : '' }}" href="/products">Products</a>
+                    <a class="nav-link {{ $active === 'products' ? 'active' : '' }}" href="/products">Produk</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ $title === 'About' ? 'active' : '' }}" href="/about">About</a>
+                    <a class="nav-link {{ $active === 'about' ? 'active' : '' }}" href="/about">Tentang</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ $active === 'categories' ? 'active' : '' }}" href="/categories">Kategori</a>
                 </li>
             </ul>
             <ul class="navbar-nav">

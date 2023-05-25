@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home', [
         "title" => "Home",
+        "active" => 'home',
     ]);
 });
 
@@ -29,6 +30,7 @@ Route::get('/about', function () {
         "title" => "About",
         "name" => "Bayu",
         "email" => "bayuharimurti2@gmail.com",
+        "active" => 'about',
         "image" => "kaltara.png",
     ]);
 });
@@ -43,6 +45,7 @@ Route::get('products/{product:slug}', [WebProductController::class, 'show']);
 Route::get('/categories', function () {
     return view('categories', [
         'title' => 'Product Categoies',
+        "active" => 'categories',
         'categories' => Category::all(),
     ]);
 });
@@ -51,6 +54,7 @@ Route::get('/categories', function () {
 Route::get('/categories/{category:slug}', function (Category $category) {
     return view('products', [
         'title' => "Produk dengan kategori : $category->category_name",
+        "active" => 'categories',
         'products' => $category->products->load('category', 'user'),
     ]);
 });
@@ -59,6 +63,7 @@ Route::get('/categories/{category:slug}', function (Category $category) {
 Route::get('/producer/{user:username}', function (User $user) {
     return view('products', [
         'title' => "Produk buatan produsen : $user->name",
+        "active" => 'products',
         'products' => $user->products->load('category', 'user'),
     ]);
 });

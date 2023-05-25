@@ -17,7 +17,10 @@ class ProductFactory extends Factory
             'title' => $this->faker->sentence(mt_rand(1, 3)),
             'slug' => $this->faker->slug(),
             'excerpt' => $this->faker->paragraph(),
-            'description' => $this->faker->paragraph(3, 5),
+            // 'description' => '<p>' . implode('</p><p>', $this->faker->paragraphs(mt_rand(3, 5))) . '</p>',
+            'description' => collect($this->faker->paragraphs(mt_rand(3, 5)))
+                ->map(fn($d) => "<p>$d</p>")
+                ->implode(''),
             'price' => $this->faker->numberBetween(10000, 200000),
             'stock' => $this->faker->numberBetween(10, 200),
             'user_id' => mt_rand(1, 6),
