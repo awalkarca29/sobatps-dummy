@@ -10,6 +10,7 @@ class WebProductController extends Controller
     {
         return view('products', [
             "title" => "Semua Produk Kami",
+            "active" => 'products',
             // "products" => Product::all(),
             "products" => Product::latest()->get(),
         ]);
@@ -19,6 +20,7 @@ class WebProductController extends Controller
     {
         return view('product', [
             "title" => "Products",
+            "active" => 'products',
             "product" => $product,
         ]);
     }
