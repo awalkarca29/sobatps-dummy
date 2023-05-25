@@ -20,9 +20,9 @@ class CreateProductsTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->integer('price');
-            $table->string('image')->nullable();
             $table->integer('stock');
             $table->boolean('isSold')->default(false);
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

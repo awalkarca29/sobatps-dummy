@@ -24,8 +24,17 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $searchCategory = $request['search_category'];
-        $products = Product::where('categories', 'like', '%' . $searchCategory . '%')->latest()->get();
+        $products = Product::latest()->get();
+
+        if ($request['search_category']) {
+            $searchCategory = $request['search_category'];
+            $products = Product::where('categories', 'like', '%' . $searchCategory . '%')->latest()->get();
+        }
+
+        if ($request['search_product']) {
+            $searchProduct = $request['search_product'];
+            $products = Product::where('title', 'like', '%' . $searchProduct . '%')->latest()->get();
+        }
 
         foreach ($products as $key => $val) {
             $products[$key]['categories'] = json_decode($val['categories']);
@@ -57,8 +66,9 @@ class ProductController extends Controller
             'title' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'image' => 'required',
             'stock' => 'required',
+            'isSold' => 'required',
+            'image' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -81,6 +91,7 @@ class ProductController extends Controller
             'description' => request('description'),
             'price' => request('price'),
             'stock' => request('stock'),
+            'isSold' => request('isSold'),
         ]);
 
         $fileName = date('Ymdhis') . $product->id . '.' . $ekstensi;
@@ -131,8 +142,8 @@ class ProductController extends Controller
             'title' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'image' => 'required',
             'stock' => 'required',
+            'isSold' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -157,9 +168,9 @@ class ProductController extends Controller
             ], 403);
         }
 
-        if ($product->image != "") {
+        if ($request->image != "") {
             Storage::delete($product->image);
-            $data = request('image');
+            $data = $request->image;
             $uri = explode(';', $data);
             $decode = explode(',', $uri[1]);
             $data = base64_decode($decode[1]);
@@ -176,6 +187,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->price = $request->price;
         $product->stock = $request->stock;
+        $product->isSold = $request->isSold;
         $product->save();
 
         return response()->json([

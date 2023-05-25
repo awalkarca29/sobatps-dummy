@@ -62,6 +62,7 @@ class DatabaseSeeder extends Seeder
             'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi, nesciunt.',
             'price' => 10000,
             'stock' => 1,
+            'isSold' => false,
             'user_id' => 1,
         ]);
 
@@ -74,6 +75,7 @@ class DatabaseSeeder extends Seeder
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, culpa?',
             'price' => 11000,
             'stock' => 11,
+            'isSold' => false,
             'user_id' => 1,
         ]);
 
@@ -86,6 +88,7 @@ class DatabaseSeeder extends Seeder
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, maiores.',
             'price' => 20000,
             'stock' => 2,
+            'isSold' => false,
             'user_id' => 2,
         ]);
 
@@ -97,6 +100,7 @@ class DatabaseSeeder extends Seeder
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, veniam!',
             'price' => 22000,
             'stock' => 22,
+            'isSold' => false,
             'user_id' => 2,
         ]);
     }
