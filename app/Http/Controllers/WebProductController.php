@@ -11,7 +11,7 @@ class WebProductController extends Controller
         return view('products', [
             "title" => "Semua Produk Kami",
             // "products" => Product::all(),
-            "products" => Product::with('user', 'category')->latest()->get(),
+            "products" => Product::latest()->get(),
         ]);
     }
 
