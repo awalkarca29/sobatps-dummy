@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
@@ -25,6 +26,7 @@ class ProductFactory extends Factory
             'stock' => $this->faker->numberBetween(10, 200),
             'user_id' => mt_rand(1, 6),
             'category_id' => mt_rand(1, 4),
+            'created_at' => Carbon::now(),
         ];
     }
 }

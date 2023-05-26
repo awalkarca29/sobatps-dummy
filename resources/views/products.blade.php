@@ -14,7 +14,6 @@
                 </div>
                 <div class="carousel-inner">
 
-
                     <div class="carousel-item active" style="max-height:400px">
                         <img src="https://source.unsplash.com/1200x400?{{ $products[0]->category->category_name }}"
                             class="d-block w-100" alt="{{ $products[0]->category->category_name }}"
@@ -23,7 +22,9 @@
                         <div class="carousel-caption d-none d-md-block">
                             <h5>{{ $products[0]->title }}</h5>
                             <p>{{ $products[0]->excerpt }}</p>
-                            <button type="product" class="btn btn-success p-2">Lihat Produk</button>
+                            <a href="/products/{{ $products[0]->slug }}"
+                                class="text-decoration-none btn btn-success p-2">Lihat
+                                Produk</a>
                         </div>
                     </div>
                     <div class="carousel-item" style="max-height:400px">
@@ -34,7 +35,8 @@
                         <div class="carousel-caption d-none d-md-block">
                             <h5>{{ $products[1]->title }}</h5>
                             <p>{{ $products[1]->excerpt }}</p>
-                            <button type="product" class="btn btn-success p-2">Lihat Produk</button>
+                            <a href="/products/{{ $products[1]->slug }}" class="text-decoration-none btn btn-success">Lihat
+                                Produk</a>
                         </div>
                     </div>
                     <div class="carousel-item" style="max-height:400px">
@@ -45,7 +47,8 @@
                         <div class="carousel-caption d-none d-md-block">
                             <h5>{{ $products[2]->title }}</h5>
                             <p>{{ $products[2]->excerpt }}</p>
-                            <button type="product" class="btn btn-success p-2">Lihat Produk</button>
+                            <a href="/products/{{ $products[2]->slug }}" class="text-decoration-none btn btn-success">Lihat
+                                produk</a>
                         </div>
                     </div>
                 </div>
@@ -86,7 +89,7 @@
     <h1 class="title text-center m-5 fs-2">{{ $title }}</h1>
     <div class="container">
         <div class="row">
-            @foreach ($products->skip(1) as $product)
+            @foreach ($products->skip(3) as $product)
                 <div class="col-md-3 mb-3">
                     <div class="card rounded-4 mb-3 shadow border-0" style="">
                         {{-- <div class="position-absolute px-2 py-1 text-white" style="background-color: rgba(0, 0, 0, 0.5)">
@@ -105,9 +108,9 @@
                             <p class="card-text">Rp.
                                 {{ number_format($products[0]->price, 2, ',', '.') }}
                             </p>
-                            <p class="card-text text-truncate">{{ $product->excerpt }}</p>
-                            <p class="card-text"><small
-                                    class="text-body-secondary">{{ $products[0]->created_at->toFormattedDateString() }}</small>
+                            <p class="card-text">{{ Str::limit($product->excerpt, 65, '...') }}</p>
+                            <p class="card-text text-end"><small
+                                    class="text-body-secondary text-end">{{ $products[0]->created_at->toFormattedDateString() }}</small>
                             </p>
                             <a href="/products/{{ $product->slug }}" class="btn btn-primary">Lihat produk</a>
                         </div>

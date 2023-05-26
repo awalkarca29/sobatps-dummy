@@ -6,17 +6,20 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-            {{-- <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
                 <li class="nav-item">
-                    <a class="nav-link {{ $title === 'Home' ? 'active' : '' }}" href="/">Home</a>
+                    <a class="nav-link {{ $active === 'home' ? 'active' : '' }}" href="/">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ $title === 'Products' ? 'active' : '' }}" href="/products">Products</a>
+                    <a class="nav-link {{ $active === 'products' ? 'active' : '' }}" href="/products">Produk</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ $title === 'About' ? 'active' : '' }}" href="/about">About</a>
+                    <a class="nav-link {{ $active === 'about' ? 'active' : '' }}" href="/about">Tentang</a>
                 </li>
-            </ul> --}}
+                <li class="nav-item">
+                    <a class="nav-link {{ $active === 'categories' ? 'active' : '' }}" href="/categories">Kategori</a>
+                </li>
+            </ul>
             <form class="d-flex me-auto my-2 my-lg-0 navbar-nav-scroll mx-auto w-50" role="search" width="400px">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <img src="/img/MagnifyingGlass.svg" alt="">
