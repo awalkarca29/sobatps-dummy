@@ -82,14 +82,11 @@
                 </div>
             </div> --}}
     </div>
-@else
-    <p class="text-center fs-4">No post found.</p>
-    @endif
 
     <h1 class="title text-center m-5 fs-2">{{ $title }}</h1>
     <div class="container">
         <div class="row">
-            @foreach ($products->skip(3) as $product)
+            @foreach ($products as $product)
                 <div class="col-md-3 mb-3">
                     <div class="card rounded-4 mb-3 shadow border-0" style="">
                         {{-- <div class="position-absolute px-2 py-1 text-white" style="background-color: rgba(0, 0, 0, 0.5)">
@@ -101,12 +98,12 @@
                             style="overflow: hidden ;max-height: 200px">
                         <div class="card-body">
                             <button type="category" class="btn btn-success mb-2">
-                                <a href="/categories/{{ $product->category->slug }}"
+                                <a href="/products?category={{ $product->category->slug }}"
                                     class="text-white text-decoration-none">{{ $product->category->category_name }}</a>
                             </button>
                             <h5 class="card-title text-truncate">{{ $product->title }}</h5>
                             <p class="card-text">Rp.
-                                {{ number_format($products[0]->price, 2, ',', '.') }}
+                                {{ number_format($product->price, 2, ',', '.') }}
                             </p>
                             <p class="card-text">{{ Str::limit($product->excerpt, 65, '...') }}</p>
                             <p class="card-text text-end"><small
@@ -119,4 +116,7 @@
             @endforeach
         </div>
     </div>
+@else
+    <p class="text-center fs-4">No post found.</p>
+    @endif
 @endsection
