@@ -21,8 +21,6 @@
                         <label for="floatingPassword">Password</label>
                     </div>
 
-                    <a id="myWish" href="javascript:;" class="btn btn-primary">Add to Wishlist </a>
-
                     <button class="w-100 btn btn-lg btn-primary mt-2" type="submit">Login</button>
                 </form>
                 <small class="d-block text-end mt-2">Not registered? <a href="/register">Register here!</a></small>
