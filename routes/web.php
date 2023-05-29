@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\WebProductController;
+use App\Http\Controllers\WebRegisterController;
 use App\Models\Category;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,20 +52,33 @@ Route::get('/categories', function () {
     ]);
 });
 
+// Halaman Login
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+// Proses login user
+Route::post('/login', [LoginController::class, 'authenticate']);
+
+// Halaman Register
+Route::get('/register', [WebRegisterController::class, 'index']);
+// Registrasi User
+Route::post('/register', [WebRegisterController::class, 'store']);
+
+// dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+
 // Halaman produk per kategory
-Route::get('/categories/{category:slug}', function (Category $category) {
-    return view('products', [
-        'title' => "Produk dengan kategori : $category->category_name",
-        "active" => 'categories',
-        'products' => $category->products->load('category', 'user'),
-    ]);
-});
+// Route::get('/categories/{category:slug}', function (Category $category) {
+//     return view('products', [
+//         'title' => "Produk dengan kategori : $category->category_name",
+//         "active" => 'categories',
+//         'products' => $category->products->load('category', 'user'),
+//     ]);
+// });
 
 // Halama produk per producer
-Route::get('/producer/{user:username}', function (User $user) {
-    return view('products', [
-        'title' => "Produk buatan produsen : $user->name",
-        "active" => 'products',
-        'products' => $user->products->load('category', 'user'),
-    ]);
-});
+// Route::get('/producer/{user:username}', function (User $user) {
+//     return view('products', [
+//         'title' => "Produk buatan produsen : $user->name",
+//         "active" => 'products',
+//         'products' => $user->products->load('category', 'user'),
+//     ]);
+// });

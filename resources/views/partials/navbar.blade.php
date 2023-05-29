@@ -20,12 +20,27 @@
                     <a class="nav-link {{ $active === 'categories' ? 'active' : '' }}" href="/categories">Kategori</a>
                 </li>
             </ul>
-            <form class="d-flex me-auto my-2 my-lg-0 navbar-nav-scroll mx-auto w-50" role="search" width="400px">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <img src="/img/MagnifyingGlass.svg" alt="">
+            <form action="/products" class="d-flex me-auto my-2 my-lg-0 navbar-nav-scroll mx-auto w-50" role="search">
+                @if (request('category'))
+                    <input type="hidden" name="category" value="{{ request('category') }}">
+                @endif
+                @if (request('user'))
+                    <input type="hidden" name="user" value="{{ request('user') }}">
+                @endif
+                <div class="input-group" style="width: 35em">
+                    <input type="text" class="form-control" placeholder="Search..." name="search"
+                        value="{{ request('search') }}">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </div>
             </form>
-            <button type="login" class="btn btn-success" type="submit">Login</button>
-            <button type="regis" class="btn btn-success mx-2" type="submit">Registrasi</button>
+            <ul class="navbar-nav sm-auto">
+                <li class="nav-item">
+                    <a href="/login"
+                        class="nav-link {{ $active === 'login' ? 'active' : '' }} btn btn-outline-success"><i
+                            class="bi bi-box-arrow-in-right"></i> Login</a>
+                </li>
+            </ul>
+            {{-- <button type="login" class="btn btn-success" type="submit">Login</button> --}}
         </div>
     </div>
 </nav>
