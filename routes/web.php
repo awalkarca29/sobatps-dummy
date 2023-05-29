@@ -54,7 +54,7 @@ Route::get('/categories', function () {
 
 // Halaman Login
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
-// Proses login user
+// Login
 Route::post('/login', [LoginController::class, 'authenticate']);
 
 // Halaman Register
