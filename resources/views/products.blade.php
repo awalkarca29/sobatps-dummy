@@ -35,7 +35,8 @@
                         <div class="carousel-caption d-none d-md-block">
                             <h5>{{ $products[1]->title }}</h5>
                             <p>{{ $products[1]->excerpt }}</p>
-                            <a href="/products/{{ $products[1]->slug }}" class="text-decoration-none btn btn-success">Lihat
+                            <a href="/products/{{ $products[1]->slug }}"
+                                class="text-decoration-none btn btn-success p-2">Lihat
                                 Produk</a>
                         </div>
                     </div>
@@ -47,8 +48,9 @@
                         <div class="carousel-caption d-none d-md-block">
                             <h5>{{ $products[2]->title }}</h5>
                             <p>{{ $products[2]->excerpt }}</p>
-                            <a href="/products/{{ $products[2]->slug }}" class="text-decoration-none btn btn-success">Lihat
-                                produk</a>
+                            <a href="/products/{{ $products[2]->slug }}"
+                                class="text-decoration-none btn btn-success p-2">Lihat
+                                Produk</a>
                         </div>
                     </div>
                 </div>

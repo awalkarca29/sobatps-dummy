@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\WebLoginController;
 use App\Http\Controllers\WebProductController;
+use App\Http\Controllers\WebRegisterController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +50,14 @@ Route::get('/categories', function () {
         'categories' => Category::all(),
     ]);
 });
+
+// Halaman Login
+Route::get('/login', [WebLoginController::class, 'index']);
+
+// Halaman Register
+Route::get('/register', [WebRegisterController::class, 'index']);
+// Registrasi User
+Route::post('/register', [WebRegisterController::class, 'store']);
 
 // Halaman produk per kategory
 // Route::get('/categories/{category:slug}', function (Category $category) {

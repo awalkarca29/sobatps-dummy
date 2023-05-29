@@ -33,8 +33,14 @@
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </div>
             </form>
-            <button type="login" class="btn btn-success" type="submit">Login</button>
-            <button type="regis" class="btn btn-success mx-2" type="submit">Registrasi</button>
+            <ul class="navbar-nav sm-auto">
+                <li class="nav-item">
+                    <a href="/login"
+                        class="nav-link {{ $active === 'login' ? 'active' : '' }} btn btn-outline-success"><i
+                            class="bi bi-box-arrow-in-right"></i> Login</a>
+                </li>
+            </ul>
+            {{-- <button type="login" class="btn btn-success" type="submit">Login</button> --}}
         </div>
     </div>
 </nav>
