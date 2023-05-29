@@ -19,7 +19,7 @@
                             class="d-block w-100" alt="{{ $products[0]->category->category_name }}"
                             style="overflow:hidden
                             ">
-                        <div class="carousel-caption d-none d-md-block">
+                        <div class="carousel-caption d-lg-block">
                             <h5>{{ $products[0]->title }}</h5>
                             <p>{{ $products[0]->excerpt }}</p>
                             <a href="/products/{{ $products[0]->slug }}"
@@ -32,7 +32,7 @@
                             class="d-block w-100" alt="{{ $products[1]->category->category_name }}"
                             style="overflow:hidden
                             ">
-                        <div class="carousel-caption d-none d-md-block">
+                        <div class="carousel-caption d-lg-block">
                             <h5>{{ $products[1]->title }}</h5>
                             <p>{{ $products[1]->excerpt }}</p>
                             <a href="/products/{{ $products[1]->slug }}"
@@ -45,7 +45,7 @@
                             class="d-block w-100" alt="{{ $products[2]->category->category_name }}"
                             style="overflow:hidden
                             ">
-                        <div class="carousel-caption d-none d-md-block">
+                        <div class="carousel-caption d-lg-block">
                             <h5>{{ $products[2]->title }}</h5>
                             <p>{{ $products[2]->excerpt }}</p>
                             <a href="/products/{{ $products[2]->slug }}"
