@@ -20,7 +20,7 @@
 
             <main class="form-signin w-100 m-auto">
                 <h1 class="h3 mb-3 fw-normal text-center mt-2">Please Login</h1>
-                <form action="/login" method="POST">
+                <form action="/login" method="post">
                     @csrf
                     <div class="form-floating">
                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
