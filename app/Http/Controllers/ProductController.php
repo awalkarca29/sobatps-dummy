@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ProductShow;
 use App\Models\Category;
 use App\Models\Product;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -96,8 +97,20 @@ class ProductController extends Controller
 
         $fileName = date('Ymdhis') . $product->id . '.' . $ekstensi;
 
-        $product->image = "ProductImage/" . $fileName;
-        file_put_contents('../storage/app/ProductImage/' . $fileName, $data);
+        $firebase_storage_path = 'Images/';
+        $localfolder = public_path('storage\ProductImage\\');
+        if (file_put_contents($localfolder . $fileName, $data)) {
+            $uploadedfile = fopen($localfolder . $fileName, 'r');
+            app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $firebase_storage_path . $fileName]);
+            unlink($localfolder . $fileName);
+        }
+        $expiresAt = new DateTime('2030-01-01');
+        $imageReference = app('firebase.storage')->getBucket()->object($firebase_storage_path . $fileName);
+        $imageurl = $imageReference->signedUrl($expiresAt);
+
+        $product->image = $imageurl;
+        // $product->image = "storage/ProductImage/" . $fileName;
+        // file_put_contents('../storage/app/public/ProductImage/' . $fileName, $data);
         $product->save();
 
         return response()->json([
@@ -179,7 +192,7 @@ class ProductController extends Controller
             $ekstensi = $ekstensi[1];
             $fileName = date('Ymdhis') . $product->id . '.' . $ekstensi;
             $product->image = "ProductImage/" . $fileName;
-            file_put_contents('../storage/app/ProductImage/' . $fileName, $data);
+            file_put_contents('../storage/app/public/ProductImage/' . $fileName, $data);
         }
 
         $product->categories = $request->categories;
