@@ -95,7 +95,7 @@ class AuthController extends Controller
         $ekstensi = $ekstensi[1];
         $fileName = date('Ymdhis') . $user->id . '.' . $ekstensi;
         $user->image = "UserImage/" . $fileName;
-        file_put_contents('../storage/app/UserImage/' . $fileName, $data);
+        file_put_contents('../storage/app/public/UserImage/' . $fileName, $data);
 
         $user->name = $request->name;
         $user->email = $request->email;
