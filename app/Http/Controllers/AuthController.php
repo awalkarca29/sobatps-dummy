@@ -22,7 +22,7 @@ class AuthController extends Controller
     public function register()
     {
         $validator = Validator::make(request()->all(), [
-            'name' => 'required',
+            'username' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
         ]);
@@ -32,7 +32,7 @@ class AuthController extends Controller
         }
 
         $user = User::create([
-            'name' => request('name'),
+            'username' => request('username'),
             'email' => request('email'),
             'password' => Hash::make(request('password')),
         ]);
@@ -60,7 +60,7 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (!$token = auth()->attempt($credentials)) {
+        if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -159,7 +159,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
+            'expires_in' => auth('api')->factory()->getTTL() * 60,
         ]);
     }
 }
