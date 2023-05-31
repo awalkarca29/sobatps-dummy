@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         User::create([
+            'isAdmin' => true,
             'name' => 'admin 1',
             'email' => 'admin1@gmail.com',
             'password' => Hash::make('password'),
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
+            'isAdmin' => true,
             'name' => 'admin 2',
             'email' => 'admin2@gmail.com',
             'password' => Hash::make('password'),
@@ -39,69 +41,69 @@ class DatabaseSeeder extends Seeder
 
         Category::create([
             'category_name' => "Obat",
+            'slug' => "obat",
         ]);
 
         Category::create([
             'category_name' => "Makanan",
+            'slug' => "makanan",
         ]);
 
         Category::create([
             'category_name' => "Bahan Baku",
+            'slug' => "bahan-baku",
         ]);
 
         Category::create([
             'category_name' => "Lainnya",
+            'slug' => "lainnya",
         ]);
 
         Product::create([
+            'user_id' => 1,
             'categories' => json_encode([
                 ['id' => 1, 'category_name' => 'Obat'],
                 ['id' => 2, 'category_name' => 'Makanan'],
             ]),
-            'title' => 'produk admin 1',
+            'name' => 'produk admin 1',
             'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi, nesciunt.',
             'price' => 10000,
-            'stock' => 1,
             'isSold' => false,
-            'user_id' => 1,
         ]);
 
         Product::create([
+            'user_id' => 1,
             'categories' => json_encode([
                 ['id' => 2, 'category_name' => 'Makanan'],
                 ['id' => 3, 'category_name' => 'Herbal'],
             ]),
-            'title' => 'produk admin 1 lagi',
+            'name' => 'produk admin 1 lagi',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, culpa?',
             'price' => 11000,
-            'stock' => 11,
             'isSold' => false,
-            'user_id' => 1,
         ]);
 
         Product::create([
+            'user_id' => 2,
             'categories' => json_encode([
                 ['id' => 3, 'category_name' => 'Herbal'],
                 ['id' => 1, 'category_name' => 'Obat'],
             ]),
-            'title' => 'produk admin 2',
+            'name' => 'produk admin 2',
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, maiores.',
             'price' => 20000,
-            'stock' => 2,
             'isSold' => false,
-            'user_id' => 2,
         ]);
 
         Product::create([
+            'user_id' => 2,
             'categories' => json_encode([
                 ['id' => 4, 'category_name' => 'Lainnya'],
             ]),
-            'title' => 'produk admin 2 lagi',
+            'name' => 'produk admin 2 lagi',
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, veniam!',
             'price' => 22000,
-            'stock' => 22,
             'isSold' => false,
-            'user_id' => 2,
         ]);
     }
 }

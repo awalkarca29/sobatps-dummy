@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -23,7 +24,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
 
@@ -86,16 +87,41 @@ class AuthController extends Controller
         $user = auth()->user();
         $user = User::find($user->id);
 
-        $data = request('image');
-        $uri = explode(';', $data);
-        $decode = explode(',', $uri[1]);
-        $data = base64_decode($decode[1]);
-        // $data = base64_decode(request('image'));
-        $ekstensi = explode('/', $uri[0]);
-        $ekstensi = $ekstensi[1];
-        $fileName = date('Ymdhis') . $user->id . '.' . $ekstensi;
-        $user->image = "UserImage/" . $fileName;
-        file_put_contents('../storage/app/public/UserImage/' . $fileName, $data);
+        if ($request->image != '') {
+
+            if ($user->image) {
+                $oldData = $user->image;
+                $oldUri = explode('/', $oldData);
+                $filename = explode('?', $oldUri[5])[0];
+                $old_firebase_storage_path = $oldUri[4] . '/' . $filename;
+                app('firebase.storage')->getBucket()->object($old_firebase_storage_path)->delete();
+            }
+
+            $data = request('image');
+            $uri = explode(';', $data);
+            $decode = explode(',', $uri[1]);
+            $data = base64_decode($decode[1]);
+            // $data = base64_decode(request('image'));
+            $ekstensi = explode('/', $uri[0]);
+            $ekstensi = $ekstensi[1];
+
+            $fileName = date('Ymdhis') . $user->id . '.' . $ekstensi;
+
+            $firebase_storage_path = 'UserImages/';
+            $localfolder = public_path('storage\UserImages\\');
+            if (file_put_contents($localfolder . $fileName, $data)) {
+                $uploadedfile = fopen($localfolder . $fileName, 'r');
+                app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $firebase_storage_path . $fileName]);
+                unlink($localfolder . $fileName);
+            }
+            $expiresAt = new DateTime('2030-01-01');
+            $imageReference = app('firebase.storage')->getBucket()->object($firebase_storage_path . $fileName);
+            $imageurl = $imageReference->signedUrl($expiresAt);
+
+            $user->image = $imageurl;
+            // $product->image = "storage/ProductImage/" . $fileName;
+            // file_put_contents('../storage/app/public/ProductImage/' . $fileName, $data);
+        }
 
         $user->name = $request->name;
         $user->email = $request->email;

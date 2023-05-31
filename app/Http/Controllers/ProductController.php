@@ -34,7 +34,7 @@ class ProductController extends Controller
 
         if ($request['search_product']) {
             $searchProduct = $request['search_product'];
-            $products = Product::where('title', 'like', '%' . $searchProduct . '%')->latest()->get();
+            $products = Product::where('name', 'like', '%' . $searchProduct . '%')->latest()->get();
         }
 
         foreach ($products as $key => $val) {
@@ -64,11 +64,9 @@ class ProductController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'categories' => 'required',
-            'title' => 'required',
+            'name' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'stock' => 'required',
-            'isSold' => 'required',
             'image' => 'required',
         ]);
 
@@ -88,17 +86,15 @@ class ProductController extends Controller
 
         $product = $user->products()->create([
             'categories' => request('categories'),
-            'title' => request('title'),
+            'name' => request('name'),
             'description' => request('description'),
             'price' => request('price'),
-            'stock' => request('stock'),
-            'isSold' => request('isSold'),
         ]);
 
         $fileName = date('Ymdhis') . $product->id . '.' . $ekstensi;
 
-        $firebase_storage_path = 'Images/';
-        $localfolder = public_path('storage\ProductImage\\');
+        $firebase_storage_path = 'ProductImages/';
+        $localfolder = public_path('storage\ProductImages\\');
         if (file_put_contents($localfolder . $fileName, $data)) {
             $uploadedfile = fopen($localfolder . $fileName, 'r');
             app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $firebase_storage_path . $fileName]);
@@ -152,10 +148,9 @@ class ProductController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'categories' => 'required',
-            'title' => 'required',
+            'name' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'stock' => 'required',
             'isSold' => 'required',
         ]);
 
@@ -182,7 +177,14 @@ class ProductController extends Controller
         }
 
         if ($request->image != "") {
-            Storage::delete($product->image);
+            if ($product->image) {
+                $oldData = $product->image;
+                $oldUri = explode('/', $oldData);
+                $filename = explode('?', $oldUri[5])[0];
+                $old_firebase_storage_path = $oldUri[4] . '/' . $filename;
+                app('firebase.storage')->getBucket()->object($old_firebase_storage_path)->delete();
+            }
+
             $data = $request->image;
             $uri = explode(';', $data);
             $decode = explode(',', $uri[1]);
@@ -191,15 +193,28 @@ class ProductController extends Controller
             $ekstensi = explode('/', $uri[0]);
             $ekstensi = $ekstensi[1];
             $fileName = date('Ymdhis') . $product->id . '.' . $ekstensi;
-            $product->image = "ProductImage/" . $fileName;
-            file_put_contents('../storage/app/public/ProductImage/' . $fileName, $data);
+
+            $firebase_storage_path = 'ProductImages/';
+            $localfolder = public_path('storage\ProductImages\\');
+            if (file_put_contents($localfolder . $fileName, $data)) {
+                $uploadedfile = fopen($localfolder . $fileName, 'r');
+                app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $firebase_storage_path . $fileName]);
+                unlink($localfolder . $fileName);
+            }
+
+            $expiresAt = new DateTime('2030-01-01');
+            $imageReference = app('firebase.storage')->getBucket()->object($firebase_storage_path . $fileName);
+            $imageurl = $imageReference->signedUrl($expiresAt);
+            $product->image = $imageurl;
+
+            // $product->image = "ProductImage/" . $fileName;
+            // file_put_contents('../storage/app/public/ProductImage/' . $fileName, $data);
         }
 
         $product->categories = $request->categories;
-        $product->title = $request->title;
+        $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
-        $product->stock = $request->stock;
         $product->isSold = $request->isSold;
         $product->save();
 
@@ -229,7 +244,11 @@ class ProductController extends Controller
         }
 
         if ($product->image) {
-            Storage::delete($product->image);
+            $data = $product->image;
+            $uri = explode('/', $data);
+            $filename = explode('?', $uri[5])[0];
+            $firebase_storage_path = $uri[4] . '/' . $filename;
+            app('firebase.storage')->getBucket()->object($firebase_storage_path)->delete();
         }
 
         $product->delete();

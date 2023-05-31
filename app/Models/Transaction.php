@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Transaction extends Model
 {
     use HasFactory;
     protected $guarded = [];
@@ -15,13 +15,13 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function transactions()
+    public function products()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->belongsTo(Product::class);
     }
 
-    public function wishlists()
+    public function notifications()
     {
-        return $this->belongsTo(Wishlist::class);
+        return $this->hasOne(Notification::class);
     }
 }

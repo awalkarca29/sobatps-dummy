@@ -26,11 +26,11 @@ class ProductShow extends JsonResource
                 'user_image' => $this->user->image,
             ],
             'categories' => json_decode($this->categories),
-            'title' => $this->title,
+            'name' => $this->name,
             'description' => $this->description,
             'price' => $this->price,
             'image' => $this->image,
-            'stock' => $this->stock,
+            'isSold' => $this->isSold,
             'created_at' => $this->created_at->format("d M Y"),
             'updated_at' => $this->updated_at->format("d M Y"),
         ];
