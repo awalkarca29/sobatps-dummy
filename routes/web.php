@@ -56,9 +56,11 @@ Route::get('/categories', function () {
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 // Login
 Route::post('/login', [LoginController::class, 'authenticate']);
+// Logout
+Route::post('/logout', [LoginController::class, 'logout']);
 
 // Halaman Register
-Route::get('/register', [WebRegisterController::class, 'index']);
+Route::get('/register', [WebRegisterController::class, 'index'])->middleware('guest');
 // Registrasi User
 Route::post('/register', [WebRegisterController::class, 'store']);
 
