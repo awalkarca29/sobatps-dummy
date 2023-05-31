@@ -47,7 +47,7 @@
                             class="btn btn-outline-success p-1 mb-4"href="/categories/{{ $product->category->slug }}">
                             {{ $product->category->category_name }}
                         </button>
-                        <h2 class="font-weight-bold">Rp.{{ $product->price }}
+                        <h2 class="font-weight-bold">Rp. {{ number_format($product->price, 2, ',', '.') }}
                         </h2>
                         <button type="buy" class="btn btn-success w-100 p-auto font-weight-bold">Buy Now </button>
                     </div>
