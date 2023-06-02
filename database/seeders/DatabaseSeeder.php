@@ -2,10 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
 use Illuminate\Database\Seeder;
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,17 +13,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name' => 'Bayu',
-            'username' => 'bayuwhx',
-            'email' => 'bayuharimurti2@gmail.com',
-            'password' => Hash::make('password'),
-            'address' => 'jl. admin 1',
-            'city' => 'Malang',
-            'phone' => '081234567890',
-        ]);
+        // User::create([
+        //     'name' => 'Bayu',
+        //     'username' => 'bayuwhx',
+        //     'email' => 'bayuharimurti2@gmail.com',
+        //     'password' => Hash::make('password'),
+        //     'address' => 'jl. admin 1',
+        //     'city' => 'Malang',
+        //     'phone' => '081234567890',
+        // ]);
 
-        \App\Models\User::factory(5)->create();
+        // \App\Models\User::factory(5)->create();
 
         // User::create([
         //     'name' => 'Saka',
@@ -46,25 +43,25 @@ class DatabaseSeeder extends Seeder
         //     'phone' => '089876543210',
         // ]);
 
-        Category::create([
-            'category_name' => "Obat",
-            'slug' => "obat",
-        ]);
+        // Category::create([
+        //     'category_name' => "Obat",
+        //     'slug' => "obat",
+        // ]);
 
-        Category::create([
-            'category_name' => "Makanan",
-            'slug' => "makanan",
-        ]);
+        // Category::create([
+        //     'category_name' => "Makanan",
+        //     'slug' => "makanan",
+        // ]);
 
-        Category::create([
-            'category_name' => "Bahan Baku",
-            'slug' => "bahan-baku",
-        ]);
+        // Category::create([
+        //     'category_name' => "Bahan Baku",
+        //     'slug' => "bahan-baku",
+        // ]);
 
-        Category::create([
-            'category_name' => "Lainnya",
-            'slug' => "lainnya",
-        ]);
+        // Category::create([
+        //     'category_name' => "Lainnya",
+        //     'slug' => "lainnya",
+        // ]);
 
         \App\Models\Product::factory(20)->create();
 

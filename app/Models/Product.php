@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use App\Models\Category;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
+
     protected $guarded = ['id'];
     protected $with = ['category', 'user'];
 
@@ -41,6 +43,15 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title',
+            ],
+        ];
     }
 
     // public function getRouteKeyName()

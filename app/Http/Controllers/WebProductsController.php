@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class WebProductsController extends Controller
 {
@@ -26,7 +29,9 @@ class WebProductsController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.products.create', [
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -37,7 +42,26 @@ class WebProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'slug' => 'required|unique:products|max:255',
+            'price' => 'required',
+            'stock' => 'required',
+            'image' => 'image|file|max:1024',
+            'description' => 'required',
+        ]);
+
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('product-images');
+        }
+
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 100);
+
+        Product::create($validatedData);
+
+        return redirect('/dashboard/products')->with('createProduct', 'New product has been posted');
     }
 
     /**
@@ -61,7 +85,10 @@ class WebProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('dashboard.products.edit', [
+            'product' => $product,
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -73,7 +100,33 @@ class WebProductsController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $rules = [
+            'title' => 'required|max:255',
+            'category_id' => 'required|exists:categories,id',
+            // 'image' => 'image|file|max:2048',
+            'description' => 'required',
+        ];
+
+        if ($request->slug != $product->slug) {
+            $rules['slug'] = 'required|unique:products';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        // if ($request->file('image')) {
+        //     if ($request->oldImage) {
+        //         Storage::delete($request->oldImage);
+        //     }
+        //     $validatedData['image'] = $request->file('image')->store('post-image');
+        // }
+
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->description), 200);
+
+        Product::where('id', $product->id)
+            ->update($validatedData);
+
+        return redirect('/dashboard/products')->with('successUpdate', 'Product has been updated');
     }
 
     /**
@@ -84,6 +137,15 @@ class WebProductsController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        Product::destroy($product->id);
+
+        return redirect('/dashboard/products')->with('successDelete', 'Product has been deleted');
+    }
+
+    public function checkSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(Product::class, 'slug', $request->title);
+
+        return response()->json(['slug' => $slug]);
     }
 }

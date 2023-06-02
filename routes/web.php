@@ -69,6 +69,8 @@ Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->middleware('auth');
 
+Route::get('/dashboard/products/checkSlug', [WebProductsController::class, 'checkSlug'])->middleware('auth');
+
 Route::resource('/dashboard/products', WebProductsController::class)->scoped(['product' => 'slug'])->middleware('auth');
 
 // Halaman produk per kategory

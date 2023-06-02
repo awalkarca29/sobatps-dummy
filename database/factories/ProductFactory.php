@@ -24,7 +24,7 @@ class ProductFactory extends Factory
                 ->implode(''),
             'price' => $this->faker->numberBetween(10000, 200000),
             'stock' => $this->faker->numberBetween(10, 200),
-            'user_id' => mt_rand(1, 6),
+            'user_id' => mt_rand(1, 7),
             'category_id' => mt_rand(1, 4),
             'created_at' => Carbon::now(),
         ];

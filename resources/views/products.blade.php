@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="container-fluid g-0">
+    <div class="container-fluid g-0 shadow border-0">
         @if ($products->count())
-            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            {{-- <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
                         aria-current="true" aria-label="Slide 1"></button>
@@ -64,11 +64,19 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
-            </div>
-            {{-- <div class="card mb-3 text-center">
-                <img src="https://source.unsplash.com/1200x400?{{ $products[0]->category->category_name }}"
-                    class="card-img-top" alt="{{ $products[0]->category->category_name }}">
-                <div class="card-body">
+            </div> --}}
+            <div class="card mb-3">
+                @if ($products[0]->image)
+                    <div style="max-height:25em; overflow:hidden">
+                        <img src="{{ asset('storage/' . $products[0]->image) }}" alt="{{ $products[0]->title }}"
+                            class="mx-auto d-block rounded-top">
+                    </div>
+                @else
+                    <img src="https://source.unsplash.com/1200x400?{{ $products[0]->category->category_name }}"
+                        alt="{{ $products[0]->title }}" class="img-fluid rounded-top">
+                @endif
+
+                <div class="card-body text-center">
                     <h3 class="card-title"><a href="/products/{{ $products[0]->slug }}"
                             class="text-decoration-none text-dark">{{ $products[0]->title }}</a></h3>
                     <p class="card-text">{{ $products[0]->excerpt }}</p>
@@ -82,7 +90,7 @@
                     <a href="/products/{{ $products[0]->slug }}" class="text-decoration-none btn btn-success">Lihat
                         produk</a>
                 </div>
-            </div> --}}
+            </div>
     </div>
 
     <h1 class="title text-center m-5 fs-2">{{ $title }}</h1>
@@ -90,14 +98,18 @@
         <div class="row">
             @foreach ($products as $product)
                 <div class="col-md-3 mb-3">
-                    <div class="card rounded-4 mb-3 shadow border-0" style="">
-                        {{-- <div class="position-absolute px-2 py-1 text-white" style="background-color: rgba(0, 0, 0, 0.5)">
-                            <a href="/categories/{{ $product->category->slug }}"
-                                class="text-white text-decoration-none">{{ $product->category->category_name }}</a>
-                        </div> --}}
-                        <img src="https://source.unsplash.com/500x400?{{ $product->category->category_name }}"
-                            class="card-img-top rounded-top-4" alt="{{ $product->category->category_name }}"
-                            style="overflow: hidden ;max-height: 200px">
+                    <div class="card rounded-4 mb-3 shadow border-0 overflow-hidden" style="">
+                        @if ($product->image)
+                            <div style="overflow:hidden; width: auto; max-height: 10em">
+                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}"
+                                    class="img-fluid rounded-top-4">
+                            </div>
+                        @else
+                            <img src="https://source.unsplash.com/500x400?{{ $product->category->category_name }}"
+                                class="card-img-top rounded-top-4" alt="{{ $product->category->category_name }}"
+                                style="overflow: hidden; max-height: 10em">
+                        @endif
+
                         <div class="card-body">
                             <button type="category" class="btn btn-success mb-2">
                                 <a href="/products?category={{ $product->category->slug }}"

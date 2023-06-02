@@ -1,12 +1,11 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-    <div class="col-lg-2"></div>
     <div class="col-lg-10">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 p-2">
-                    <div id="carouselExampleIndicators" class="carousel slide rounded-3">
+                <div class="col-lg-6 p-2">
+                    {{-- <div id="carouselExampleIndicators" class="carousel slide rounded-3">
                         <div class="carousel-indicators mb-0">
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
                                 class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -18,7 +17,7 @@
                         <div class="carousel-inner rounded-3 mb-lg-0 mb-sm-3">
                             <div class="carousel-item active">
                                 <img src="https://source.unsplash.com/1200x800?{{ $product->category->category_name }}"
-                                    alt="{{ $product->title }}" class="d-block w-100" style="max-height: 100%">
+                                    alt="{{ $product->title }}" class="d-block w-100" style="max-height: 100em">
                             </div>
                             <div class="carousel-item">
                                 <img src="https://source.unsplash.com/1200x800?{{ $product->category->category_name }}"
@@ -39,9 +38,17 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
-                    </div>
-                </div>
-                <div class="col-lg-8 p-2">
+                    </div> --}}
+                    @if ($product->image)
+                        <div style="max-height:20em; overflow:hidden">
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}"
+                                class="img-fluid rounded-top">
+                        </div>
+                    @else
+                        <img src="https://source.unsplash.com/1200x800?{{ $product->category->category_name }}"
+                            alt="{{ $product->title }}" class="img-fluid rounded-top">
+                    @endif
+
                     <div class="card mb-3 border-0 shadow-lg">
                         <div class="card-body">
                             <h3 class="card-title">{{ $product->title }}</h3>
@@ -51,13 +58,20 @@
                             </button>
                             <h2 class="font-weight-bold">Rp. {{ number_format($product->price, 2, ',', '.') }}
                             </h2>
-                            <a href="/dashboard/products/{{ $product->id }}" class="btn btn-warning"><span
+                            <a href="/dashboard/products" class="btn btn-success"><span data-feather="arrow-left"></span> |
+                                Kembali</a>
+                            <a href="/dashboard/products/{{ $product->slug }}/edit" class="btn btn-warning"><span
                                     data-feather="edit"></span> | Edit Produk</a>
-                            <a href="/dashboard/products/{{ $product->id }}" class="btn btn-danger"><span
-                                    data-feather="trash-2"></span> | Hapus
-                                Produk</a>
+                            <form action="/dashboard/products/{{ $product->slug }}" method="POST" class="d-inline">
+                                @method('delete')
+                                @csrf
+                                <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><span
+                                        data-feather="trash-2"></span> | Hapus Produk
+                                </button>
                         </div>
                     </div>
+                </div>
+                <div class="col-lg-6">
                     <h6 class="descript mb-3">Deskripsi Produk
                     </h6>
                     <div class="card mb-3">
@@ -65,8 +79,6 @@
                             <p class="description">{!! $product->description !!}</p>
                         </div>
                     </div>
-                    <a href="/dashboard/products" class="btn btn-success"><span data-feather="arrow-left"></span> |
-                        Kembali</a>
                 </div>
             </div>
         </div>

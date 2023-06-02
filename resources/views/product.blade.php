@@ -4,7 +4,7 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-lg-6 p-4">
-                <div id="carouselExampleIndicators" class="carousel slide rounded-3">
+                {{-- <div id="carouselExampleIndicators" class="carousel slide rounded-3">
                     <div class="carousel-indicators mb-0">
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
                             aria-current="true" aria-label="Slide 1"></button>
@@ -37,7 +37,16 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
-                </div>
+                </div> --}}
+                @if ($product->image)
+                    <div style="overflow:hidden; max-height:25em; max-width: auto;">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}"
+                            class="img-fluid rounded-4 ">
+                    </div>
+                @else
+                    <img src="https://source.unsplash.com/1200x800?{{ $product->category->category_name }}" class="rounded-4"
+                        alt="{{ $product->category->category_name }}" style="overflow: hidden;">
+                @endif
             </div>
             <div class="col-lg-6 m-auto p-4">
                 <div class="card mb-3 border-0 shadow-lg">
