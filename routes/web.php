@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\WebProductController;
 use App\Http\Controllers\WebProductsController;
@@ -72,6 +73,8 @@ Route::get('/dashboard', function () {
 Route::get('/dashboard/products/checkSlug', [WebProductsController::class, 'checkSlug'])->middleware('auth');
 
 Route::resource('/dashboard/products', WebProductsController::class)->scoped(['product' => 'slug'])->middleware('auth');
+
+Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('admin');
 
 // Halaman produk per kategory
 // Route::get('/categories/{category:slug}', function (Category $category) {

@@ -29,6 +29,26 @@
                 @enderror
             </div>
             <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="number" class="form-control @error('price') is-invalid @enderror" id="price"
+                    name="price" required value="{{ old('price', $product->price) }}">
+                @error('price')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="stock" class="form-label">Stock</label>
+                <input type="number" class="form-control @error('stock') is-invalid @enderror" id="stock"
+                    name="stock" required value="{{ old('stock', $product->stock) }}">
+                @error('stock')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+            <div class="mb-3">
                 <label for="category" class="form-label">Category</label>
                 <select class="form-select" name="category_id">
                     @foreach ($categories as $category)
@@ -40,11 +60,11 @@
                     @endforeach
                 </select>
             </div>
-            {{-- <div class="mb-3">
-                <label for="image" class="form-label">Post Image</label>
+            <div class="mb-3">
+                <label for="image" class="form-label">Gambar Produk</label>
                 <input type="hidden" name="oldImage" value="{{ $product->image }}">
                 @if ($product->image)
-                    <img src="{{ asset('storage/' . $product->image) }}" class="img-preview img-fluid mb-3 col-sm-5"
+                    <img src="{{ asset('storage/' . $product->image) }}" class="img-preview img-fluid mb-3 col-sm-6"
                         id="imagePreview" style="display:block">
                 @else
                     <div>
@@ -60,7 +80,7 @@
                         {{ $message }}
                     </div>
                 @enderror
-            </div> --}}
+            </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 @error('description')

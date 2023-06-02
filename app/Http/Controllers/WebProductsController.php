@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -103,7 +104,9 @@ class WebProductsController extends Controller
         $rules = [
             'title' => 'required|max:255',
             'category_id' => 'required|exists:categories,id',
-            // 'image' => 'image|file|max:2048',
+            'price' => 'required',
+            'stock' => 'required',
+            'image' => 'image|file|max:1024',
             'description' => 'required',
         ];
 
@@ -113,12 +116,12 @@ class WebProductsController extends Controller
 
         $validatedData = $request->validate($rules);
 
-        // if ($request->file('image')) {
-        //     if ($request->oldImage) {
-        //         Storage::delete($request->oldImage);
-        //     }
-        //     $validatedData['image'] = $request->file('image')->store('post-image');
-        // }
+        if ($request->file('image')) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['image'] = $request->file('image')->store('product-images');
+        }
 
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->description), 200);
@@ -137,6 +140,9 @@ class WebProductsController extends Controller
      */
     public function destroy(Product $product)
     {
+        if ($product->image) {
+            Storage::delete($product->image);
+        }
         Product::destroy($product->id);
 
         return redirect('/dashboard/products')->with('successDelete', 'Product has been deleted');
