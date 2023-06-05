@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AdminCategoryController;
+use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\WebProductController;
 use App\Http\Controllers\WebProductsController;
@@ -65,16 +65,21 @@ Route::get('/register', [WebRegisterController::class, 'index'])->middleware('gu
 // Registrasi User
 Route::post('/register', [WebRegisterController::class, 'store']);
 
+// checkSlug
+Route::get('/admin/product/checkSlug', [WebProductsController::class, 'checkSlug'])->middleware('auth');
+// Admin Controller
+Route::resource('/admin/product', AdminProductController::class)->scoped(['product' => 'slug'])->middleware('auth');
+
 // dashboard
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->middleware('auth');
 
-Route::get('/dashboard/products/checkSlug', [WebProductsController::class, 'checkSlug'])->middleware('auth');
+// Route::get('/dashboard/products/checkSlug', [WebProductsController::class, 'checkSlug'])->middleware('auth');
 
-Route::resource('/dashboard/products', WebProductsController::class)->scoped(['product' => 'slug'])->middleware('auth');
+// Route::resource('/dashboard/products', WebProductsController::class)->scoped(['product' => 'slug'])->middleware('auth');
 
-Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('admin');
+// Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('admin');
 
 // Halaman produk per kategory
 // Route::get('/categories/{category:slug}', function (Category $category) {

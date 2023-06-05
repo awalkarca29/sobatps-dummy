@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
-class WebProductsController extends Controller
+class AdminProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +18,9 @@ class WebProductsController extends Controller
      */
     public function index()
     {
-        return view('dashboard.products.index', [
-            'products' => Product::where('user_id', auth()->user()->id)->get(),
-        ]);
+        // return view('dashboard.products.index', [
+        //     'products' => Product::where('user_id', auth()->user()->id)->get(),
+        // ]);
     }
 
     /**
@@ -30,7 +30,8 @@ class WebProductsController extends Controller
      */
     public function create()
     {
-        return view('dashboard.products.create', [
+        return view('admin.products.create', [
+            'title' => 'Create',
             'categories' => Category::all(),
         ]);
     }
@@ -62,7 +63,7 @@ class WebProductsController extends Controller
 
         Product::create($validatedData);
 
-        return redirect('/products')->with('createProduct', 'New product has been posted');
+        return redirect('/dashboard/products')->with('createProduct', 'New product has been posted');
     }
 
     /**
@@ -73,9 +74,9 @@ class WebProductsController extends Controller
      */
     public function show(Product $product)
     {
-        return view('dashboard.products.show', [
-            'product' => $product,
-        ]);
+        // return view('dashboard.products.show', [
+        //     'product' => $product,
+        // ]);
     }
 
     /**
@@ -87,6 +88,7 @@ class WebProductsController extends Controller
     public function edit(Product $product)
     {
         return view('admin.products.edit', [
+            'title' => 'Edit',
             'product' => $product,
             'categories' => Category::all(),
         ]);
@@ -129,7 +131,7 @@ class WebProductsController extends Controller
         Product::where('id', $product->id)
             ->update($validatedData);
 
-        return redirect('/dashboard/products')->with('successUpdate', 'Product has been updated');
+        return redirect('/products')->with('successUpdate', 'Product has been updated');
     }
 
     /**
@@ -145,7 +147,7 @@ class WebProductsController extends Controller
         }
         Product::destroy($product->id);
 
-        return redirect('/dashboard/products')->with('successDelete', 'Product has been deleted');
+        return redirect('products')->with('successDelete', 'Product has been deleted');
     }
 
     public function checkSlug(Request $request)

@@ -39,13 +39,15 @@
                     </button>
                 </div> --}}
                 @if ($product->image)
-                    <div style="overflow:hidden; max-height:25em; max-width: auto;">
+                    <div style="max-height:20em;" class="rounded-3 mb-lg-0 mb-sm-3">
                         <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}"
-                            class="img-fluid rounded-4 ">
+                            class="img-fluid rounded-top">
                     </div>
                 @else
-                    <img src="https://source.unsplash.com/1200x800?{{ $product->category->category_name }}" class="rounded-4"
-                        alt="{{ $product->category->category_name }}" style="overflow: hidden;">
+                    <div class="rounded-3 mb-lg-0 mb-sm-3">
+                        <img src="https://source.unsplash.com/1200x800?{{ $product->category->category_name }}"
+                            alt="{{ $product->title }}" class="img-fluid rounded-top">
+                    </div>
                 @endif
             </div>
             <div class="col-lg-6 m-auto p-4">
@@ -58,7 +60,25 @@
                         </button>
                         <h2 class="font-weight-bold">Rp. {{ number_format($product->price, 2, ',', '.') }}
                         </h2>
-                        <button type="buy" class="btn btn-success w-100 p-auto font-weight-bold">Buy Now </button>
+                        @auth
+                            @if (auth()->user()->isAdmin)
+                                <a href="/products" class="btn btn-success"><i class="bi bi-arrow-left-circle"></i> |
+                                    Kembali</a>
+                                <a href="/admin/product/{{ $product->slug }}/edit" class="btn btn-warning"><i
+                                        class="bi bi-pencil-square"></i> | Edit Produk</a>
+                                <form action="/admin/product/{{ $product->slug }}" method="POST" class="d-inline">
+                                    @method('delete')
+                                    @csrf
+                                    <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><i
+                                            class="bi bi-trash"></i> | Hapus Produk
+                                    </button>
+                                @else
+                                    <button type="buy" class="btn btn-success w-100 p-auto font-weight-bold">Buy Now
+                                    </button>
+                            @endif
+                        @else
+                            <button type="buy" class="btn btn-success w-100 p-auto font-weight-bold">Buy Now </button>
+                        @endauth
                     </div>
                 </div>
                 <h6 class="descript mb-3">Deskripsi Produk

@@ -65,14 +65,14 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div> --}}
-            <div class="card mb-3">
+            <div class="card mb-4">
                 @if ($products[0]->image)
-                    <div style="max-height:25em; overflow:hidden">
+                    <div style="max-height:25em; overflow:hidden; center">
                         <img src="{{ asset('storage/' . $products[0]->image) }}" alt="{{ $products[0]->title }}"
                             class="mx-auto d-block rounded-top">
                     </div>
                 @else
-                    <img src="https://source.unsplash.com/1200x400?{{ $products[0]->category->category_name }}"
+                    <img src="https://source.unsplash.com/1200x800?{{ $products[0]->category->category_name }}"
                         alt="{{ $products[0]->title }}" class="img-fluid rounded-top">
                 @endif
 
@@ -91,6 +91,32 @@
                         produk</a>
                 </div>
             </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            @auth
+                @if (auth()->user()->isAdmin)
+                    <a href="/admin/product/create" class="btn btn-primary col-lg-2 mb-3">Create new product</a>
+                @else
+                @endif
+            @else
+            @endauth
+        </div>
+        <div class="row justify-content-center">
+            @if (session()->has('createProduct'))
+                <div class="alert alert-success col-lg-4 text-center" role="alert">
+                    {{ session('createProduct') }}
+                </div>
+            @elseif(session()->has('successDelete'))
+                <div class="alert alert-danger col-lg-4 text-center" role="alert">
+                    {{ session('successDelete') }}
+                </div>
+            @elseif(session()->has('successUpdate'))
+                <div class="alert alert-success col-lg-4 text-center" role="alert">
+                    {{ session('successUpdate') }}
+                </div>
+            @endif
+        </div>
     </div>
 
     <h1 class="title text-center m-5 fs-2">{{ $title }}</h1>
