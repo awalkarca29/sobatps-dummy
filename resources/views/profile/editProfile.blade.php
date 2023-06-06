@@ -68,7 +68,7 @@
                     </div>
                 @enderror
             </div>
-            {{-- <div class="mb-3">
+            <div class="mb-3">
                 <label for="image" class="form-label">Gambar Produk</label>
                 <input type="hidden" name="oldImage" value="{{ $user->image }}">
                 @if ($user->image)
@@ -88,14 +88,14 @@
                         {{ $message }}
                     </div>
                 @enderror
-            </div> --}}
+            </div>
             <button type="submit" class="btn btn-primary">Ubah Profil</button>
         </form>
     </div>
 
-    {{-- <script>
+    <script>
         function previewImage() {
             imagePreview.src = URL.createObjectURL(event.target.files[0]);
         }
-    </script> --}}
+    </script>
 @endsection

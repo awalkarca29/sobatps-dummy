@@ -15,22 +15,23 @@
                 <img src="/img/hutan.png" alt="" class="object-fit-cover w-100">
 
             </div>
-            <div class="col-lg-6 d-flex p-5 align-items-center">
 
-                @if (session()->has('successRegist'))
-                    <div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('successRegist') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
+            <div class="col-lg-6 d-inline-block p-lg-5 my-auto align-items-center">
+                <div class="d-block">
+                    @if (session()->has('successRegist'))
+                        <div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('successRegist') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
 
-                @if (session()->has('loginError'))
-                    <div id="success-alert" class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{ session('loginError') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
-
+                    @if (session()->has('loginError'))
+                        <div id="success-alert" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('loginError') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                </div>
                 <main class="form w-100 m-auto">
                     <h1 class="h3 mb-3 fw-normal text-center mt-2">Please Login</h1>
                     <form action="/login" method="post">
@@ -53,7 +54,6 @@
                                 placeholder="Password" required>
                             <label for="password">Password</label>
                         </div>
-
                         <button class="h3 w-100 btn btn-success btn-lg mt-2 rounded-4" type="submit">Login</button>
                     </form>
                     <small class="d-block text-end mt-2">Not registered? <a href="/register">Register here!</a></small>
