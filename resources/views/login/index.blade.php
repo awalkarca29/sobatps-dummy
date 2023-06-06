@@ -1,4 +1,4 @@
-@extends('layouts.logreg')
+@extends('layouts.auth')
 
 @section('container')
     <div class="container-fluid">

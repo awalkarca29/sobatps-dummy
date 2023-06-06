@@ -41,10 +41,11 @@
                             {{ auth()->user()->name }}
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile/{{ auth()->user()->username }}"><i
+                                        class="bi bi-person-square"></i>
+                                    My Profile</a></li>
                             <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-sidebar-inset"></i> My
                                     Dashboard</a></li>
-                            <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-person-square"></i> My
-                                    My Profile</a></li>
                             <li>
                             <li>
                                 <hr class="dropdown-divider">

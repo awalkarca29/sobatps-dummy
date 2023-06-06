@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebProductController;
 use App\Http\Controllers\WebProductsController;
 use App\Http\Controllers\WebRegisterController;
@@ -64,6 +65,9 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [WebRegisterController::class, 'index'])->middleware('guest');
 // Registrasi User
 Route::post('/register', [WebRegisterController::class, 'store']);
+
+// Profile User
+Route::resource('/profile', ProfileController::class)->scoped(['user' => 'username'])->middleware('auth');
 
 // checkSlug
 Route::get('/admin/product/checkSlug', [WebProductsController::class, 'checkSlug'])->middleware('auth');

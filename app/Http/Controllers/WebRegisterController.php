@@ -16,7 +16,7 @@ class WebRegisterController extends Controller
     }
     public function store(Request $request)
     {
-        // dd($request);
+
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'username' => 'required|min:6|max:255|unique:users',
@@ -26,7 +26,7 @@ class WebRegisterController extends Controller
 
         // $validatedData['password'] = bcrypt($validatedData['password']);
         $validatedData['password'] = bcrypt($validatedData['password']);
-
+        // dd($validatedData);
         User::create($validatedData);
 
         // $request->session()->flash('successRegist', 'Registration Successfull! Please Login');

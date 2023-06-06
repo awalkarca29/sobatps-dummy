@@ -60,25 +60,27 @@
                         </button>
                         <h2 class="font-weight-bold">Rp. {{ number_format($product->price, 2, ',', '.') }}
                         </h2>
-                        @auth
-                            @if (auth()->user()->isAdmin)
-                                <a href="/products" class="btn btn-success"><i class="bi bi-arrow-left-circle"></i> |
-                                    Kembali</a>
-                                <a href="/admin/product/{{ $product->slug }}/edit" class="btn btn-warning"><i
-                                        class="bi bi-pencil-square"></i> | Edit Produk</a>
-                                <form action="/admin/product/{{ $product->slug }}" method="POST" class="d-inline">
-                                    @method('delete')
-                                    @csrf
-                                    <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><i
-                                            class="bi bi-trash"></i> | Hapus Produk
-                                    </button>
-                                @else
-                                    <button type="buy" class="btn btn-success w-100 p-auto font-weight-bold">Buy Now
-                                    </button>
-                            @endif
-                        @else
-                            <button type="buy" class="btn btn-success w-100 p-auto font-weight-bold">Buy Now </button>
-                        @endauth
+                        <div class="d-flex justify-content-around">
+                            @auth
+                                @if (auth()->user()->isAdmin)
+                                    <a href="/products" class="btn btn-success"><i class="bi bi-arrow-left-circle"></i> |
+                                        Kembali</a>
+                                    <a href="/admin/product/{{ $product->slug }}/edit" class="btn btn-warning"><i
+                                            class="bi bi-pencil-square"></i> | Edit Produk</a>
+                                    <form action="/admin/product/{{ $product->slug }}" method="POST" class="d-inline">
+                                        @method('delete')
+                                        @csrf
+                                        <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><i
+                                                class="bi bi-trash"></i> | Hapus Produk
+                                        </button>
+                                    @else
+                                        <button type="buy" class="btn btn-success w-100 p-auto font-weight-bold">Buy Now
+                                        </button>
+                                @endif
+                            @else
+                                <button type="buy" class="btn btn-success w-100 p-auto font-weight-bold">Buy Now </button>
+                            @endauth
+                        </div>
                     </div>
                 </div>
                 <h6 class="descript mb-3">Deskripsi Produk

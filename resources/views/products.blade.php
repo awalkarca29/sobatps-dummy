@@ -65,7 +65,7 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div> --}}
-            <div class="card mb-4">
+            <div class="card mb-4 mt-3">
                 @if ($products[0]->image)
                     <div style="max-height:25em; overflow:hidden; center">
                         <img src="{{ asset('storage/' . $products[0]->image) }}" alt="{{ $products[0]->title }}"
