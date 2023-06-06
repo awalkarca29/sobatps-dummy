@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Redirect;
 
 class ProfileController extends Controller
 {
@@ -83,7 +82,7 @@ class ProfileController extends Controller
     {
 
         $rules = [
-            'name' => 'require|max:255',
+            'name' => 'required|max:255',
             'email' => 'required|email:dns',
             'address' => 'required|max:255',
             'city' => 'required|max:255',
@@ -91,7 +90,7 @@ class ProfileController extends Controller
         ];
 
         if ($request->username != $user->username) {
-            $rules['username'] = 'required|unique:users';
+            $rules['username'] = 'required|';
         }
 
         $validatedData = $request->validate($rules);
@@ -102,7 +101,7 @@ class ProfileController extends Controller
             }
             $validatedData['image'] = $request->file('image')->store('profile-images');
         }
-
+        // dd($validatedData);
         User::where('id', Auth::user()->id)->update($validatedData);
 
         return redirect('profile/' . Auth::user()->username)->with('successUpdate', 'Profile has been updated');

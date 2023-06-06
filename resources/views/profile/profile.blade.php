@@ -23,7 +23,7 @@
                     </div>
                     <div class="card-body">
                         <div class="text-center">
-                            <img src="{{ asset('storage/' . $user->foto) }}" alt="Foto Profil"
+                            <img src="{{ asset('storage/' . $user->image) }}" alt="Foto Profil"
                                 class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
                         </div>
                         <br>

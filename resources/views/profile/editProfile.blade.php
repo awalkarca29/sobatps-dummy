@@ -69,7 +69,7 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="image" class="form-label">Gambar Produk</label>
+                <label for="image" class="form-label">Gambar Profil</label>
                 <input type="hidden" name="oldImage" value="{{ $user->image }}">
                 @if ($user->image)
                     <img src="{{ asset('storage/' . $user->image) }}" class="img-preview img-fluid mb-3 col-sm-6"
