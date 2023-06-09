@@ -36,4 +36,14 @@ class WebProductController extends Controller
             "product" => $product,
         ]);
     }
+
+    public function purchase(Product $product)
+    {
+        return view('transaction.purchase', [
+            "title" => "Products",
+            "active" => 'products',
+            "product" => $product,
+        ]);
+    }
+
 }

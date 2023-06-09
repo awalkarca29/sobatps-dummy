@@ -65,7 +65,7 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div> --}}
-            <div class="card mb-4 mt-3">
+            <div class="card mb-4">
                 @if ($products[0]->image)
                     <div style="max-height:25em; overflow:hidden; center">
                         <img src="{{ asset('storage/' . $products[0]->image) }}" alt="{{ $products[0]->title }}"
@@ -114,6 +114,10 @@
             @elseif(session()->has('successUpdate'))
                 <div class="alert alert-success col-lg-4 text-center" role="alert">
                     {{ session('successUpdate') }}
+                </div>
+            @elseif(session()->has('createTransaction'))
+                <div class="alert alert-success col-lg-4 text-center" role="alert">
+                    {{ session('createTransaction') }}
                 </div>
             @endif
         </div>

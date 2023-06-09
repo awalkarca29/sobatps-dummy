@@ -74,11 +74,14 @@
                                                 class="bi bi-trash"></i> | Hapus Produk
                                         </button>
                                     @else
-                                        <button type="buy" class="btn btn-success w-100 p-auto font-weight-bold">Buy Now
-                                        </button>
+                                        <a href="/product/purchase/{{ $product->slug }}" class="btn btn-success w-100"><i
+                                                class="bi bi-bag-plus"></i>
+                                            | Beli Produk</a>
                                 @endif
                             @else
-                                <button type="buy" class="btn btn-success w-100 p-auto font-weight-bold">Buy Now </button>
+                                <a href="/product/purchase/{{ $product->slug }}" class="btn btn-success w-100"><i
+                                        class="bi bi-bag-plus"></i>
+                                    | Beli Produk</a>
                             @endauth
                         </div>
                     </div>

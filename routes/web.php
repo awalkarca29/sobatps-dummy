@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\WebProductController;
 use App\Http\Controllers\WebProductsController;
 use App\Http\Controllers\WebRegisterController;
@@ -45,6 +46,9 @@ Route::get('/products', [WebProductController::class, 'index']);
 // Halaman detail produk
 Route::get('products/{product:slug}', [WebProductController::class, 'show']);
 
+// Halaman pembelian
+Route::get('product/purchase/{product:slug}', [WebProductController::class, 'purchase']);
+
 // Halaman seluruh kategory
 Route::get('/categories', function () {
     return view('categories', [
@@ -73,6 +77,9 @@ Route::resource('/profile', ProfileController::class)->scoped(['user' => 'userna
 Route::get('/admin/product/checkSlug', [WebProductsController::class, 'checkSlug'])->middleware('auth');
 // Admin Controller
 Route::resource('/admin/product', AdminProductController::class)->scoped(['product' => 'slug'])->middleware('auth');
+
+// Pembelian
+Route::resource('/product/purchase', TransactionController::class)->scoped(['product' => 'slug'])->middleware('auth');
 
 // dashboard
 Route::get('/dashboard', function () {
