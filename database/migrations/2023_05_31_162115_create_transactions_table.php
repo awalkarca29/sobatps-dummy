@@ -18,6 +18,8 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('product_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
             $table->string('status')->default('pending');
+            $table->boolean('isRead')->default(false);
+            $table->integer('quantities');
             $table->integer('price');
             $table->timestamps();
         });

@@ -15,13 +15,18 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function transactions()
+    // public function category()
+    // {
+    //     return $this->hasMany(Category::class);
+    // }
+
+    public function transaction()
     {
         return $this->hasMany(Transaction::class);
     }
 
-    public function wishlists()
+    public function wishlist()
     {
-        return $this->belongsTo(Wishlist::class);
+        return $this->hasMany(Wishlist::class);
     }
 }

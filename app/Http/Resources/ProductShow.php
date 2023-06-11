@@ -18,6 +18,8 @@ class ProductShow extends JsonResource
             'id' => $this->id,
             'user' => [
                 'user_id' => $this->user->id,
+                'user_isAdmin' => $this->user->isAdmin,
+                'user_username' => $this->user->username,
                 'user_name' => $this->user->name,
                 'user_email' => $this->user->email,
                 'user_address' => $this->user->address,
@@ -25,7 +27,7 @@ class ProductShow extends JsonResource
                 'user_phone' => $this->user->phone,
                 'user_image' => $this->user->image,
             ],
-            'categories' => json_decode($this->categories),
+            'category' => json_decode($this->category),
             'name' => $this->name,
             'description' => $this->description,
             'price' => $this->price,
