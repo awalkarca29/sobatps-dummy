@@ -29,29 +29,19 @@ class ProductController extends Controller
 
         if ($request['search_category']) {
             $searchCategory = $request['search_category'];
-            $products = Product::where('categories', 'like', '%' . $searchCategory . '%')->latest()->get();
+            $products = Product::where('category', 'like', '%' . $searchCategory . '%')->latest()->get();
         }
 
         if ($request['search_product']) {
             $searchProduct = $request['search_product'];
-            $products = Product::where('title', 'like', '%' . $searchProduct . '%')->latest()->get();
+            $products = Product::where('name', 'like', '%' . $searchProduct . '%')->latest()->get();
         }
 
         foreach ($products as $key => $val) {
-            $products[$key]['categories'] = json_decode($val['categories']);
+            $products[$key]['category'] = json_decode($val['category']);
         }
 
-        return response()->json(
-            // [
-            // "success" => true,
-            // "message" => "Product has been showed!",
-            // "data" =>
-            $products,
-            // ]
-        );
-
-        // $category = Category::all();
-        // return response()->json($category);
+        return response()->json($products);
     }
 
     /**
@@ -64,11 +54,9 @@ class ProductController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'categories' => 'required',
-            'title' => 'required',
+            'name' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'stock' => 'required',
-            'isSold' => 'required',
             'image' => 'required',
         ]);
 
@@ -78,47 +66,35 @@ class ProductController extends Controller
 
         $user = auth()->user();
 
-        $data = request('image');
-        $uri = explode(';', $data);
-        $decode = explode(',', $uri[1]);
-        $data = base64_decode($decode[1]);
-        // $data = base64_decode(request('image'));
-        $ekstensi = explode('/', $uri[0]);
-        $ekstensi = $ekstensi[1];
-
         $product = $user->products()->create([
             'categories' => request('categories'),
-            'title' => request('title'),
+            'name' => request('name'),
             'description' => request('description'),
             'price' => request('price'),
-            'stock' => request('stock'),
-            'isSold' => request('isSold'),
         ]);
 
-        $fileName = date('Ymdhis') . $product->id . '.' . $ekstensi;
+        $imageData = $request->input('image');
+        // $base64Image = substr($imageData, strpos($imageData, ',') + 1);
+        $imageData = base64_decode($imageData);
 
-        $firebase_storage_path = 'Images/';
-        $localfolder = public_path('storage\ProductImage\\');
-        if (file_put_contents($localfolder . $fileName, $data)) {
-            $uploadedfile = fopen($localfolder . $fileName, 'r');
-            app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $firebase_storage_path . $fileName]);
-            unlink($localfolder . $fileName);
-        }
+        $fileName = date('Ymdhis') . $product->id . '.jpg';
+        $firebaseStoragePath = "ProductImages/{$fileName}";
+
+        Storage::disk('local')->put("public/ProductImages/{$fileName}", $imageData);
+
+        $uploadedFile = fopen(storage_path("app/public/ProductImages/{$fileName}"), 'r');
+        app('firebase.storage')->getBucket()->upload($uploadedFile, ['name' => $firebaseStoragePath]);
+
+        Storage::disk('local')->delete("public/ProductImages/{$fileName}");
+
         $expiresAt = new DateTime('2030-01-01');
-        $imageReference = app('firebase.storage')->getBucket()->object($firebase_storage_path . $fileName);
-        $imageurl = $imageReference->signedUrl($expiresAt);
+        $imageReference = app('firebase.storage')->getBucket()->object($firebaseStoragePath);
+        $imageUrl = $imageReference->signedUrl($expiresAt);
 
-        $product->image = $imageurl;
-        // $product->image = "storage/ProductImage/" . $fileName;
-        // file_put_contents('../storage/app/public/ProductImage/' . $fileName, $data);
+        $product->image = $imageUrl;
         $product->save();
 
-        return response()->json([
-            "success" => true,
-            "message" => "Product has been added!",
-            "data" => $product,
-        ]);
-
+        return response()->json($product);
     }
 
     /**
@@ -131,14 +107,7 @@ class ProductController extends Controller
     {
         $products = Product::find($id);
 
-        return response()->json(
-            // [
-            // "success" => true,
-            // "message" => "Product has been showed!",
-            // "data" =>
-            new ProductShow($products),
-            // ]
-        );
+        return response()->json(new ProductShow($products));
     }
 
     /**
@@ -152,24 +121,15 @@ class ProductController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'categories' => 'required',
-            'title' => 'required',
+            'name' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'stock' => 'required',
             'isSold' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-
-        // !! DATA DI POSTMAN KELUARNYA INTEGER
-        // $product = Product::where('id', $id)->update([
-        //     'title' => request('title'),
-        //     'description' => request('description'),
-        //     'price' => request('price'),
-        //     'stock' => request('stock'),
-        // ]);
 
         $user = auth()->user();
         $product = Product::find($id);
@@ -181,33 +141,44 @@ class ProductController extends Controller
             ], 403);
         }
 
-        if ($request->image != "") {
-            Storage::delete($product->image);
-            $data = $request->image;
-            $uri = explode(';', $data);
-            $decode = explode(',', $uri[1]);
-            $data = base64_decode($decode[1]);
-            // $data = base64_decode(request('image'));
-            $ekstensi = explode('/', $uri[0]);
-            $ekstensi = $ekstensi[1];
-            $fileName = date('Ymdhis') . $product->id . '.' . $ekstensi;
-            $product->image = "ProductImage/" . $fileName;
-            file_put_contents('../storage/app/public/ProductImage/' . $fileName, $data);
+        if ($request->has('image')) {
+            if ($product->image) {
+                $oldData = $product->image;
+                $oldUri = explode('/', $oldData);
+                $filename = explode('?', $oldUri[5])[0];
+                $old_firebase_storage_path = $oldUri[4] . '/' . $filename;
+                app('firebase.storage')->getBucket()->object($old_firebase_storage_path)->delete();
+            }
+
+            $imageData = $request->input('image');
+            // $base64Image = substr($imageData, strpos($imageData, ',') + 1);
+            $imageData = base64_decode($imageData);
+
+            $fileName = date('Ymdhis') . $product->id . '.jpg';
+            $firebaseStoragePath = "ProductImages/{$fileName}";
+
+            Storage::disk('local')->put("public/ProductImages/{$fileName}", $imageData);
+
+            $uploadedFile = fopen(storage_path("app/public/ProductImages/{$fileName}"), 'r');
+            app('firebase.storage')->getBucket()->upload($uploadedFile, ['name' => $firebaseStoragePath]);
+
+            Storage::disk('local')->delete("public/ProductImages/{$fileName}");
+
+            $expiresAt = new DateTime('2030-01-01');
+            $imageReference = app('firebase.storage')->getBucket()->object($firebaseStoragePath);
+            $imageUrl = $imageReference->signedUrl($expiresAt);
+
+            $product->image = $imageUrl;
         }
 
         $product->categories = $request->categories;
-        $product->title = $request->title;
+        $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
-        $product->stock = $request->stock;
         $product->isSold = $request->isSold;
         $product->save();
 
-        return response()->json([
-            "success" => true,
-            "message" => "Product has been updated!",
-            "data" => $product,
-        ]);
+        return response()->json($product);
     }
 
     /**
@@ -229,15 +200,15 @@ class ProductController extends Controller
         }
 
         if ($product->image) {
-            Storage::delete($product->image);
+            $oldData = $product->image;
+            $oldUri = explode('/', $oldData);
+            $filename = explode('?', $oldUri[5])[0];
+            $old_firebase_storage_path = $oldUri[4] . '/' . $filename;
+            app('firebase.storage')->getBucket()->object($old_firebase_storage_path)->delete();
         }
 
         $product->delete();
 
-        return response()->json([
-            "success" => true,
-            "message" => "Product has been deleted!",
-            "data" => $product,
-        ]);
+        return response()->json($product);
     }
 }

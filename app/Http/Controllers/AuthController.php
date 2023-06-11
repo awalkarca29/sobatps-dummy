@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -22,8 +24,8 @@ class AuthController extends Controller
     public function register()
     {
         $validator = Validator::make(request()->all(), [
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'username' => 'required|unique:users',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
 
@@ -32,20 +34,13 @@ class AuthController extends Controller
         }
 
         $user = User::create([
-            'name' => request('name'),
+            'username' => request('username'),
             'email' => request('email'),
             'password' => Hash::make(request('password')),
         ]);
 
         if ($user) {
-            return response()->json(
-                // [
-                // "success" => true,
-                // "message" => "Registration Success!",
-                // "data" =>
-                $user,
-                // ]
-            );
+            return response()->json($user);
         } else {
             return response()->json(['message' => 'Registration Failed']);
         }
@@ -69,14 +64,11 @@ class AuthController extends Controller
 
     public function update(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
             'address' => 'required',
             'city' => 'required',
             'phone' => 'required',
-            'image' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -86,33 +78,43 @@ class AuthController extends Controller
         $user = auth()->user();
         $user = User::find($user->id);
 
-        $data = request('image');
-        $uri = explode(';', $data);
-        $decode = explode(',', $uri[1]);
-        $data = base64_decode($decode[1]);
-        // $data = base64_decode(request('image'));
-        $ekstensi = explode('/', $uri[0]);
-        $ekstensi = $ekstensi[1];
-        $fileName = date('Ymdhis') . $user->id . '.' . $ekstensi;
-        $user->image = "UserImage/" . $fileName;
-        file_put_contents('../storage/app/public/UserImage/' . $fileName, $data);
+        if ($request->has('image')) {
+            if ($user->image) {
+                $oldData = $user->image;
+                $oldUri = explode('/', $oldData);
+                $filename = explode('?', $oldUri[5])[0];
+                $old_firebase_storage_path = $oldUri[4] . '/' . $filename;
+                app('firebase.storage')->getBucket()->object($old_firebase_storage_path)->delete();
+            }
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->address = $request->address;
-        $user->city = $request->city;
-        $user->phone = $request->phone;
+            $imageData = $request->input('image');
+            // $base64Image = substr($imageData, strpos($imageData, ',') + 1);
+            $imageData = base64_decode($imageData);
+
+            $fileName = date('Ymdhis') . $user->id . '.jpg';
+            $firebaseStoragePath = "UserImages/{$fileName}";
+
+            Storage::disk('local')->put("public/UserImages/{$fileName}", $imageData);
+
+            $uploadedFile = fopen(storage_path("app/public/UserImages/{$fileName}"), 'r');
+            app('firebase.storage')->getBucket()->upload($uploadedFile, ['name' => $firebaseStoragePath]);
+
+            Storage::disk('local')->delete("public/UserImages/{$fileName}");
+
+            $expiresAt = new DateTime('2030-01-01');
+            $imageReference = app('firebase.storage')->getBucket()->object($firebaseStoragePath);
+            $imageUrl = $imageReference->signedUrl($expiresAt);
+
+            $user->image = $imageUrl;
+        }
+
+        $user->name = $request->input('name');
+        $user->address = $request->input('address');
+        $user->city = $request->input('city');
+        $user->phone = $request->input('phone');
         $user->save();
 
-        return response()->json(
-            // [
-            // "success" => true,
-            // "message" => "User has been updated!",
-            // "data" =>
-            $user,
-            // ]
-        );
+        return response()->json($user);
     }
 
     /**
