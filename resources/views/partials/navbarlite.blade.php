@@ -14,11 +14,13 @@
                     <a class="nav-link {{ Request::is('products*') ? 'active' : '' }}" href="/products">Produk</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('about*') ? 'active' : '' }}" href="/about">Tentang</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link {{ Request::is('category*') ? 'active' : '' }}" href="/categories">Kategori</a>
                 </li>
+                @can('admin')
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('offers*') ? 'active' : '' }}" href="/offers">Diminati</a>
+                    </li>
+                @endcan
             </ul>
             <ul class="navbar-nav sm-auto">
                 @auth

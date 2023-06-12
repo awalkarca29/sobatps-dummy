@@ -8,17 +8,19 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
                 <li class="nav-item">
-                    <a class="nav-link {{ $active === 'home' ? 'active' : '' }}" href="/">Beranda</a>
+                    <a class="nav-link {{ Request::is('/*') ? 'active' : '' }}" href="/">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ $active === 'products' ? 'active' : '' }}" href="/products">Produk</a>
+                    <a class="nav-link {{ Request::is('products*') ? 'active' : '' }}" href="/products">Produk</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ $active === 'about' ? 'active' : '' }}" href="/about">Tentang</a>
+                    <a class="nav-link {{ Request::is('categories*') ? 'active' : '' }}" href="/categories">Kategori</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ $active === 'categories' ? 'active' : '' }}" href="/categories">Kategori</a>
-                </li>
+                @can('admin')
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('offers*') ? 'active' : '' }}" href="/offers">Diminati</a>
+                    </li>
+                @endcan
             </ul>
             <form action="/products" class="d-flex me-auto my-2 my-lg-0 navbar-nav-scroll mx-auto w-50" role="search">
                 @if (request('category'))

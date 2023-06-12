@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,23 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function purchase(Product $product)
+    {
+        return view('transaction.purchase', [
+            "title" => "Products",
+            "active" => 'products',
+            "product" => $product,
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        return view('transaction.index');
+        //
     }
 
     /**
@@ -38,6 +53,7 @@ class TransactionController extends Controller
         // dd($request);
         $validatedData = $request->validate([
             'product_id' => 'required',
+            'seller_id' => 'required',
             'price' => 'required',
             'quantities' => 'required',
         ]);

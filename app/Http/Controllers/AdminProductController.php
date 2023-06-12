@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -155,5 +156,15 @@ class AdminProductController extends Controller
         $slug = SlugService::createSlug(Product::class, 'slug', $request->title);
 
         return response()->json(['slug' => $slug]);
+    }
+
+    public function offers(Transaction $transaction, Product $product)
+    {
+
+        return view('offers.index', [
+            "title" => 'Offers',
+            // "active" => 'offers',
+            "transactions" => Transaction::where('seller_id', auth()->user()->id)->latest()->paginate(8)->withQueryString(),
+        ]);
     }
 }

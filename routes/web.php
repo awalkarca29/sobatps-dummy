@@ -49,6 +49,9 @@ Route::get('products/{product:slug}', [WebProductController::class, 'show']);
 // Halaman pembelian
 Route::get('product/purchase/{product:slug}', [WebProductController::class, 'purchase']);
 
+// Halaman  Produk dimintai (admin)
+Route::get('/offers', [AdminProductController::class, 'offers']);
+
 // Halaman seluruh kategory
 Route::get('/categories', function () {
     return view('categories', [

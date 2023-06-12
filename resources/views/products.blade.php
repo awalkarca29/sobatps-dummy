@@ -72,7 +72,7 @@
                             class="mx-auto d-block rounded-top">
                     </div>
                 @else
-                    <img src="https://source.unsplash.com/1200x800?{{ $products[0]->category->category_name }}"
+                    <img src="https://source.unsplash.com/1200x400?{{ $products[0]->category->slug }}"
                         alt="{{ $products[0]->title }}" class="img-fluid rounded-top">
                 @endif
 
@@ -135,7 +135,7 @@
                                     class="img-fluid rounded-top-4">
                             </div>
                         @else
-                            <img src="https://source.unsplash.com/500x400?{{ $product->category->category_name }}"
+                            <img src="https://source.unsplash.com/500x400?{{ $product->category->slug }}"
                                 class="card-img-top rounded-top-4" alt="{{ $product->category->category_name }}"
                                 style="overflow: hidden; max-height: 10em">
                         @endif
@@ -151,7 +151,7 @@
                             </p>
                             <p class="card-text">{{ Str::limit($product->excerpt, 65, '...') }}</p>
                             <p class="card-text text-end"><small
-                                    class="text-body-secondary text-end">{{ $products[0]->created_at->toFormattedDateString() }}</small>
+                                    class="text-body-secondary text-end">{{ $product->created_at->toFormattedDateString() }}</small>
                             </p>
                             <a href="/products/{{ $product->slug }}" class="btn btn-primary">Lihat produk</a>
                         </div>

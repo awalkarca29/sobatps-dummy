@@ -76,6 +76,7 @@
                         <form method="POST" action="/product/purchase" class="mb-3" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" value="{{ $product->id }}" name="product_id" id="product_id">
+                            <input type="hidden" value="{{ $product->user_id }}" name="seller_id" id="seller_id">
                             <div class="mb-3">
                                 <label for="quantities" class="form-label">Jumlah Pembelian</label>
                                 <div class="row g-3 align-items-center">
