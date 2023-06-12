@@ -79,7 +79,7 @@
                                             | Beli Produk</a>
                                 @endif
                             @else
-                                <a href="/product/purchase/{{ $product->slug }}" class="btn btn-success w-100"><i
+                                <a href="/purchase/{{ $product->slug }}" class="btn btn-success w-100"><i
                                         class="bi bi-bag-plus"></i>
                                     | Beli Produk</a>
                             @endauth

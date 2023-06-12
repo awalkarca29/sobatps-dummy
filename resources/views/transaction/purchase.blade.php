@@ -73,7 +73,7 @@
                 <div class="card mb-3 border-0 shadow-lg">
                     <div class="card-body">
                         <h3>Detail Pembelian Produk</h3>
-                        <form method="POST" action="/product/purchase" class="mb-3" enctype="multipart/form-data">
+                        <form method="POST" action="/purchase" class="mb-3" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" value="{{ $product->id }}" name="product_id" id="product_id">
                             <input type="hidden" value="{{ $product->user_id }}" name="seller_id" id="seller_id">

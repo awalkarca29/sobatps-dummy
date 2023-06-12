@@ -2,34 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function purchase(Product $product)
-    {
-        return view('transaction.purchase', [
-            "title" => "Products",
-            "active" => 'products',
-            "product" => $product,
-        ]);
-    }
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    // Halaman semua produk yang ditawar berdasarkan seller ID
     public function index()
     {
-        //
+        return view('offers.offers', [
+            "title" => 'Offers',
+            "transactions" => Transaction::where('seller_id', auth()->user()->id)
+                ->where('status', 'pending')
+                ->latest()
+                ->paginate(8)
+                ->withQueryString(),
+        ]);
     }
 
     /**
@@ -48,6 +42,7 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // Method pembuatan transaksi
     public function store(Request $request)
     {
         // dd($request);
@@ -72,9 +67,16 @@ class TransactionController extends Controller
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction)
+    // Halaman detail penawaran buyer + button edit status transaksi
+    public function show(Transaction $transaction, $id)
     {
-        //
+        $transaction = Transaction::findOrFail($id);
+
+        return view('offers.show', [
+            "title" => "Offer Detail",
+            "active" => 'offer',
+            "transaction" => $transaction,
+        ]);
     }
 
     /**
@@ -83,7 +85,7 @@ class TransactionController extends Controller
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function edit(Transaction $transaction)
+    public function edit(Transaction $transaction, Request $request)
     {
         //
     }
@@ -95,9 +97,22 @@ class TransactionController extends Controller
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaction $transaction)
+    // Method update transaksi
+    public function update(Request $request, $id)
     {
-        //
+        $transaction = Transaction::findOrFail($id);
+
+        $rules = [
+            'status' => 'required',
+        ];
+
+        $validatedData = $request->validate($rules);
+
+        Transaction::where('id', $transaction->id)
+            ->update($validatedData);
+
+        return redirect('/purchase')->with('successUpdate', 'Transaksi sudah diupdate');
+
     }
 
     /**

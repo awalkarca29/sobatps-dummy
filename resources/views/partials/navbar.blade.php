@@ -18,7 +18,7 @@
                 </li>
                 @can('admin')
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('offers*') ? 'active' : '' }}" href="/offers">Diminati</a>
+                        <a class="nav-link {{ Request::is('purchase*') ? 'active' : '' }}" href="/purchase">Diminati</a>
                     </li>
                 @endcan
             </ul>

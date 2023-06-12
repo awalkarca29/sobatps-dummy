@@ -2,6 +2,11 @@
 
 @section('container')
     <h1 class="title text-center m-5 fs-2">{{ $title }}</h1>
+    @if (session()->has('successUpdate'))
+        <div class="alert alert-success col-lg-4 mx-auto text-center" role="alert">
+            {{ session('successUpdate') }}
+        </div>
+    @endif
     <div class="container">
         @if ($transactions->count())
             <div class="row">
@@ -34,8 +39,8 @@
                                 <p class="card-text text-end"><small
                                         class="text-body-secondary text-end">{{ $transaction->updated_at->toFormattedDateString() }}</small>
                                 </p>
-                                <a href="/products/{{ $transaction->product->slug }}" class="btn btn-primary">Lihat
-                                    produk</a>
+                                <a href="/purchase/{{ $transaction->id }}" class="btn btn-primary">Lihat
+                                    Tawaran</a>
                             </div>
                         </div>
                     </div>

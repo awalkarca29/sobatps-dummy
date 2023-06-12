@@ -40,18 +40,6 @@ Route::get('/about', function () {
     ]);
 });
 
-// Haaman semua produk
-Route::get('/products', [WebProductController::class, 'index']);
-
-// Halaman detail produk
-Route::get('products/{product:slug}', [WebProductController::class, 'show']);
-
-// Halaman pembelian
-Route::get('product/purchase/{product:slug}', [WebProductController::class, 'purchase']);
-
-// Halaman  Produk dimintai (admin)
-Route::get('/offers', [AdminProductController::class, 'offers']);
-
 // Halaman seluruh kategory
 Route::get('/categories', function () {
     return view('categories', [
@@ -81,13 +69,22 @@ Route::get('/admin/product/checkSlug', [WebProductsController::class, 'checkSlug
 // Admin Controller
 Route::resource('/admin/product', AdminProductController::class)->scoped(['product' => 'slug'])->middleware('auth');
 
-// Pembelian
-Route::resource('/product/purchase', TransactionController::class)->scoped(['product' => 'slug'])->middleware('auth');
+// Haaman semua produk
+Route::get('/products', [WebProductController::class, 'index']);
 
-// dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard.index');
-})->middleware('auth');
+// Halaman detail produk
+Route::get('products/{product:slug}', [WebProductController::class, 'show']);
+
+// Halaman pembelian
+Route::get('/product/purchase/{product:slug}', [WebProductController::class, 'purchase']);
+
+// Pembelian
+Route::resource('/purchase', TransactionController::class)->middleware('auth');
+
+// // dashboard
+// Route::get('/dashboard', function () {
+//     return view('dashboard.index');
+// })->middleware('auth');
 
 // Route::get('/dashboard/products/checkSlug', [WebProductsController::class, 'checkSlug'])->middleware('auth');
 

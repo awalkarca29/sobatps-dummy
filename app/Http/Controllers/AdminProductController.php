@@ -75,9 +75,7 @@ class AdminProductController extends Controller
      */
     public function show(Product $product)
     {
-        // return view('dashboard.products.show', [
-        //     'product' => $product,
-        // ]);
+        //
     }
 
     /**
@@ -161,7 +159,7 @@ class AdminProductController extends Controller
     public function offers(Transaction $transaction, Product $product)
     {
 
-        return view('offers.index', [
+        return view('offers.offers', [
             "title" => 'Offers',
             // "active" => 'offers',
             "transactions" => Transaction::where('seller_id', auth()->user()->id)->latest()->paginate(8)->withQueryString(),
