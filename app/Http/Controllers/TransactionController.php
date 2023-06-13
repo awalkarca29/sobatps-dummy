@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -111,7 +112,10 @@ class TransactionController extends Controller
         Transaction::where('id', $transaction->id)
             ->update($validatedData);
 
-        return redirect('/purchase')->with('successUpdate', 'Transaksi sudah diupdate');
+        if (Auth::user()->isAdmin) {
+            return redirect('/purchase')->with('successUpdate', 'Transaksi sudah diupdate');
+        }
+        return redirect('/purchase/offers')->with('successUpdate', 'Transaksi sudah diupdate');
 
     }
 
@@ -124,5 +128,53 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction)
     {
         //
+    }
+
+    public function buyerOffers(Request $request)
+    {
+        $searchStatus = $request['statusFilter'];
+
+        if ($request['statusFilter']) {
+            $searchStatus = $request['statusFilter'];
+            $transactions = Transaction::where('buyer_id', auth()->user()->id)
+                ->where('status', 'like', '%' . $searchStatus . '%')
+                ->latest()
+                ->paginate(8)
+                ->withQueryString();
+
+            return view('offers.buyerOffers', [
+                "title" => 'Your Offers',
+                "transactions" => $transactions,
+                "selectedStatus" => $searchStatus,
+
+            ]);
+        }
+
+        $transactions = Transaction::where('buyer_id', auth()->user()->id)
+            ->where('status', '<>', 'done')
+            ->latest()
+            ->paginate(8)
+            ->withQueryString();
+
+        return view('offers.buyerOffers', [
+            "title" => 'Your Offers',
+            "transactions" => $transactions,
+            "selectedStatus" => $searchStatus,
+
+        ]);
+    }
+    public function buyerHistory(Request $request)
+    {
+        $transactions = Transaction::where('buyer_id', auth()->user()->id)
+            ->where('status', 'done')
+            ->latest()
+            ->paginate(8)
+            ->withQueryString();
+
+        return view('offers.buyerHistory', [
+            "title" => 'Your Offers',
+            "transactions" => $transactions,
+        ]);
+
     }
 }

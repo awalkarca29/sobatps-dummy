@@ -147,7 +147,7 @@
                             </button>
                             <h5 class="card-title text-truncate">{{ $product->title }}</h5>
                             <p class="card-text">Rp.
-                                {{ number_format($product->price, 2, ',', '.') }}
+                                {{ number_format($product->price, 0, ',', '.') }}
                             </p>
                             <p class="card-text">{{ Str::limit($product->excerpt, 65, '...') }}</p>
                             <p class="card-text text-end"><small

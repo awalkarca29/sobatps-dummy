@@ -78,6 +78,10 @@ Route::get('products/{product:slug}', [WebProductController::class, 'show']);
 // Halaman pembelian
 Route::get('/product/purchase/{product:slug}', [WebProductController::class, 'purchase']);
 
+// Halaman Daftar pembelian buyer
+Route::get('/purchase/offers', [TransactionController::class, 'buyerOffers'])->middleware('auth');
+// Halaman Daftar pembelian buyer
+Route::get('/purchase/history', [TransactionController::class, 'buyerHistory'])->middleware('auth');
 // Pembelian
 Route::resource('/purchase', TransactionController::class)->middleware('auth');
 

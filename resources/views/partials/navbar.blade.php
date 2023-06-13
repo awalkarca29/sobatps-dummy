@@ -16,11 +16,25 @@
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('categories*') ? 'active' : '' }}" href="/categories">Kategori</a>
                 </li>
-                @can('admin')
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::is('purchase*') ? 'active' : '' }}" href="/purchase">Diminati</a>
-                    </li>
-                @endcan
+                @auth
+                    @if (auth()->user()->isAdmin)
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('purchase*') ? 'active' : '' }}" href="/purchase">Diminati</a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('purchase*') ? 'active' : '' }}"
+                                href="/purchase/offers">Transaksi
+                                Berlangsung</a>
+                        </li>
+                    @endif
+                @else
+                @endauth
+                {{-- @can('admin')
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('purchase*') ? 'active' : '' }}" href="/purchase">Diminati</a>
+                        </li>
+                    @endcan --}}
             </ul>
             <form action="/products" class="d-flex me-auto my-2 my-lg-0 navbar-nav-scroll mx-auto w-50" role="search">
                 @if (request('category'))
@@ -46,6 +60,9 @@
                             <li><a class="dropdown-item" href="/profile/{{ auth()->user()->username }}"><i
                                         class="bi bi-person-square"></i>
                                     My Profile</a></li>
+                            <li>
+                            <li><a class="dropdown-item" href="/purchase/history"><i class="bi bi-receipt-cutoff"></i>
+                                    Transaction History</a></li>
                             <li>
                             <li>
                                 <hr class="dropdown-divider">

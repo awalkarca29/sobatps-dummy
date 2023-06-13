@@ -8,19 +8,33 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('home*') ? 'active' : '' }}" href="/">Beranda</a>
+                    <a class="nav-link {{ Request::is('/*') ? 'active' : '' }}" href="/">Beranda</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('products*') ? 'active' : '' }}" href="/products">Produk</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('category*') ? 'active' : '' }}" href="/categories">Kategori</a>
+                    <a class="nav-link {{ Request::is('categories*') ? 'active' : '' }}" href="/categories">Kategori</a>
                 </li>
-                @can('admin')
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::is('offers*') ? 'active' : '' }}" href="/offers">Diminati</a>
-                    </li>
-                @endcan
+                @auth
+                    @if (auth()->user()->isAdmin)
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('purchase*') ? 'active' : '' }}" href="/purchase">Diminati</a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('purchase*') ? 'active' : '' }}"
+                                href="/purchase/offers">Transaksi
+                                Berlangsung</a>
+                        </li>
+                    @endif
+                @else
+                @endauth
+                {{-- @can('admin')
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('purchase*') ? 'active' : '' }}" href="/purchase">Diminati</a>
+                        </li>
+                    @endcan --}}
             </ul>
             <ul class="navbar-nav sm-auto">
                 @auth
@@ -33,8 +47,9 @@
                             <li><a class="dropdown-item" href="/profile/{{ auth()->user()->username }}"><i
                                         class="bi bi-person-square"></i>
                                     My Profile</a></li>
-                            <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-sidebar-inset"></i> My
-                                    Dashboard</a></li>
+                            <li>
+                            <li><a class="dropdown-item" href="/purchase/history"><i class="bi bi-receipt-cutoff"></i>
+                                    Transaction History</a></li>
                             <li>
                             <li>
                                 <hr class="dropdown-divider">

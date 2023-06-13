@@ -58,7 +58,7 @@
                             class="btn btn-outline-success p-1 mb-4"href="/categories/{{ $product->category->slug }}">
                             {{ $product->category->category_name }}
                         </button>
-                        <h2 class="font-weight-bold">Rp. {{ number_format($product->price, 2, ',', '.') }}
+                        <h2 class="font-weight-bold">Rp. {{ number_format($product->price, 0, ',', '.') }}
                         </h2>
                         <div class="d-flex justify-content-around">
                             @auth
