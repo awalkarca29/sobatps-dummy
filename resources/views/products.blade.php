@@ -65,7 +65,7 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div> --}}
-            <div class="card mb-4">
+            {{-- <div class="card mb-4">
                 @if ($products[0]->image)
                     <div style="max-height:25em; overflow:hidden; center">
                         <img src="{{ asset('storage/' . $products[0]->image) }}" alt="{{ $products[0]->title }}"
@@ -90,13 +90,13 @@
                     <a href="/products/{{ $products[0]->slug }}" class="text-decoration-none btn btn-success">Lihat
                         produk</a>
                 </div>
-            </div>
+            </div> --}}
     </div>
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row ml-2">
             @auth
                 @if (auth()->user()->isAdmin)
-                    <a href="/admin/product/create" class="btn btn-primary col-lg-2 mb-3">Create new product</a>
+                    <a href="/admin/product/create" class="btn btn-outline-secondary col-lg-2 mt-5">Create new product</a>
                 @else
                 @endif
             @else

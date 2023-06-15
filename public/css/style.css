@@ -17,3 +17,10 @@
     border-radius: 0;
     margin-bottom: -1px;
 }
+#kotak {
+    border-radius: 15em 0em 15em 0em;
+    background-color: #00B330; 
+    height:100%; 
+    margin-top:-12em; 
+    /* z-index:-1; */
+}

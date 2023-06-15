@@ -17,6 +17,8 @@ class TransactionController extends Controller
     // Halaman semua produk yang ditawar berdasarkan seller ID
     public function index()
     {
+
+
         return view('offers.offers', [
             "title" => 'Offers',
             "transactions" => Transaction::where('seller_id', auth()->user()->id)
@@ -34,7 +36,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-//
+        //
     }
 
     /**
@@ -116,7 +118,6 @@ class TransactionController extends Controller
             return redirect('/purchase')->with('successUpdate', 'Transaksi sudah diupdate');
         }
         return redirect('/purchase/offers')->with('successUpdate', 'Transaksi sudah diupdate');
-
     }
 
     /**
@@ -175,6 +176,5 @@ class TransactionController extends Controller
             "title" => 'Your Offers',
             "transactions" => $transactions,
         ]);
-
     }
 }
