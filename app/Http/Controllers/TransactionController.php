@@ -32,19 +32,14 @@ class TransactionController extends Controller
 
         $cart = Transaction::with('product.user')
             ->where('user_id', $user->id)
-            ->where('status', "accepted")
+            ->where(function ($query) {
+                $query->where('status', "pending")
+                    ->orWhere('status', "accepted");
+            })
+        // ->where('status', "accepted")
+        // ->orWhere('status', "pending")
             ->latest()
             ->get();
-
-        // if ($request['search_id']) {
-        //     $searchId = $request['search_id'];
-        //     $cart = Transaction::with('user', 'product.user')
-        //         ->where('user_id', $user->id)
-        //         ->where('status', "accepted")
-        //         ->where('id', $searchId)
-        //         ->latest()
-        //         ->get();
-        // }
 
         return response()->json($cart);
     }
@@ -80,8 +75,12 @@ class TransactionController extends Controller
 
         $notification = Transaction::with('product.user')
             ->where('user_id', $user->id)
-            ->where('status', "rejected")
-            ->orWhere('status', "accepted")
+            ->where(function ($query) {
+                $query->where('status', "rejected")
+                    ->orWhere('status', "accepted");
+            })
+        // ('status', "rejected")
+        // ->orWhere('status', "accepted")
             ->latest()
             ->get();
 
