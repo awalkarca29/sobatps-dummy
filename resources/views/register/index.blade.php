@@ -2,8 +2,8 @@
 
 @section('container')
     <div class="row justify-content-center">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 p-0 g-0">
+        <div class="row justify-content-center d-flex">
+            <div class="col-6 p-0 g-0">
                 <div class="container d-flex h-100 position-absolute d-flex align-items-center pl-4">
                     <div class="row">
                         <div class="col-12 p-5"><img src="/img/ecommerce.png" class="pl-4" alt=""
@@ -14,10 +14,10 @@
 
                 <img src="/img/hutan.png" alt="" class="" style="width: 100%">
             </div>
-            <div class="col-lg-6 d-flex p-5 align-items-center">
-                <main class="form w-100 m-auto">
-                    <h1 class="h3 mb-3 fw-normal text-center mb-3">Registration Form</h1>
-                    <form action="/register" method="post">
+            <div class="col-6 p-5 align-items-center my-auto">
+                <main class="form d-flex m-auto flex-column">
+                    <h1 class="h3 mb-3 fw-normal text-center mb-3 w-100">Registration Form</h1>
+                    <form action="/register" method="post" class="w-100">
                         @csrf
                         <h6>Nama</h6>
                         <div class="form-floating mb-3">

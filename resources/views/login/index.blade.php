@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-6 p-0 g-0">
-                <div class="container d-flex h-100 position-absolute d-flex align-items-center pl-4">
+                <div class="container d-flex h-100 position-absolute align-items-center">
                     <div class="row">
                         <div class="col-12 p-5"><img src="/img/ecommerce.png" class="pl-4" alt=""
                                 style="max-height: 4em">
@@ -16,7 +16,7 @@
 
             </div>
 
-            <div class="col-lg-6 d-inline-block p-lg-5 my-auto align-items-center">
+            <div class="col-lg-6 my-auto align-items-center">
                 <div class="d-block">
                     @if (session()->has('successRegist'))
                         <div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -32,9 +32,9 @@
                         </div>
                     @endif
                 </div>
-                <main class="form w-100 m-auto">
+                <main class="form d-flex flex-column w-100 m-auto ">
                     <h1 class="h3 mb-3 fw-normal text-center mt-2">Please Login</h1>
-                    <form action="/login" method="post">
+                    <form action="/login" method="post" class="w-100 p-5">
                         @csrf
                         <h6>Email</h6>
                         <div class="form-floating mb-3">
@@ -54,10 +54,12 @@
                                 placeholder="Password" required>
                             <label for="password">Password</label>
                         </div>
-                        <button class="h3 w-100 btn btn-success btn-lg mt-2 rounded-4" type="submit">Login</button>
+                        <button class="btn btn-block w-100 btn-success btn-lg m-auto mt-2 rounded-4"
+                            type="submit">Login</button>
                     </form>
-                    <small class="d-block text-end mt-2">Not registered? <a href="/register">Register here!</a></small>
+                    <small class="mt-2">Not registered? <a href="/register">Register here!</a></small>
                 </main>
+
             </div>
         </div>
     </div>

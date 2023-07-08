@@ -5,22 +5,8 @@
         <div class="col-lg-4">
             <div class="card m-auto shadow border-0 rounded-4" style="width: 80%">
                 <div class="card-body ">
-                    <div class="row justify-content-center">
-                        @if (session()->has('successUpdate'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('successUpdate') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        @endif
-                    </div>
-                    {{-- <div class="text-center m-4 ">
-                        <img src="{{ asset('storage/' . $user->image) }}" alt="Foto Profil" class="img-fluid rounded-circle"
-                            style="width: 150px; height: 150px;">
-                    </div> --}}
-                    {{-- <div class="col-lg d-flex flex-column justify-content-end"> --}}
-                    {{-- <div class="text-center m-4"> --}}
-                    <div class="text-center m-4 ">
-                        <form method="POST" action="/profile/image/{{ $user->username }}" class="mb-3"
+                    <div class="text-center m-4">
+                        <form method="POST" action="/profile/image/{{ $user->username }}" class="mb-3 d-flex flex-column"
                             enctype="multipart/form-data">
                             @method('put')
                             @csrf
@@ -36,10 +22,15 @@
                                         style="max-height: 10em; overflow:hidden">
                                 </div>
                             @endif
-                            <label for="image" class="form-label">Upload Photo</label>
+                            <label for="image" class="btn btn-outline-success btn-block border-0 form-label">Upload
+                                Photo</label>
+                            <button type="submit" class="btn btn-success btn-block ">Simpan Foto</button>
+
 
                             <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
                                 name="image" onchange="previewImage()" style="visibility:hidden">
+
+
 
                             @error('image')
                                 <div class="invalid-feedback">
@@ -47,28 +38,33 @@
                                 </div>
                             @enderror
 
-                            <button type="submit" class="btn btn-success btn-sm">Simpan Foto</button>
                         </form>
                     </div>
 
-                    {{-- </div> --}}
+
 
                     <div class="col-lg d-flex justify-content-center mb-1">
-                        <a href=""><button type="button" class="btn btn-outline-secondary">Reset
-                                Password</button></a>
+                        <a href="/profile/{{ $user->username }}/edit"
+                            class="btn btn-outline-success w-100 btn-block border-0"><i class="bi bi-pencil-square"></i>
+                            Edit Profile</a>
+                    </div>
+                    <div class="col-lg d-flex justify-content-center mb-1">
+                        <button type="button" class="btn btn-outline-success w-100 btn-block border-0">Reset
+                            Password</button>
                     </div>
                     @if (auth()->user()->isAdmin)
-                        <div class="col-lg d-flex justify-content-center mb-5">
-                            <a href="/purchase/records"><button type="button" class="btn btn-outline-secondary">Histori
-                                    Penjualan</button></a>
+                        <div class="col-lg d-flex justify-content-center mb-5 w-100">
+                            <a href="/purchase/records" class="btn btn-outline-success w-100 btn-block border-0"><i
+                                    class="bi bi-receipt-cutoff"></i>Histori
+                                Penjualan</a>
                         </div>
                     @else
-                        <div class="col-lg d-flex justify-content-center mb-5">
-                            <a href="/purchase/history"><button type="button" class="btn btn-outline-secondary">Histori
-                                    Pembelian</button></a>
+                        <div class="col-lg d-flex justify-content-center mb-5 w-100">
+                            <a href="/purchase/records" class="btn btn-outline-success w-100 btn-block border-0"><i
+                                    class="bi bi-receipt-cutoff"></i>Histori
+                                Pembelian</button></a>
                         </div>
                     @endif
-
                     <div class="col-lg d-flex justify-content-center mt-5">
                         <form action="/logout" method="post" class="btn btn-danger">
                             @csrf
@@ -79,6 +75,7 @@
                         </form>
 
                     </div>
+
                 </div>
             </div>
         </div>

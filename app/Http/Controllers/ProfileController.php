@@ -47,8 +47,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
-    {
-        {
+    { {
             $user = Auth::user();
             return view('profile.profile', compact('user'), [
                 'title' => 'Profil',
@@ -104,7 +103,6 @@ class ProfileController extends Controller
         User::where('id', Auth::user()->id)->update($validatedData);
 
         return redirect('profile/' . Auth::user()->username)->with('successUpdate', 'Profile has been updated');
-
     }
 
     public function updateImage(Request $request, User $user)
@@ -124,7 +122,7 @@ class ProfileController extends Controller
 
         User::where('id', Auth::user()->id)->update($validatedData);
 
-        return redirect('profile/' . Auth::user()->username . '/edit')->with('successUpdate', 'Profile picture has been updated');
+        return redirect('profile/' . Auth::user()->username)->with('successUpdate', 'Profile picture has been updated');
     }
 
     /**
