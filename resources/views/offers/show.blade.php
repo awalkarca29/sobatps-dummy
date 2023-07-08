@@ -170,7 +170,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <div class="d-flex justify-content-between">
-                                                    <a href="https://api.whatsapp.com/send?phone=6281586347267"
+                                                    <a href="https://api.whatsapp.com/send?phone={{ $transaction->seller->phone }}"
                                                         target="_blank" class="btn btn-primary">Hubungi Penjual</a>
                                                     <form method="POST" action="/purchase/{{ $transaction->id }}">
                                                         @method('put')

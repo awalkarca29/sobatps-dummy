@@ -62,6 +62,8 @@ Route::get('/register', [WebRegisterController::class, 'index'])->middleware('gu
 Route::post('/register', [WebRegisterController::class, 'store']);
 
 // Profile User
+Route::put('/profile/image/{user:username}', [ProfileController::class, 'updateImage'])->middleware('auth');
+// Profile User
 Route::resource('/profile', ProfileController::class)->scoped(['user' => 'username'])->middleware('auth');
 
 // checkSlug
@@ -82,6 +84,8 @@ Route::get('/product/purchase/{product:slug}', [WebProductController::class, 'pu
 Route::get('/purchase/offers', [TransactionController::class, 'buyerOffers'])->middleware('auth');
 // Halaman Daftar pembelian buyer
 Route::get('/purchase/history', [TransactionController::class, 'buyerHistory'])->middleware('auth');
+// Halaman Daftar pembelian buyer
+Route::get('/purchase/records', [TransactionController::class, 'adminHistory'])->middleware('auth');
 // Pembelian
 Route::resource('/purchase', TransactionController::class)->middleware('auth');
 

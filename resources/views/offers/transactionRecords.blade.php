@@ -52,7 +52,7 @@
             </div>
         </div>
     @else
-        <p class="text-center fs-4">No post found.</p>
+        <p class="text-center fs-4">Tidak ada catatan transaksi</p>
     @endif
     <div class="d-flex justify-content-center">
         {{ $transactions->links() }}

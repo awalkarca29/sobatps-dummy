@@ -13,9 +13,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('products*') ? 'active' : '' }}" href="/products">Produk</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link {{ Request::is('categories*') ? 'active' : '' }}" href="/categories">Kategori</a>
-                </li>
+                </li> --}}
                 @auth
                     @if (auth()->user()->isAdmin)
                         <li class="nav-item">
@@ -61,9 +61,15 @@
                                         class="bi bi-person-square"></i>
                                     My Profile</a></li>
                             <li>
-                            <li><a class="dropdown-item" href="/purchase/history"><i class="bi bi-receipt-cutoff"></i>
-                                    Transaction History</a></li>
+                                @if (auth()->user()->isAdmin)
+                            <li><a class="dropdown-item" href="/purchase/records"><i class="bi bi-receipt-cutoff"></i>
+                                    Histori Penjualan</a></li>
                             <li>
+                            @else
+                            <li><a class="dropdown-item" href="/purchase/history"><i class="bi bi-receipt-cutoff"></i>
+                                    Histori Pembelian</a></li>
+                            <li>
+                                @endif
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

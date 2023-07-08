@@ -18,7 +18,6 @@ class TransactionController extends Controller
     public function index()
     {
 
-
         return view('offers.offers', [
             "title" => 'Offers',
             "transactions" => Transaction::where('seller_id', auth()->user()->id)
@@ -172,7 +171,21 @@ class TransactionController extends Controller
             ->paginate(8)
             ->withQueryString();
 
-        return view('offers.buyerHistory', [
+        return view('offers.transactionRecords', [
+            "title" => 'Your Offers',
+            "transactions" => $transactions,
+        ]);
+    }
+
+    public function adminHistory(Request $request)
+    {
+        $transactions = Transaction::where('seller_id', auth()->user()->id)
+            ->where('status', 'done')
+            ->latest()
+            ->paginate(8)
+            ->withQueryString();
+
+        return view('offers.transactionRecords', [
             "title" => 'Your Offers',
             "transactions" => $transactions,
         ]);

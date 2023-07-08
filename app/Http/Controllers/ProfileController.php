@@ -80,7 +80,6 @@ class ProfileController extends Controller
      */
     public function update(Request $request, User $user)
     {
-
         $rules = [
             'name' => 'required|max:255',
             'email' => 'required|email:dns',
@@ -89,11 +88,32 @@ class ProfileController extends Controller
             'phone' => 'required|numeric',
         ];
 
-        if ($request->username != $user->username) {
-            $rules['username'] = 'required|';
+        if ($request->username != Auth::user()->username) {
+            $rules['username'] = 'required|unique:users';
         }
 
         $validatedData = $request->validate($rules);
+
+        // if ($request->file('image')) {
+        //     if ($request->oldImage) {
+        //         Storage::delete($request->oldImage);
+        //     }
+        //     $validatedData['image'] = $request->file('image')->store('profile-images');
+        // }
+        // dd($validatedData);
+        User::where('id', Auth::user()->id)->update($validatedData);
+
+        return redirect('profile/' . Auth::user()->username)->with('successUpdate', 'Profile has been updated');
+
+    }
+
+    public function updateImage(Request $request, User $user)
+    {
+        $rule = [
+            'image' => 'image|file|max:1024',
+        ];
+
+        $validatedData = $request->validate($rule);
 
         if ($request->file('image')) {
             if ($request->oldImage) {
@@ -101,11 +121,10 @@ class ProfileController extends Controller
             }
             $validatedData['image'] = $request->file('image')->store('profile-images');
         }
-        // dd($validatedData);
+
         User::where('id', Auth::user()->id)->update($validatedData);
 
-        return redirect('profile/' . Auth::user()->username)->with('successUpdate', 'Profile has been updated');
-
+        return redirect('profile/' . Auth::user()->username . '/edit')->with('successUpdate', 'Profile picture has been updated');
     }
 
     /**

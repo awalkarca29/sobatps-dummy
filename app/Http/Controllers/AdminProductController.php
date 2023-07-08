@@ -45,6 +45,7 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
+        // ddd($request);
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'category_id' => 'required|exists:categories,id',
@@ -64,7 +65,7 @@ class AdminProductController extends Controller
 
         Product::create($validatedData);
 
-        return redirect('/dashboard/products')->with('createProduct', 'New product has been posted');
+        return redirect('/products')->with('createProduct', 'New product has been posted');
     }
 
     /**
