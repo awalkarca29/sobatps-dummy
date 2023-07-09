@@ -4,40 +4,6 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-lg-6 p-4">
-                {{-- <div id="carouselExampleIndicators" class="carousel slide rounded-3">
-                    <div class="carousel-indicators mb-0">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
-                    </div>
-                    <div class="carousel-inner rounded-3 mb-lg-0 mb-sm-3">
-                        <div class="carousel-item active">
-                            <img src="https://source.unsplash.com/1200x800?{{ $transaction->product->category->category_name }}"
-                                alt="{{ $product->title }}" class="d-block w-100" style="max-height: 100%">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://source.unsplash.com/1200x800?{{ $product->category->category_name }}"
-                                alt="{{ $product->title }}" class="d-block w-100" style="max-height: 380em">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://source.unsplash.com/1200x800?{{ $product->category->category_name }}"
-                                alt="{{ $product->title }}" class="d-block w-100" style="max-height: 380em">
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div> --}}
                 @if ($transaction->product->image)
                     <div style="max-height:20em;" class="rounded-3 mb-lg-0 mb-sm-3">
                         <img src="{{ asset('storage/' . $transaction->product->image) }}"
@@ -140,7 +106,7 @@
                             </form>
                         @else
                             @if ($transaction->status == 'pending')
-                                <h4>Tawaranmu <span class="text-warning">menunggu</span> konfirmasi admin, harap tunggu...
+                                <h4>Tawaranmu <span class="text-warning">menunggu</span> konfirmasi penjual, harap tunggu...
                                 </h4>
                             @elseif ($transaction->status == 'accept')
                                 <h4>Selamat! Tawaranmu <span class="text-success">diterima</span>, silahkan lanjutkan

@@ -47,12 +47,12 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
-    { {
-            $user = Auth::user();
-            return view('profile.profile', compact('user'), [
-                'title' => 'Profil',
-            ]);
-        }
+    {{
+        $user = Auth::user();
+        return view('profile.profile', compact('user'), [
+            'title' => 'Profil',
+        ]);
+    }
     }
 
     /**
@@ -84,7 +84,7 @@ class ProfileController extends Controller
             'email' => 'required|email:dns',
             'address' => 'required|max:255',
             'city' => 'required|max:255',
-            'phone' => 'required|numeric',
+            'phone' => 'required',
         ];
 
         if ($request->username != Auth::user()->username) {
@@ -93,13 +93,6 @@ class ProfileController extends Controller
 
         $validatedData = $request->validate($rules);
 
-        // if ($request->file('image')) {
-        //     if ($request->oldImage) {
-        //         Storage::delete($request->oldImage);
-        //     }
-        //     $validatedData['image'] = $request->file('image')->store('profile-images');
-        // }
-        // dd($validatedData);
         User::where('id', Auth::user()->id)->update($validatedData);
 
         return redirect('profile/' . Auth::user()->username)->with('successUpdate', 'Profile has been updated');

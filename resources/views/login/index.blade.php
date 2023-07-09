@@ -33,7 +33,7 @@
                     @endif
                 </div>
                 <main class="form d-flex flex-column w-100 m-auto ">
-                    <h1 class="h3 mb-3 fw-normal text-center mt-2">Please Login</h1>
+                    <h1 class="h3 mb-3 fw-normal text-center mt-2">Silahkan Masuk</h1>
                     <form action="/login" method="post" class="w-100 p-5">
                         @csrf
                         <h6>Email</h6>
@@ -41,7 +41,7 @@
                             <input type="email" name="email"
                                 class="form-control rounded-4 @error('email') is-invalid @enderror" id="email"
                                 placeholder="name@example.com" required autofocus value="{{ old('email') }}">
-                            <label for="email">Email address</label>
+                            <label for="email">Masukan e-mail</label>
                             @error('email')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -52,14 +52,14 @@
                         <div class="form-floating mb-3">
                             <input type="password" name="password" class="form-control rounded-4" id="password"
                                 placeholder="Password" required>
-                            <label for="password">Password</label>
+                            <label for="password">Masukan password</label>
                         </div>
-                        <button class="btn btn-block w-100 btn-success btn-lg m-auto mt-2 rounded-4"
-                            type="submit">Login</button>
+                        <button class="btn btn-block w-100 btn-success btn-lg m-auto mt-2 rounded-4 mb-3"
+                            type="submit">Masuk</button>
+                        <small class="d-block text-end mt-2">Belum punya akun? <a href="/register">Daftar
+                                disini!</a></small>
                     </form>
-                    <small class="mt-2">Not registered? <a href="/register">Register here!</a></small>
                 </main>
-
             </div>
         </div>
     </div>

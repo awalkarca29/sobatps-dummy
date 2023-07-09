@@ -16,7 +16,7 @@
             </div>
             <div class="col-6 p-5 align-items-center my-auto">
                 <main class="form d-flex m-auto flex-column">
-                    <h1 class="h3 mb-3 fw-normal text-center mb-3 w-100">Registration Form</h1>
+                    <h1 class="h3 mb-3 fw-normal text-center mb-3 w-100">Halaman Registrasi</h1>
                     <form action="/register" method="post" class="w-100">
                         @csrf
                         <h6>Nama</h6>
@@ -70,7 +70,7 @@
 
                         <button class="w-100 btn btn-lg btn-success mt-3" type="submit">Register</button>
                     </form>
-                    <small class="d-block text-end mt-2">Already registered? <a href="/login">Login</a></small>
+                    <small class="d-block text-end mt-2">Sudah terdaftar? <a href="/login">Masuk</a></small>
                 </main>
             </div>
         </div>

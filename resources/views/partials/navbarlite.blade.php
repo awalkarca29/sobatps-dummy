@@ -54,7 +54,10 @@
                             <li>
                             @else
                             <li><a class="dropdown-item" href="/purchase/history"><i class="bi bi-receipt-cutoff"></i>
-                                    Histori Pembelian</a></li>
+                                    Histori Penawaran</a></li>
+                            <li>
+                            <li><a class="dropdown-item" href="/notification"><i class="bi bi-bell"></i></i>
+                                    Notifikasi</a></li>
                             <li>
                                 @endif
                             <li>

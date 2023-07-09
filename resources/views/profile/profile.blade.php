@@ -17,12 +17,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-            {{-- @if (session()->has('successUpdate'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('successUpdate') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif --}}
         </div>
         <div class="row justify-content-center mt-5">
 
@@ -53,9 +47,6 @@
 
                                 <input class="form-control @error('image') is-invalid @enderror" type="file"
                                     id="image" name="image" onchange="previewImage()" style="visibility:hidden">
-
-
-
                                 @error('image')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -64,9 +55,6 @@
 
                             </form>
                         </div>
-
-
-
                         <div class="col-lg d-flex justify-content-center mb-1">
                             <a href="/profile/{{ $user->username }}/edit"
                                 class="btn btn-outline-success w-100 btn-block border-0"><i class="bi bi-pencil-square"></i>
@@ -84,7 +72,7 @@
                             </div>
                         @else
                             <div class="col-lg d-flex justify-content-center mb-5 w-100">
-                                <a href="/purchase/records" class="btn btn-outline-success w-100 btn-block border-0"><i
+                                <a href="/purchase/history" class="btn btn-outline-success w-100 btn-block border-0"><i
                                         class="bi bi-receipt-cutoff"></i>Histori
                                     Pembelian</button></a>
                             </div>
@@ -108,20 +96,67 @@
                     <h1 class="h1 text-success font-weight-bold text-center">Profile</h1>
                 </div>
 
-                <br>
-                <h4 class="border-bottom border-2 mb-3 pb-3"><strong>Nama:</strong>
-                    {{ $user->name ? $user->name : 'Update data untuk melengkapi bagian ini' }}</h4>
-                <h4 class="border-bottom border-2 mb-3 pb-3"><strong>Username:</strong>
-                    {{ $user->username ? $user->username : 'Update data untuk melengkapi bagian ini' }}</h4>
-                <h4 class="border-bottom border-2 mb-3 pb-3"><strong>Email:</strong>
-                    {{ $user->email ? $user->email : 'Update data untuk melengkapi bagian ini' }}</h4>
-                <h4 class="border-bottom border-2 mb-3 pb-3"><strong>Kota:</strong>
-                    {{ $user->city ? $user->city : 'Update data untuk melengkapi bagian ini' }}</h4>
-                <h4 class="border-bottom border-2 mb-3 pb-3"><strong>Alamat:</strong>
-                    {{ $user->address ? $user->address : 'Update data untuk melengkapi bagian ini' }}</h4>
-                <h4 class="border-bottom border-2 mb-3 pb-3"><strong>Nomor Telepon:</strong>
-                    {{ $user->phone ? $user->phone : 'Update data untuk melengkapi bagian ini' }}
-                </h4>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nama</label>
+                    <input type="text" class="form-control rounded-4 @error('name') is-invalid @enderror" id="name"
+                        name="name" readonly value="{{ old('name', $user->name) }}">
+                    @error('name')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control rounded-4 @error('username') is-invalid @enderror"
+                        id="username" name="username" readonly readonly value="{{ old('username', $user->username) }}">
+                    @error('username')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">E-Mail</label>
+                    <input type="email" class="form-control rounded-4 @error('email') is-invalid @enderror" id="email"
+                        name="email" readonly value="{{ old('email', $user->email) }}">
+                    @error('email')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">Kota</label>
+                    <input type="text" class="form-control rounded-4 @error('city') is-invalid @enderror"
+                        id="city" name="city" readonly value="{{ old('city', $user->city) }}">
+                    @error('city')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Nomor Telepon</label>
+                    <input type="number" class="form-control rounded-4 @error('phone') is-invalid @enderror"
+                        id="phone" name="phone" readonly value="{{ old('phone', $user->phone) }}">
+                    @error('phone')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1 address" class="form-label">Alamat</label>
+                    <input type="text"
+                        class="form-control align-items-start rounded-4 @error('address') is-invalid @enderror"
+                        id="address" name="address" readonly value="{{ old('address', $user->address) }}">
+                    @error('address')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
             </div>
 
             {{-- <a href="/products" class="btn btn-success"><i class="bi bi-arrow-left-circle"></i> |

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\WebProductController;
@@ -88,6 +89,9 @@ Route::get('/purchase/history', [TransactionController::class, 'buyerHistory'])-
 Route::get('/purchase/records', [TransactionController::class, 'adminHistory'])->middleware('auth');
 // Pembelian
 Route::resource('/purchase', TransactionController::class)->middleware('auth');
+
+// Notifikasi
+Route::get('/notification', [NotificationController::class, 'buyerNotif'])->middleware('auth');
 
 // // dashboard
 // Route::get('/dashboard', function () {

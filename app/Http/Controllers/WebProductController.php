@@ -25,6 +25,7 @@ class WebProductController extends Controller
             "title" => "Semua Produk Kami" . $title,
             "active" => 'products',
             "products" => Product::latest()->filter(request(['search', 'category', 'user']))->paginate(8)->withQueryString(),
+
         ]);
     }
 

@@ -12,7 +12,6 @@
                         <option value="">Semua Tawaran</option>
                         <option value="pending" {{ $selectedStatus == 'pending' ? 'selected' : '' }}>Pending</option>
                         <option value="accept" {{ $selectedStatus == 'accept' ? 'selected' : '' }}>Diterima</option>
-                        <option value="reject" {{ $selectedStatus == 'reject' ? 'selected' : '' }}>Ditolak</option>
                     </select>
                     <button class="btn btn-success rounded-end" type="submit"><i class="bi bi-search"></i></button>
                 </div>

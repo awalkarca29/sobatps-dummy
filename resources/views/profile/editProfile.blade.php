@@ -137,37 +137,17 @@
                         </div>
                     @enderror
                 </div>
-                <div class="mb-5">
+                <div class="mb-3">
                     <label for="exampleFormControlTextarea1 address" class="form-label">Alamat</label>
-                    <textarea type="text" class="form-control align-items-start rounded-4 @error('address') is-invalid @enderror"
-                        id="address" name="address" required value="{{ old('address', $user->address) }}"></textarea>
+                    <input type="text"
+                        class="form-control align-items-start rounded-4 @error('address') is-invalid @enderror"
+                        id="address" name="address" required value="{{ old('address', $user->address) }}">
                     @error('address')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-                {{-- <div class="mb-3">
-                    <label for="image" class="form-label">Gambar Profil</label>
-                    <input type="hidden" name="oldImage" value="{{ $user->image }}">
-                    @if ($user->image)
-                        <img src="{{ asset('storage/' . $user->image) }}" class="img-preview img-fluid mb-3 col-sm-6"
-                            id="imagePreview" style="display:block">
-                    @else
-                        <div>
-                            <img src="" class="img-preview img-fluid mb-3 col-sm-5" id="imagePreview"
-                                style="max-height: 500px; overflow:hidden">
-                        </div>
-                    @endif
-
-                    <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
-                        name="image" onchange="previewImage()">
-                    @error('image')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div> --}}
                 <button class="h3 w-100 btn btn-success btn-lg mt-2 rounded-4" type="submit">Save</button>
             </form>
         </div>

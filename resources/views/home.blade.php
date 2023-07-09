@@ -9,52 +9,42 @@
                     style="background: linear-gradient(45deg, hsla(168, 85%, 52%, 0.5), hsla(263, 88%, 45%, 0.5) 100%);">
                 </div>
             </div>
-            <div class="card-img-overlay d-flex align-items-center pl-5 w-100">
-                <div class="row">
-                    <div class="col-12">
-                        <h1 class="card-title text-white">Mengelola Hasil
-                        </h1>
-                    </div>
-                    <div class="col-12">
-                        <h1 class="card-title text-white">Hutan Jadi Lebih Mudah
-                        </h1>
-                    </div>
-                    <div class="col-12">
-                        <h6 class="card-title text-white">Selamat datang di Website Sobat PS EBussiness,
-                        </h6>
-                    </div>
-                    <div class="col-12">
-                        <h6 class="card-title text-white">Semua kebutuhanmu terkait hasil ada disini!
-                        </h6>
-                    </div>
+            <div class="card-img-overlay d-flex align-items-center">
+                <div class="col-4">
+                    <h1 class="card-title text-white">Mencari hasil olahan hutan asli menjadi lebih mudah!
+                    </h1>
+                    <h6 class="card-title text-white">Selamat datang di website SOBAT-PS marketplace, semua kebutuhanmu
+                        terkait hasil hutan ada disini!
+                    </h6>
                 </div>
             </div>
         </div>
-        <h1 class="text-center mt-3">Beberapa kategori yang kami sajikan</h1>
+        <h1 class="text-center">Beberapa kategori yang kami sajikan</h1>
         <h1 class="text-center mb-5">untuk kebutuhan anda!</h1>
         <div class="row">
             <div class="col-6 d-flex justify-content-end">
-                <div class="p-0 g-0 d-flex justify-content-center align-items-center border-0" style="width: 30rem;">
-                    <img class="card-img-top text-white p-0" src="/img/hhk.png" alt="Hasil Hutan Kayu">
-                    <h1 class="text-center position-absolute text-white">Hasil Hutan Kayu</h1>
-                </div>
+                <a href="/products?category=wood">
+                    <div class="g-0 d-flex justify-content-center align-items-center" style="width: 30rem;">
+                        <img class="card-img-top text-white p-0" src="/img/hhk.png" alt="Hasil Hutan Kayu">
+                        <h1 class="text-center position-absolute text-white">Hasil Hutan Kayu</h1>
+                    </div>
+                </a>
             </div>
             <div class="col-6">
-                <div class="p-0 g-0 d-flex justify-content-center align-items-center border-0" style="width: 30rem;">
-                    <img class="card-img-top p-0 " src="/img/hhkb.png" alt="Card image cap">
-                    <h1 class="text-center position-absolute text-white">Hasil Hutan Bukan Kayu</h1>
-                </div>
+                <a href="/products?category=materials">
+                    <div class="g-0 d-flex justify-content-center align-items-center" style="width: 30rem;">
+                        <img class="card-img-top p-0 " src="/img/hhkb.png" alt="Card image cap">
+                        <h1 class="text-center position-absolute text-white">Hasil Hutan Bukan Kayu</h1>
+                    </div>
+                </a>
             </div>
         </div>
-
-
-        <div class=""></div>
 
 
         <div class="container-fluid w-80 pt-5 pb-5" id="kotak" style="">
             <div class="text pt-5 mt-5 mb-5">
                 <h2 class="text-center text-white pt-5 mt-5">Apasih SOBAT-PS</h2>
-                <h2 class="text-center text-white">E-Bussines itu?</h2>
+                <h2 class="text-center text-white">Marketplace?</h2>
             </div>
             <div class="row mb-5 pt-3">
                 <div class="col-6 d-flex justify-content-end">
