@@ -90,8 +90,10 @@ Route::get('/purchase/records', [TransactionController::class, 'adminHistory'])-
 // Pembelian
 Route::resource('/purchase', TransactionController::class)->middleware('auth');
 
-// Notifikasi
+// Notifikasi Buyer
 Route::get('/notification', [NotificationController::class, 'buyerNotif'])->middleware('auth');
+// Notifikasi Seller
+Route::get('/notification/seller', [NotificationController::class, 'sellerNotif'])->middleware('auth');
 
 // // dashboard
 // Route::get('/dashboard', function () {

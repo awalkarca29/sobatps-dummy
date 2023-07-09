@@ -65,6 +65,9 @@
                             <li><a class="dropdown-item" href="/purchase/records"><i class="bi bi-receipt-cutoff"></i>
                                     Histori Penjualan</a></li>
                             <li>
+                            <li><a class="dropdown-item" href="/notification/seller"><i class="bi bi-bell"></i></i>
+                                    Notifikasi</a></li>
+                            <li>
                             @else
                             <li><a class="dropdown-item" href="/purchase/history"><i class="bi bi-receipt-cutoff"></i>
                                     Histori Penawaran</a></li>
