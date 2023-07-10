@@ -3,7 +3,7 @@
 @section('container')
     <div class="row mt-5">
         <div class="col-lg-4">
-            <div class="card m-auto shadow border-0 rounded-4" style="width: 80%">
+            <div class="card m-auto shadow border-0 rounded-4 mb-5" style="width: 80%">
                 <div class="card-body ">
                     <div class="text-center m-4">
                         <form method="POST" action="/profile/image/{{ $user->username }}" class="mb-3 d-flex flex-column"
@@ -22,15 +22,11 @@
                                         style="max-height: 10em; overflow:hidden">
                                 </div>
                             @endif
-                            <label for="image" class="btn btn-outline-success btn-block border-0 form-label">Upload
-                                Photo</label>
-                            <button type="submit" class="btn btn-success btn-block ">Simpan Foto</button>
-
 
                             <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
                                 name="image" onchange="previewImage()" style="visibility:hidden">
 
-
+                            <div class="border-bottom border-2 mt-2 mb-4"></div>
 
                             @error('image')
                                 <div class="invalid-feedback">
@@ -45,7 +41,8 @@
 
                     <div class="col-lg d-flex justify-content-center mb-1">
                         <a href="/profile/{{ $user->username }}/edit"
-                            class="btn btn-outline-success w-100 btn-block border-0"><i class="bi bi-pencil-square"></i>
+                            class="btn btn-outline-success w-100 btn-block border-0 active"><i
+                                class="bi bi-pencil-square"></i>
                             Edit Profile</a>
                     </div>
                     <div class="col-lg d-flex justify-content-center mb-1">
@@ -65,7 +62,7 @@
                                 Pembelian</button></a>
                         </div>
                     @endif
-                    <div class="col-lg d-flex justify-content-center mt-5">
+                    <div class="col-lg d-flex justify-content-center mt-3 mb-3">
                         <form action="/logout" method="post" class="btn btn-danger">
                             @csrf
                             <button type="submit" class="btn dropdown-item btn-danger" style="border:1rem">

@@ -58,8 +58,8 @@
                             </button>
                             <h2 class="font-weight-bold">Rp. {{ number_format($product->price, 2, ',', '.') }}
                             </h2>
-                            <a href="/dashboard/products" class="btn btn-success"><span data-feather="arrow-left"></span> |
-                                Kembali</a>
+                            {{-- <a href="/dashboard/products" class="btn btn-success"><span data-feather="arrow-left"></span> |
+                                Kembali</a> --}}
                             <a href="/dashboard/products/{{ $product->slug }}/edit" class="btn btn-warning"><span
                                     data-feather="edit"></span> | Edit Produk</a>
                             <form action="/dashboard/products/{{ $product->slug }}" method="POST" class="d-inline">

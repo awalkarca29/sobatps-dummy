@@ -3,7 +3,7 @@
 @section('container')
     <div class="container mt-4">
         <div class="row">
-            <div class="col-lg-6 p-4">
+            <div class="col-lg-6 p-4 d-flex justify-content-center">
                 {{-- <div id="carouselExampleIndicators" class="carousel slide rounded-3">
                     <div class="carousel-indicators mb-0">
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
@@ -51,28 +51,36 @@
                 @endif
             </div>
             <div class="col-lg-6 m-auto p-4">
-                <div class="card mb-3 border-0 shadow-lg">
-                    <div class="card-body">
-                        <h1>Halaman Pembelian
-                        </h1>
-                        <h3 class="card-title">{{ $product->title }}</h3>
-                        <button type="category-button"
-                            class="btn btn-outline-success p-1 mb-4"href="/categories/{{ $product->category->slug }}">
-                            {{ $product->category->category_name }}
-                        </button>
-                        <h2 class="font-weight-bold">Rp. {{ number_format($product->price, 2, ',', '.') }}
-                        </h2>
-                        <div class="card mt-3">
-                            <div class="card-body">
-                                <p class="description">{!! $product->description !!}</p>
+                <div class="card mb-3 border-0 rounded-4 shadow-lg">
+                    <div class="card-body p-3">
+                        <h3 class="card-title p-1">{{ $product->title }}</h3>
+                        <div class="row p-1 pb-0">
+                            <div class="col-6">
+                                <button type="category-button"
+                                    class="btn btn-lg btn-outline-success p-1 mb-4"href="/categories/{{ $product->category->slug }}">
+                                    {{ $product->category->category_name }}
+                                </button>
+                            </div>
+                            <div class="col-6 d-flex justify-content-end">
+                                <h2 class="font-weight-bold">Rp. {{ number_format($product->price, 2, ',', '.') }}</h2>
                             </div>
                         </div>
+                        <div class="border-bottom border-2 mb-3"></div>
+
+                        <div class="container p-1">
+                            <h6 class="descript mb-3">Deskripsi Produk
+                            </h6>
+                            <p class="description">{!! $product->description !!}</p>
+                        </div>
+
+
+
 
                     </div>
                 </div>
-                <div class="card mb-3 border-0 shadow-lg">
+                <div class="card mb-3 border-0 rounded-4 shadow-lg">
                     <div class="card-body">
-                        <h3>Detail Pembelian Produk</h3>
+                        <h3 class="mb-4">Detail Pembelian Produk</h3>
                         <form method="POST" action="/purchase" class="mb-3" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" value="{{ $product->id }}" name="product_id" id="product_id">
@@ -82,7 +90,8 @@
                                 <div class="row g-3 align-items-center">
                                     <div class="col-auto">
                                         <div class="input-group">
-                                            <span class="input-group-text" id="quantities">@ </span>
+                                            <span class="input-group-text" id="quantities"><i
+                                                    class="bi bi-bag-plus"></i></span>
                                             <input type="number"
                                                 class="form-control @error('quantities') is-invalid @enderror"
                                                 placeholder="Jumlah barang" id="quantities" name="quantities" required
@@ -134,7 +143,7 @@
                                     </div>
                                 @enderror
                             </div> --}}
-                            <button type="sumbit" class="btn btn-success w-100 p-auto font-weight-bold mt-3">Ajukan
+                            <button type="sumbit" class="btn btn-success w-100 font-weight-bold mt-3 mb-0 rounded-4">Ajukan
                                 Penawaran</button>
                         </form>
                     </div>

@@ -4,7 +4,7 @@
     <div class="col-lg-10">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 p-2">
+                <div class="col-lg-6 p-2 d-flex justify-content-center">
                     {{-- <div id="carouselExampleIndicators" class="carousel slide rounded-3">
                         <div class="carousel-indicators mb-0">
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"

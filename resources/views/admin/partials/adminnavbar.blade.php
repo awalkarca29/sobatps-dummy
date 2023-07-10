@@ -13,12 +13,13 @@
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('products*') ? 'active' : '' }}" href="/products">Produk</a>
                 </li>
-                <li class="nav-item">
+
+                {{-- <li class="nav-item">
                     <a class="nav-link {{ Request::is('about*') ? 'active' : '' }}" href="/about">Tentang</a>
-                </li>
-                <li class="nav-item">
+                </li> --}}
+                {{-- <li class="nav-item">
                     <a class="nav-link {{ Request::is('category*') ? 'active' : '' }}" href="/categories">Kategori</a>
-                </li>
+                </li> --}}
             </ul>
             <ul class="navbar-nav sm-auto">
                 @auth
@@ -28,9 +29,10 @@
                             {{ auth()->user()->name }}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-sidebar-inset"></i> My
-                                    Dashboard</a></li>
-                            <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-person-square"></i>
+                            {{-- <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-sidebar-inset"></i> My
+                                    Dashboard</a></li> --}}
+                            <li><a class="dropdown-item" href="/profile/{{ auth()->user()->username }}"><i
+                                        class="bi bi-person-square"></i>
                                     My Profile</a></li>
                             <li>
                             <li>

@@ -21,7 +21,7 @@
         <div class="row justify-content-center mt-5">
 
             <div class="col-lg-4">
-                <div class="card m-auto shadow border-0 rounded-4" style="width: 80%">
+                <div class="card m-auto shadow border-0 rounded-4 mb-3" style="width: 80%">
                     <div class="card-body ">
                         <div class="text-center m-4">
                             <form method="POST" action="/profile/image/{{ $user->username }}"
@@ -32,7 +32,7 @@
                                 <input class="form-label" type="hidden" name="oldImage" value="{{ $user->image }}">
                                 @if ($user->image)
                                     <img src="{{ asset('storage/' . $user->image) }}"
-                                        class="img-preview rounded-circle img-fluid mb-3" id="imagePreview"
+                                        class="img-preview rounded-circle img-fluid" id="imagePreview"
                                         style="display:block">
                                 @else
                                     <div>
@@ -40,13 +40,17 @@
                                             id="imagePreview" style="max-height: 10em; overflow:hidden">
                                     </div>
                                 @endif
-                                <label for="image" class="btn btn-outline-success btn-block border-0 form-label">Upload
-                                    Photo</label>
-                                <button type="submit" class="btn btn-success btn-block ">Simpan Foto</button>
+
 
 
                                 <input class="form-control @error('image') is-invalid @enderror" type="file"
                                     id="image" name="image" onchange="previewImage()" style="visibility:hidden">
+
+                                <label for="image" class="btn btn-outline-success btn-block border-0 form-label">Upload
+                                    Photo</label>
+                                <button type="submit" class="btn btn-success btn-block mb-3">Simpan
+                                    Foto</button>
+                                <div class="border-bottom border-2 mt-4 mb-2"></div>
                                 @error('image')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -71,13 +75,13 @@
                                     Penjualan</a>
                             </div>
                         @else
-                            <div class="col-lg d-flex justify-content-center mb-5 w-100">
+                            <div class="col-lg d-flex justify-content-center mb-4 w-100">
                                 <a href="/purchase/history" class="btn btn-outline-success w-100 btn-block border-0"><i
                                         class="bi bi-receipt-cutoff"></i>Histori
                                     Pembelian</button></a>
                             </div>
                         @endif
-                        <div class="col-lg d-flex justify-content-center mt-5">
+                        <div class="col-lg d-flex justify-content-center mt-2 pb-2">
                             <form action="/logout" method="post" class="btn btn-danger">
                                 @csrf
                                 <button type="submit" class="btn dropdown-item btn-danger" style="border:1rem">
@@ -93,70 +97,83 @@
             </div>
             <div class="col-md-8">
                 <div class="align-items-center pt-3 pb-2 mb-3 border-bottom border-3">
-                    <h1 class="h1 text-success font-weight-bold text-center">Profile</h1>
+                    <h1 class="h1 text-success font-weight-bold text-start">Profile</h1>
                 </div>
 
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nama</label>
-                    <input type="text" class="form-control rounded-4 @error('name') is-invalid @enderror" id="name"
-                        name="name" readonly value="{{ old('name', $user->name) }}">
-                    @error('name')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                <br>
+                <div class="row border-bottom border-2 mb-3 pb-2">
+                    <div class="col-4">
+                        <h4><strong>Nama:</strong></h4>
+                    </div>
+                    <div class="col-8">
+                        <h4>
+                            {{ $user->name ? $user->name : 'Update data untuk melengkapi bagian ini' }}
+                        </h4>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control rounded-4 @error('username') is-invalid @enderror"
-                        id="username" name="username" readonly readonly value="{{ old('username', $user->username) }}">
-                    @error('username')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                <div class="row border-bottom border-2 mb-3 pb-2">
+                    <div class="col-4">
+                        <h4><strong>Username:</strong></h4>
+                    </div>
+                    <div class="col-8">
+                        <h4>
+                            {{ $user->name ? $user->username : 'Update data untuk melengkapi bagian ini' }}
+                        </h4>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">E-Mail</label>
-                    <input type="email" class="form-control rounded-4 @error('email') is-invalid @enderror" id="email"
-                        name="email" readonly value="{{ old('email', $user->email) }}">
-                    @error('email')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                <div class="row border-bottom border-2 mb-3 pb-2">
+                    <div class="col-4">
+                        <h4><strong>Email:</strong></h4>
+                    </div>
+                    <div class="col-8">
+                        <h4>
+                            {{ $user->email ? $user->email : 'Update data untuk melengkapi bagian ini' }}
+                        </h4>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="city" class="form-label">Kota</label>
-                    <input type="text" class="form-control rounded-4 @error('city') is-invalid @enderror"
-                        id="city" name="city" readonly value="{{ old('city', $user->city) }}">
-                    @error('city')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                <div class="row border-bottom border-2 mb-3 pb-2">
+                    <div class="col-4">
+                        <h4><strong>Kota:</strong></h4>
+                    </div>
+                    <div class="col-8">
+                        <h4>
+                            {{ $user->city ? $user->city : 'Update data untuk melengkapi bagian ini' }}
+                        </h4>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">Nomor Telepon</label>
-                    <input type="number" class="form-control rounded-4 @error('phone') is-invalid @enderror"
-                        id="phone" name="phone" readonly value="{{ old('phone', $user->phone) }}">
-                    @error('phone')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                <div class="row border-bottom border-2 mb-3 pb-2">
+                    <div class="col-4">
+                        <h4><strong>Alamat:</strong></h4>
+                    </div>
+                    <div class="col-8">
+                        <h4>
+                            {{ $user->address ? $user->address : 'Update data untuk melengkapi bagian ini' }}
+                        </h4>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1 address" class="form-label">Alamat</label>
-                    <input type="text"
-                        class="form-control align-items-start rounded-4 @error('address') is-invalid @enderror"
-                        id="address" name="address" readonly value="{{ old('address', $user->address) }}">
-                    @error('address')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                <div class="row border-bottom border-2 mb-3 pb-2">
+                    <div class="col-4">
+                        <h4><strong>Nomor Telepon:</strong></h4>
+                    </div>
+                    <div class="col-8">
+                        <h4>
+                            {{ $user->phone ? $user->phone : 'Update data untuk melengkapi bagian ini' }}
+                        </h4>
+                    </div>
                 </div>
+
+                {{-- <h4 class="border-bottom border-2 mb-3 pb-3"><strong>Username:</strong>
+                    {{ $user->username ? $user->username : 'Update data untuk melengkapi bagian ini' }}</h4>
+                <h4 class="border-bottom border-2 mb-3 pb-3"><strong>Email:</strong>
+                    {{ $user->email ? $user->email : 'Update data untuk melengkapi bagian ini' }}</h4>
+                <h4 class="border-bottom border-2 mb-3 pb-3"><strong>Kota:</strong>
+                    {{ $user->city ? $user->city : 'Update data untuk melengkapi bagian ini' }}</h4>
+                <h4 class="border-bottom border-2 mb-3 pb-3"><strong>Alamat:</strong>
+                    {{ $user->address ? $user->address : 'Update data untuk melengkapi bagian ini' }}</h4>
+                <h4 class="border-bottom border-2 mb-3 pb-3"><strong>Nomor Telepon:</strong>
+                    {{ $user->phone ? $user->phone : 'Update data untuk melengkapi bagian ini' }}
+                </h4> --}}
+
             </div>
 
             {{-- <a href="/products" class="btn btn-success"><i class="bi bi-arrow-left-circle"></i> |
