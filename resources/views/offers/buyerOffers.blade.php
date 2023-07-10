@@ -2,13 +2,19 @@
 
 @section('container')
     <div class="container">
-        <h1 class="title text-center m-3 fs-2">{{ $title }}</h1>
+
         <form action="/purchase/offers" method="GET">
             @csrf
-            <div class="row">
-                <label for="searchStatus" class="form-labe mb-n5">Cari Status Tawaranmu</label>
-                <div class="col-lg-4 d-flex justify-content-start align-items-center p-2">
-                    <select class="form-select w-auto rounded-start" name="statusFilter">
+            <div class="row mt-5">
+                <div class="col-4 px-0">
+                    <h1 class="title mt-3 text-success">Penawaran Berlangsung</h1>
+                </div>
+                <div class="col-6">
+                    <div class="border-bottom border-3 mt-5 border-success"></div>
+                </div>
+
+                <div class="col-2 d-flex justify-content-start align-items-center mt-4 p-2">
+                    <select class="form-select w-auto rounded-start w-100 mx-1" name="statusFilter">
                         <option value="">Semua Tawaran</option>
                         <option value="pending" {{ $selectedStatus == 'pending' ? 'selected' : '' }}>Pending</option>
                         <option value="accept" {{ $selectedStatus == 'accept' ? 'selected' : '' }}>Diterima</option>
@@ -42,27 +48,42 @@
                             @endif
 
                             <div class="card-body">
-                                <button type="category" class="btn btn-success mb-2">
-                                    <a href="/products?category={{ $transaction->product->category->slug }}"
-                                        class="text-white text-decoration-none">{{ $transaction->product->category->category_name }}</a>
-                                </button>
-                                <h5 class="card-title text-truncate">{{ $transaction->product->title }}</h5>
-                                <p class="card-text">Penawaran Rp.
+                                <a href="/products?category={{ $transaction->product->category->slug }}"
+                                    class="btn btn-outline-success mb-2 py-0 text-decoration-none">{{ $transaction->product->category->category_name }}</a>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="card-title">{{ $transaction->product->title }}
+                                        </h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-muted text-end">{{ $transaction->quantities }} items</p>
+                                    </div>
+
+                                </div>
+                                <p class="text-muted mb-1">Rp {{ $transaction->product->price }}</p>
+                                <h6 class="card-text text-success">Di tawar Rp.
                                     {{ number_format($transaction->price, 2, ',', '.') }}
-                                </p>
-                                <p class="card-text">Jumlah beli {{ $transaction->quantities }} item</p>
+                                </h6>
+                                {{-- <p class="card-text">Jumlah beli {{ $transaction->quantities }} item</p> --}}
                                 @if ($transaction->status == 'pending')
-                                    <p class="card-text">Tawaran <span class="text-warning">Menunggu</span></p>
+                                    <p class="card-text p-1 px-0">Status: <span
+                                            class="btn py-0 btn-outline-warning">Menunggu</span>
+                                    </p>
                                 @elseif ($transaction->status == 'accept')
-                                    <p class="card-text">Tawaran <span class="text-success">Diterima</span></p>
+                                    <p class="card-text p-1 px-0">Status: <span
+                                            class="brn py-0 btn-outline-success">Diterima</span>
+                                    </p>
                                 @elseif ($transaction->status == 'reject')
-                                    <p class="card-text">Tawaran <span class="text-danger">Ditolak</span></p>
+                                    <p class="card-text p-1 px-0">Status: <span
+                                            class="btn py-0 btn-outline-danger">Ditolak</span>
+                                    </p>
                                 @endif
                                 {{-- <p class="card-text">Status Tawaran {{ $transaction->status }}</p> --}}
                                 <p class="card-text text-end"><small
                                         class="text-body-secondary text-end">{{ $transaction->updated_at->toFormattedDateString() }}</small>
                                 </p>
-                                <a href="/purchase/{{ $transaction->id }}" class="btn btn-primary">Lihat
+                                <a href="/purchase/{{ $transaction->id }}"
+                                    class="btn btn-success btn-block w-100 rounded-4">Lihat
                                     Tawaran</a>
                             </div>
                         </div>
@@ -71,7 +92,10 @@
             </div>
     </div>
 @else
-    <p class="text-center fs-4">No post found.</p>
+    <div class="container d-flex flex-column justify-content-center align-items-center opacity-50" style="height: 30em">
+        <img src="/img/aman.png" alt="">
+        <h4 class="text-muted text-center">Tidak ada barang yang ditawar</h4>
+    </div>
     @endif
     <div class="d-flex justify-content-center">
         {{ $transactions->links() }}

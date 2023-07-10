@@ -22,7 +22,7 @@ class WebProductController extends Controller
         }
 
         return view('products', [
-            "title" => "Semua Produk Kami" . $title,
+            "title" => "Jelajahi Semua Produk Kami" . $title,
             "active" => 'products',
             "products" => Product::latest()->filter(request(['search', 'category', 'user']))->paginate(8)->withQueryString(),
 
@@ -46,5 +46,4 @@ class WebProductController extends Controller
             "product" => $product,
         ]);
     }
-
 }

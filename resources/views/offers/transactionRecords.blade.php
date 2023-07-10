@@ -3,9 +3,16 @@
 @section('container')
     @if ($transactions->count())
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row mt-5 justify-content-center">
                 <div class="col-lg-8">
-                    <h1 class="mb-4 mt-4 text-success">Riwayat Transaksi</h1>
+                    <div class="row mb-4">
+                        <div class="col-5 px-0">
+                            <h1 class="title mt-4 text-success">Riwayat Penawaran</h1>
+                        </div>
+                        <div class="col-7 px-0">
+                            <div class="border-bottom border-success border-3 mt-5"></div>
+                        </div>
+                    </div>
 
                     @forelse ($transactions as $transaction)
                         @if ($transaction->status == 'done')
@@ -36,8 +43,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-5 text-end">
-                                                    <button
-                                                        class="btn btn-success px-3 py-1">{{ $transaction->status }}</button>
+                                                    <button class="btn btn-success px-2 py-0">Selesai</button>
                                                     <span
                                                         class="text-muted ml-3">{{ $transaction->created_at->format('d M Y, H:i') }}</span>
                                                 </div>
@@ -95,8 +101,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-5 text-end">
-                                                    <button
-                                                        class="btn btn-danger px-3 py-1">{{ $transaction->status }}</button>
+                                                    <button class="btn btn-danger px-2 py-0">Gagal</button>
                                                     <span
                                                         class="text-muted ml-3">{{ $transaction->created_at->format('d M Y, H:i') }}</span>
                                                 </div>
@@ -136,7 +141,27 @@
             </div>
         </div>
     @else
-        <p class="text-center fs-4">Tidak ada catatan transaksi</p>
+        <div class="container">
+            <div class="row mt-5 justify-content-center">
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-5 px-0">
+                            <h1 class="title mt-4 text-success">Riwayat Penawaran</h1>
+                        </div>
+                        <div class="col-7 px-0">
+                            <div class="border-bottom border-success border-3 mt-5"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="container d-flex flex-column justify-content-center align-items-center opacity-50"
+                        style="height: 30em">
+                        <img src="/img/shopping.png" alt="">
+                        <h4 class="text-muted text-center">Tidak ada barang yang ditawar</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
     @endif
     <div class="d-flex justify-content-center">
         {{ $transactions->links() }}
