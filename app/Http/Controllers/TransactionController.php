@@ -166,7 +166,7 @@ class TransactionController extends Controller
     public function buyerHistory(Request $request)
     {
         $transactions = Transaction::where('buyer_id', auth()->user()->id)
-            ->whereIn('status', ['done', 'reject'])
+            ->whereIn('status', ['done', 'reject', 'cancel'])
             ->latest()
             ->paginate(8)
             ->withQueryString();

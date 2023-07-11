@@ -66,12 +66,8 @@
                                                     </p>
                                                 </div>
                                             </div>
-
-
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
                         @elseif ($transaction->status == 'cancel')
@@ -125,12 +121,8 @@
                                                     </p>
                                                 </div>
                                             </div>
-
-
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
                         @else

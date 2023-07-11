@@ -216,9 +216,8 @@
                                                             <h5 class=""><strong>Penawaran Dibatalkan!</strong>
                                                             </h5>
                                                             <p>
-                                                                Tawaranmu untuk
-                                                                <strong>{{ $notification->product->title }}</strong>
-                                                                telah anda batalkan,
+                                                                Kamu membatalkan tawaran pada produk
+                                                                <strong>{{ $notification->product->title }}</strong>,
                                                                 Terimakasih telah menggunakan jasa kami
                                                             </p>
                                                         </div>
