@@ -69,9 +69,7 @@
                         <h6 class="descript mb-3">Deskripsi Produk
                         </h6>
                         <div class="">
-                            <div class="">
-                                <p class="description">{!! $product->description !!}</p>
-                            </div>
+                            <p class="description">{!! $product->description !!}</p>
                         </div>
 
                         <div class="row d-flex justify-content-around mt-3">

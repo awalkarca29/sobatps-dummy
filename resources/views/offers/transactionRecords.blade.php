@@ -51,9 +51,11 @@
                                             <div class="row">
                                                 <div
                                                     class="col-9 border border-top-0 border-bottom-0 border-start-0 mb-0 pb-0">
-                                                    <p class="mb-0"
+                                                    {{-- <p class="description mb-0"
                                                         style="overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;">
-                                                        {{ $transaction->product->description }}</p>
+                                                        {!! $transaction->product->excerpt !!}</p>
+                                                    <p class="card-text"> --}}
+                                                    {{ Str::limit($transaction->product->excerpt, 150, '...') }}</p>
                                                 </div>
                                                 <div class="col-3 d-flex flex-column align-self-end">
                                                     {{-- <p>Harga : Rp {{ number_format($transaction->price, 0, ',', '.') }}
@@ -109,9 +111,10 @@
                                             <div class="row">
                                                 <div
                                                     class="col-9 border border-top-0 border-bottom-0 border-start-0 mb-0 pb-0">
-                                                    <p class="mb-0"
+                                                    {{-- <p class="description mb-0"
                                                         style="overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;">
-                                                        {{ $transaction->product->description }}</p>
+                                                        {!! $transaction->product->excerpt !!}</p> --}}
+                                                    {{ Str::limit($transaction->product->excerpt, 150, '...') }}</p>
                                                 </div>
                                                 <div class="col-3 d-flex flex-column align-self-end">
                                                     {{-- <p>Harga : Rp {{ number_format($transaction->price, 0, ',', '.') }}
