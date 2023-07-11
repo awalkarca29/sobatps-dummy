@@ -151,7 +151,7 @@ class TransactionController extends Controller
         }
 
         $transactions = Transaction::where('buyer_id', auth()->user()->id)
-            ->whereNotIn('status', ['done', 'reject'])
+            ->whereIn('status', ['pending', 'accept'])
             ->latest()
             ->paginate(8)
             ->withQueryString();
@@ -180,7 +180,7 @@ class TransactionController extends Controller
     public function adminHistory(Request $request)
     {
         $transactions = Transaction::where('seller_id', auth()->user()->id)
-            ->where('status', 'done')
+            ->whereIn('status', ['done', 'reject', 'cancel'])
             ->latest()
             ->paginate(8)
             ->withQueryString();

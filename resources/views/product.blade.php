@@ -72,6 +72,16 @@
                         <div class="">
                             <p class="description">{!! $product->description !!}</p>
                         </div>
+                        <h6 class="descript mb-3">Sumber Produk
+                        </h6>
+                        <div class="">
+                            <p class="description">{{ $product->source }}</p>
+                        </div>
+                        <h6 class="descript mb-3">Manfaat
+                        </h6>
+                        <div class="">
+                            <p class="description">{{ $product->function }}</p>
+                        </div>
 
                         <div class="row d-flex justify-content-around mt-3">
                             @auth
@@ -94,12 +104,12 @@
                                             </button>
                                     </div>
                                 @else
-                                    <a href="/product/purchase/{{ $product->slug }}" class="btn btn-success w-100"><i
+                                    <a href="/purchase/product/{{ $product->slug }}" class="btn btn-success w-100"><i
                                             class="bi bi-bag-plus"></i>
                                         | Beli Produk</a>
                                 @endif
                             @else
-                                <a href="/purchase/{{ $product->slug }}" class="btn btn-success w-100"><i
+                                <a href="/purchase/product/{{ $product->slug }}" class="btn btn-success w-100"><i
                                         class="bi bi-bag-plus"></i>
                                     | Beli Produk</a>
                             @endauth
@@ -107,7 +117,26 @@
                     </div>
                 </div>
                 <div class="card mb-3 border-0 rounded-4 shadow-lg">
-                    <div class="card-body p-4">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            @if ($product->user->image)
+                                <div class="col-2">
+                                    <img src="{{ asset('storage/' . $product->user->image) }}"
+                                        alt="{{ $product->user->name }}" class="img-fluid rounded-4">
+                                </div>
+                            @else
+                                <div class="col-2">
+                                    <img src="https://source.unsplash.com/1200x800?profile"
+                                        alt="{{ $product->user->name }}" class="img-fluid rounded-4">
+                                </div>
+                            @endif
+
+                            <div class="col">
+                                <h6 class="card-text">{{ $product->user->name }}</h6>
+                                <p class="card-text text-body-secondary"><small>{{ $product->user->city }}</small></p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 {{-- <h6 class="descript mb-3">Deskripsi Produk
@@ -120,24 +149,4 @@
             </div>
         </div>
     </div>
-
-    {{-- <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <h2 class="mb-3 mt-2">{{ $product->title }}</h2>
-                <img src="https://source.unsplash.com/1200x400?{{ $product->category->category_name }}"
-                    alt="{{ $product->title }}" class="img-fluid">
-                <h6 class="mt-3">Kategori Produk : <a href="/products?category={{ $product->category->slug }}"
-                        class="text-decoration-none">{{ $product->category->category_name }}</a>
-                </h6>
-                <h6>Diproduksi oleh <a href="/products?user={{ $product->user->username }}" class="text-decoration-none">
-                        {{ $product->user->name }}
-                    </a></h6>
-                <h6>Rp. {{ number_format($product->price, 2, ',', '.') }}</h6>
-                {!! $product->description !!}
-
-                <a href="/products" class="d-block mt-2" class="text-decoration-none">Back to Products</a>
-            </div>
-        </div>
-    </div> --}}
 @endsection

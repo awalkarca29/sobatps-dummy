@@ -79,7 +79,7 @@ Route::get('/products', [WebProductController::class, 'index']);
 Route::get('products/{product:slug}', [WebProductController::class, 'show']);
 
 // Halaman pembelian
-Route::get('/product/purchase/{product:slug}', [WebProductController::class, 'purchase']);
+Route::get('/purchase/product/{product:slug}', [WebProductController::class, 'purchase'])->middleware('auth');
 
 // Halaman Daftar pembelian buyer
 Route::get('/purchase/offers', [TransactionController::class, 'buyerOffers'])->middleware('auth');

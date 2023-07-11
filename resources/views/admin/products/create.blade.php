@@ -48,34 +48,26 @@
                         </div>
                     @enderror
                 </div>
-
-                {{-- <div class="mb-3">
-                    <label for="bahanbaku" class="form-label @error('bahanbaku') is-invalid @enderror">Bahan baku</label>
-                    <input type="text" class="form-control rounded-4" id="bahanbaku" name="bahanbaku">
-                    @error('bahanbaku')
+                <div class="mb-3">
+                    <label for="source" class="form-label @error('source') is-invalid @enderror">Bahan baku</label>
+                    <input type="text" class="form-control rounded-4" id="source" name="source"
+                        value="{{ old('source') }}">
+                    @error('source')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="fungsi" class="form-label @error('fungsi') is-invalid @enderror">Fungsi</label>
-                    <input type="text" class="form-control rounded-4" id="fungsi" name="fungsi">
-                    @error('fungsi')
+                    <label for="function" class="form-label @error('function') is-invalid @enderror">Fungsi</label>
+                    <input type="text" class="form-control rounded-4" id="function" name="function"
+                        value="{{ old('function') }}">
+                    @error('function')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-                <div class="mb-3">
-                    <label for="produsen" class="form-label @error('produsen') is-invalid @enderror">Produsen</label>
-                    <input type="text" class="form-control rounded-4" id="produsen" name="produsen">
-                    @error('produsen')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div> --}}
                 <div class="mb-3">
                     <label for="price" class="form-label @error('price') is-invalid @enderror">Price</label>
                     <input type="number" class="form-control rounded-4" id="price" name="price" required

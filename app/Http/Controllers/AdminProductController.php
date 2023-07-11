@@ -52,6 +52,8 @@ class AdminProductController extends Controller
             'slug' => 'required|unique:products|max:255',
             'price' => 'required',
             'stock' => 'required',
+            'source' => 'required',
+            'function' => 'required',
             'image' => 'image|file|max:1024',
             'description' => 'required',
         ]);
@@ -62,8 +64,8 @@ class AdminProductController extends Controller
 
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->description), 100);
-        // dd($validatedData);
 
+        // dd($validatedData);
         Product::create($validatedData);
 
         return redirect('/products')->with('createProduct', 'New product has been posted');

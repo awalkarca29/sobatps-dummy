@@ -71,7 +71,7 @@
                                     </p>
                                 @elseif ($transaction->status == 'accept')
                                     <p class="card-text p-1 px-0">Status: <span
-                                            class="brn py-0 btn-outline-success">Diterima</span>
+                                            class="btn py-0 btn-outline-success">Diterima</span>
                                     </p>
                                 @elseif ($transaction->status == 'reject')
                                     <p class="card-text p-1 px-0">Status: <span

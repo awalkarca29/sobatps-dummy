@@ -22,6 +22,8 @@ class ProductFactory extends Factory
             'description' => collect($this->faker->paragraphs(mt_rand(3, 5)))
                 ->map(fn($d) => "<p>$d</p>")
                 ->implode(''),
+            'source' => $this->faker->paragraph(),
+            'function' => $this->faker->paragraph(),
             'price' => $this->faker->numberBetween(10000, 200000),
             'stock' => $this->faker->numberBetween(10, 200),
             'user_id' => 1,

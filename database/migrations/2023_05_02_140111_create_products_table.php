@@ -22,6 +22,8 @@ class CreateProductsTable extends Migration
             $table->string('slug')->unique();
             $table->text('excerpt');
             $table->text('description');
+            $table->text('source');
+            $table->text('function');
             $table->integer('price');
             $table->string('image')->nullable();
             $table->integer('stock');

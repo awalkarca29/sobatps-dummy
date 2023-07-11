@@ -215,7 +215,7 @@
                                                             </div>
                                                             <div class="col-4"><button type="sumbit"
                                                                     class="btn btn-danger w-100" name="status"
-                                                                    id="status" value="canceled">Batalkan
+                                                                    id="status" value="cancel">Batalkan
                                                                     Transaksi</button>
                                                             </div>
                                                         </div>

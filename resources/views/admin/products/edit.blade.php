@@ -54,40 +54,26 @@
                     @enderror
                 </div>
 
-                {{-- <div class="mb-3">
-                    <label for="bahanbaku" class="form-label">Bahan Baku</label>
-                    <input type="text" class="form-control rounded-4 @error('bahanbaku') is-invalid @enderror"
-                        id="bahanbaku" name="bahanbaku" required autofocus
-                        value="{{ old('bahanbaku', $product->bahanbaku) }}">
-                    @error('bahanbaku')
+                <div class="mb-3">
+                    <label for="source" class="form-label @error('source') is-invalid @enderror">Bahan baku</label>
+                    <input type="text" class="form-control rounded-4" id="source" name="source"
+                        value="{{ old('source', $product->source) }}">
+                    @error('source')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-
                 <div class="mb-3">
-                    <label for="fungsi" class="form-label">Fungsi</label>
-                    <input type="text" class="form-control rounded-4 @error('fungsi') is-invalid @enderror"
-                        id="fungsi" name="fungsi" required autofocus value="{{ old('title', $product->fungsi) }}">
-                    @error('fungsi')
+                    <label for="function" class="form-label @error('function') is-invalid @enderror">Fungsi</label>
+                    <input type="text" class="form-control rounded-4" id="function" name="function"
+                        value="{{ old('function', $product->function) }}">
+                    @error('function')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
-                </div> --}}
-
-                {{-- <div class="mb-3">
-                    <label for="produsen" class="form-label">Produsen</label>
-                    <input type="text" class="form-control rounded-4 @error('produsen') is-invalid @enderror"
-                        id="produsen" name="produsen" required autofocus
-                        value="{{ old('produsen', $product->produsen) }}">
-                    @error('produsen')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div> --}}
+                </div>
 
                 <div class="mb-3">
                     <label for="price" class="form-label">Price</label>
@@ -133,15 +119,15 @@
                 </div>
                 <div class="" style="visibility: hidden">
                     <label for="slug" class="form-label">Slug</label>
-                    <input type="text" class="form-control rounded-4 @error('slug') is-invalid @enderror" id="slug"
-                        name="slug" readonly required value="{{ old('slug', $product->slug) }}">
+                    <input type="text" class="form-control rounded-4 @error('slug') is-invalid @enderror"
+                        id="slug" name="slug" readonly required value="{{ old('slug', $product->slug) }}">
                     @error('slug')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-success btn-block btn-lg w-100">Update Post</button>
+                <button type="submit" class="btn btn-success btn-block btn-lg w-100">Update Produk</button>
 
             </div>
         </div>

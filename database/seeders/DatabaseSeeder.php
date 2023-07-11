@@ -48,13 +48,13 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         Category::create([
-            'category_name' => "HHBK",
-            'slug' => "kayu",
+            'category_name' => "Hasil Hutan Kayu",
+            'slug' => "wood",
         ]);
 
         Category::create([
-            'category_name' => "HHK",
-            'slug' => "besi",
+            'category_name' => "Hasil Hutan Bukan Kayu",
+            'slug' => "materials",
         ]);
 
         // Category::create([

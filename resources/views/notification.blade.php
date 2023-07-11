@@ -50,7 +50,7 @@
                                                             </h4>
                                                         </div>
                                                         <div class="col-10">
-                                                            <h5 class=""><strong>Penawaran Diajukan</strong>
+                                                            <h5 class=""><strong>Penawaran Diterima!</strong>
                                                             </h5>
                                                             <p>
                                                                 Tawaran
@@ -74,7 +74,7 @@
                                                                 <strong>{{ $notification->product->title }}</strong> dengan
                                                                 tawaran
                                                                 <strong>Rp.{{ number_format($notification->price, 2, ',', '.') }}</strong>
-                                                                telah ditolak oleh pembeli.
+                                                                telah berhasil dibatalkan.
                                                             </p>
                                                         </div>
                                                     </div>

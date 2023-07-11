@@ -49,7 +49,8 @@
             <div class="row mb-5 pt-3">
                 <div class="col-6 d-flex justify-content-end">
                     <div class="p-0 g-0 d-flex justify-content-center align-items-center border-0" style="width: 30rem;">
-                        <img class="card-img-top text-white p-0" src="/img/kotak.png" alt="Hasil Hutan Kayu">
+                        <img class="card-img-top text-white p-0" src="/img/hhk.png" alt="Hasil Hutan Kayu"
+                            style="height: 15em">
                         <h1 class="text-center position-absolute text-white">Hasil Hutan Kayu</h1>
                     </div>
                 </div>
@@ -68,8 +69,9 @@
             <div class="row pb-5 mt-3">
                 <div class="col-6 d-flex justify-content-end">
                     <div class="p-0 g-0 d-flex justify-content-center align-items-center border-0" style="width: 30rem;">
-                        <img class="card-img-top text-white p-0" src="/img/kotak.png" alt="Hasil Hutan Kayu">
-                        <h1 class="text-center position-absolute text-white">Hasil Hutan Kayu</h1>
+                        <img class="card-img-top text-white p-0" src="/img/hhkb.png" alt="Hasil Hutan Kayu"
+                            style="height: 15em">
+                        <h1 class="text-center position-absolute text-white">Hasil Hutan Bukan Kayu</h1>
                     </div>
                 </div>
                 <div class="col-6">
