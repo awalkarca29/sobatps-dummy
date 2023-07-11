@@ -5,58 +5,104 @@
         <div class="row">
             <div class="col-lg-6 p-4">
                 @if ($transaction->product->image)
-                    <div style="max-height:20em;" class="rounded-3 mb-lg-0 mb-sm-3">
+                    <div style="" class="rounded-3 mb-lg-0 mb-sm-3">
                         <img src="{{ asset('storage/' . $transaction->product->image) }}"
-                            alt="{{ $transaction->product->title }}" class="img-fluid rounded-top">
+                            alt="{{ $transaction->product->title }}" class="img-fluid rounded-4">
                     </div>
                 @else
                     <div class="rounded-3 mb-lg-0 mb-sm-3">
                         <img src="https://source.unsplash.com/1200x800?{{ $transaction->product->category->slug }}"
-                            alt="{{ $transaction->product->title }}" class="img-fluid rounded-top">
+                            alt="{{ $transaction->product->title }}" class="img-fluid rounded-4">
                     </div>
                 @endif
-                @if (auth()->user()->isAdmin)
+                {{-- @if (auth()->user()->isAdmin)
                     <a href="/purchase" class="btn btn-success mt-3"><i class="bi bi-arrow-left-circle"></i> |
                         Kembali</a>
                 @else
                     <a href="/purchase/offers" class="btn btn-success mt-3"><i class="bi bi-arrow-left-circle"></i> |
                         Kembali</a>
-                @endif
+                @endif --}}
 
             </div>
             <div class="col-lg-6 m-auto p-4">
-                <div class="card mb-3 border-0 shadow-lg">
-                    <div class="card-body">
-                        <h4>Detail Tawaran
-                        </h4>
+                <div class="card mb-3 border-0 rounded-4 shadow-lg">
+                    <div class="card-body p-4">
                         <h3 class="card-title">{{ $transaction->product->title }}</h3>
-                        <button type="category-button"
-                            class="btn btn-outline-success p-1"href="/categories/{{ $transaction->product->category->slug }}">
-                            {{ $transaction->product->category->category_name }}
-                        </button>
-                        <h2 class="font-weight-bold">Rp. {{ number_format($transaction->product->price, 2, ',', '.') }}
-                        </h2>
-                        @if (auth()->user()->isAdmin)
-                            <h4 class="font-weight-bold">Ditawar
-                                oleh {{ $transaction->buyer->name }}
-                            </h4>
-                        @else
-                        @endif
-                        <div class="card mt-3">
-                            <div class="card-body">
-                                <p class="description">{!! $transaction->product->description !!}</p>
+                        <div class="row border-bottom border-3 mb-4">
+                            <div class="col-6 d-flex align-items-center justify-content-start">
+                                <button type="category-button"
+                                    class="btn btn-outline-success mt-3 p-1 py-0 mb-4"href="/categories/{{ $transaction->product->category->slug }}">
+                                    {{ $transaction->product->category->category_name }}
+                                </button>
+                            </div>
+                            <div class="col-6 d-flex align-items-center justify-content-end">
+                                <h4 class="font-weight-bold text-end">Rp.
+                                    {{ number_format($transaction->product->price, 0, ',', '.') }}
+                                </h4>
                             </div>
                         </div>
 
+                        <h6 class="descript mb-3">Deskripsi Produk
+                        </h6>
+                        <div class="">
+                            <p class="description">{!! $transaction->product->description !!}</p>
+                        </div>
+
+                        {{-- <div class="row d-flex justify-content-around mt-3">
+                            @auth
+                                @if (auth()->user()->isAdmin)
+                                    <a href="/products" class="btn btn-success"><i class="bi bi-arrow-left-circle"></i> |
+                                        Kembali</a>
+                                    <div class="col-6">
+                                        <a href="/admin/product/{{ $transaction->product->slug }}/edit"
+                                            class="btn btn-warning btn-block w-100 btn-lg"><i class="bi bi-pencil-square"></i> |
+                                            Edit
+                                            Produk</a>
+                                    </div>
+                                    <div class="col-6">
+                                        <form action="/admin/product/{{ $transaction->product->slug }}" method="POST"
+                                            class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-danger btn-block w-100 btn-lg"
+                                                onclick="return confirm('Are you sure?')"><i class="bi bi-trash"></i> | Hapus
+                                                Produk
+                                            </button>
+                                    </div>
+                                @else
+                                    <a href="/product/purchase/{{ $transaction->product->slug }}"
+                                        class="btn btn-success w-100"><i class="bi bi-bag-plus"></i>
+                                        | Beli Produk</a>
+                                @endif
+                            @else
+                                <a href="/purchase/{{ $transaction->product->slug }}" class="btn btn-success w-100"><i
+                                        class="bi bi-bag-plus"></i>
+                                    | Beli Produk</a>
+                            @endauth
+                        </div> --}}
                     </div>
                 </div>
-                <div class="card mb-3 border-0 shadow-lg">
+
+                @if (auth()->user()->isAdmin)
+                    <div class="card mb-3 border-0 shadow-lg rounded-4">
+                        <div class="card-body">
+                            <h5 class="mb-0">Pembeli: {{ $transaction->buyer->name }}</h5>
+                        </div>
+                    </div>
+                @else
+                    <div class="card mb-3 border-0 shadow-lg rounded-4">
+                        <div class="card-body">
+                            <h5 class="mb-0">Penjual: {{ $transaction->seller->name }}</h5>
+                        </div>
+                    </div>
+                @endif
+                <div class="card mb-3 border-0 shadow-lg rounded-4">
                     <div class="card-body">
                         <h3>Detail Penawaran Produk</h3>
                         <div class="mb-3">
                             <label for="quantities" class="form-label">Jumlah Pembelian</label>
                             <div class="row g-3 align-items-center">
-                                <div class="col-auto">
+                                <div class="col-11">
                                     <div class="input-group">
                                         <span class="input-group-text" id="quantities">@ </span>
                                         <input type="number" class="form-control" placeholder="Jumlah barang"
@@ -64,7 +110,7 @@
                                             value="{{ $transaction->quantities }}">
                                     </div>
                                 </div>
-                                <div class="col-auto">
+                                <div class="col-1">
                                     <span id="quantities" class="form-text">Item
                                     </span>
                                 </div>
@@ -73,16 +119,17 @@
                         <div class="mb-3">
                             <label for="price" class="form-label">Tawaran Harga</label>
                             <div class="row g-3 align-items-center">
-                                <div class="col-auto">
+                                <div class="col-11">
                                     <div class="input-group">
                                         <span class="input-group-text" id="addon-wrapping">Rp</span>
                                         <input type="number" class="form-control" placeholder="Tawar harga" id="price"
                                             name="price"value="{{ $transaction->price }}" readonly>
                                     </div>
                                 </div>
-                                <div class="col-auto">
+
+                                <div class="col-1">
                                     <span id="price" class="form-text">
-                                        / Item
+                                        /Item
                                     </span>
                                 </div>
                             </div>
@@ -91,29 +138,40 @@
                             <form method="POST" action="/purchase/{{ $transaction->id }}" enctype="multipart/form-data">
                                 @method('put')
                                 @csrf
-                                <div class="d-flex justify-content-around">
+                                <div class="row d-flex justify-content-around">
                                     <input type="hidden" name="buyer_id" id="buyer_id"
                                         value="{{ $transaction->buyer_id }}">
                                     <input type="hidden" name="seller_id" id="seller_id"
                                         value="{{ $transaction->seller_id }}">
-                                    <button type="sumbit" class="btn btn-success p-auto font-weight-bold mt-3"
-                                        name="status" id="status" value="accept">Terima
-                                        Tawaran</button>
-                                    <button type="sumbit" class="btn btn-danger p-auto font-weight-bold mt-3"
-                                        name="status" id="status" value="reject">Tolak
-                                        Tawaran</button>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button type="sumbit"
+                                                class="btn btn-success btn-block w-100 font-weight-bold mt-3" name="status"
+                                                id="status" value="accept">Terima
+                                                Tawaran</button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button type="sumbit"
+                                                class="btn btn-danger btn-block w-100 font-weight-bold mt-3" name="status"
+                                                id="status" value="reject">Tolak
+                                                Tawaran</button>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </form>
                         @else
                             @if ($transaction->status == 'pending')
-                                <h4>Tawaranmu <span class="text-warning">menunggu</span> konfirmasi penjual, harap tunggu...
+                                <h4>Tawaranmu <span class="text-warning">menunggu</span> konfirmasi penjual, harap
+                                    tunggu...
                                 </h4>
                             @elseif ($transaction->status == 'accept')
                                 <h4>Selamat! Tawaranmu <span class="text-success">diterima</span>, silahkan lanjutkan
                                     transaksi</h4>
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop">
+                                <button type="button" class="btn btn-success btn-block w-100 rounded-4"
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                     Lanjutkan Transaksi
                                 </button>
 
@@ -135,22 +193,37 @@
                                                 diterima, silahkan lanjutkan transaksimu dengan memilih metode dibawah
                                             </div>
                                             <div class="modal-footer">
-                                                <div class="d-flex justify-content-between">
-                                                    <a href="https://api.whatsapp.com/send?phone={{ $transaction->seller->phone }}"
-                                                        target="_blank" class="btn btn-primary">Hubungi Penjual</a>
-                                                    <form method="POST" action="/purchase/{{ $transaction->id }}">
+                                                <div class="d-flex w-100">
+                                                    <form class="w-100" method="POST"
+                                                        action="/purchase/{{ $transaction->id }}">
                                                         @method('put')
                                                         @csrf
                                                         <input type="hidden" name="buyer_id" id="buyer_id"
                                                             value="{{ $transaction->buyer_id }}">
                                                         <input type="hidden" name="seller_id" id="seller_id"
                                                             value="{{ $transaction->seller_id }}">
-                                                        <button type="sumbit" class="btn btn-success" name="status"
-                                                            id="status" value="done">Selesaikan
-                                                            Transaksi</button>
-                                                        <button type="sumbit" class="btn btn-danger" name="status"
-                                                            id="status" value="canceled">Batalkan
-                                                            Transaksi</button>
+                                                        <div class="row">
+                                                            <div class="col-4"><a
+                                                                    href="https://api.whatsapp.com/send?phone={{ $transaction->seller->phone }}"
+                                                                    target="_blank" class="btn btn-warning w-100">Hubungi
+                                                                    Penjual</a>
+                                                            </div>
+                                                            <div class="col-4"><button type="sumbit"
+                                                                    class="btn btn-success w-100" name="status"
+                                                                    id="status" value="done">Selesaikan
+                                                                    Transaksi</button>
+                                                            </div>
+                                                            <div class="col-4"><button type="sumbit"
+                                                                    class="btn btn-danger w-100" name="status"
+                                                                    id="status" value="canceled">Batalkan
+                                                                    Transaksi</button>
+                                                            </div>
+                                                        </div>
+
+
+
+
+
                                                     </form>
                                                 </div>
                                             </div>

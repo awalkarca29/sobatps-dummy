@@ -36,10 +36,9 @@
                                                                 melakukan
                                                                 penawaran
                                                                 pada produk
-                                                                <strong>{{ $notification->product->title }}</strong>! Segera
-                                                                lakukan
-                                                                cek pada tawaran
-                                                                tersebut.
+                                                                <strong>{{ $notification->product->title }}</strong>. Segera
+                                                                cek tawaran
+                                                                tersebut!
                                                             </p>
                                                         </div>
                                                     </div>
@@ -69,6 +68,23 @@
                                                             </h4>
                                                         </div>
                                                         <div class="col-10">
+                                                            <h5 class=""><strong>Penawaran Dibatalkan!</strong></h5>
+                                                            <p>
+                                                                Tawaran produk
+                                                                <strong>{{ $notification->product->title }}</strong> dengan
+                                                                tawaran
+                                                                <strong>Rp.{{ number_format($notification->price, 2, ',', '.') }}</strong>
+                                                                telah ditolak oleh pembeli.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                @elseif ($notification->status == 'cancel')
+                                                    <div class="row">
+                                                        <div class="col-2 d-flex justify-content-center">
+                                                            <h4><i class="bi bi-x-circle-fill text-danger text-lg"></i>
+                                                            </h4>
+                                                        </div>
+                                                        <div class="col-10">
                                                             <h5 class=""><strong>Penawaran Ditolak!</strong></h5>
                                                             <p>
                                                                 Tawaran produk
@@ -92,7 +108,8 @@
                                                                 <strong>{{ $notification->product->title }}</strong> dengan
                                                                 harga
                                                                 <strong>Rp.{{ number_format($notification->price, 2, ',', '.') }}</strong>
-                                                                oleh <strong>{{ $notification->buyer->name }}</strong> telah
+                                                                oleh <strong>{{ $notification->buyer->name }}</strong>
+                                                                telah
                                                                 selesai.
                                                             </p>
                                                         </div>
@@ -102,16 +119,16 @@
                                             <div class="col-lg-2">
                                                 @if ($notification->product->image)
                                                     <img src="{{ asset('storage/' . $notification->product->image) }}"
-                                                        alt="Product Image" class="img-fluid h-100 rounded-3"
+                                                        alt="Product Image" class="img-fluid h-100 w-100 rounded-3"
                                                         style="overflow: hidden">
                                                 @else
                                                     <img src="https://source.unsplash.com/250x140?{{ $notification->product->category->slug }}"
-                                                        alt="Product Image" class="img-fluid h-100 rounded-3"
+                                                        alt="Product Image" class="img-fluid h-100 w-100 rounded-3"
                                                         style="overflow: hidden">
                                                 @endif
                                             </div>
                                             <div
-                                                class="col-lg-3 border border-top-0 border-bottom-0 border-start-0 d-flex h-100 flex-column align-items-center">
+                                                class="col-lg-3 border border-top-0 border-bottom-0 border-start-0 d-flex h-100 flex-column align-self-center">
                                                 <h5>{{ $notification->product->title }}</h5>
                                                 <button
                                                     class="btn btn-sm btn-outline-success mb-3 py-0">{{ $notification->product->category->category_name }}</button>
@@ -185,7 +202,24 @@
                                                                 Tawaranmu untuk
                                                                 <strong>{{ $notification->product->title }}</strong>
                                                                 ditolak oleh penjual,
-                                                                silahkan ajukan tawaran terbaikmu!
+                                                                Terimakasih telah menggunakan jasa kami
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                @elseif ($notification->status == 'cancel')
+                                                    <div class="row">
+                                                        <div class="col-2 d-flex justify-content-center">
+                                                            <h4><i class="bi bi-x-circle-fill text-danger text-lg"></i>
+                                                            </h4>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <h5 class=""><strong>Penawaran Dibatalkan!</strong>
+                                                            </h5>
+                                                            <p>
+                                                                Tawaranmu untuk
+                                                                <strong>{{ $notification->product->title }}</strong>
+                                                                telah anda batalkan,
+                                                                Terimakasih telah menggunakan jasa kami
                                                             </p>
                                                         </div>
                                                     </div>
@@ -198,9 +232,9 @@
                                                         <div class="col-10">
                                                             <h5 class=""><strong>Transaksi Selesai</strong>
                                                             </h5>
-                                                            <p>Transaksimu untuk
+                                                            <p>Transaksimu untuk produk
                                                                 <strong>{{ $notification->product->title }}</strong>
-                                                                telah selesai.
+                                                                telah selesai. Terimakasih telah mempercayai kami
                                                             </p>
                                                         </div>
                                                     </div>
@@ -210,11 +244,13 @@
                                             <div class="col-lg-2">
                                                 @if ($notification->product->image)
                                                     <img src="{{ asset('storage/' . $notification->product->image) }}"
-                                                        alt="Product Image" class="img-fluid img-fluid h-100 rounded-3"
+                                                        alt="Product Image"
+                                                        class="img-fluid img-fluid h-100 w-100 rounded-3"
                                                         style="overflow: hidden">
                                                 @else
                                                     <img src="https://source.unsplash.com/250x140?{{ $notification->product->category->slug }}"
-                                                        alt="Product Image" class="img-fluid img-fluid h-100 rounded-3"
+                                                        alt="Product Image"
+                                                        class="img-fluid img-fluid h-100 w-100 rounded-3"
                                                         style="overflow: hidden">
                                                 @endif
                                             </div>

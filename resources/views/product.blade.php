@@ -39,13 +39,14 @@
                     </button>
                 </div> --}}
                 @if ($product->image)
-                    <div style="max-height:20em;" class="rounded-3 mb-lg-0 mb-sm-3">
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}" class="img-fluid">
+                    <div style="" class=" mb-lg-0 mb-sm-3">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}"
+                            class="img-fluid rounded-4">
                     </div>
                 @else
-                    <div class="rounded-3 mb-lg-0 mb-sm-3">
+                    <div class="mb-lg-0 mb-sm-3">
                         <img src="https://source.unsplash.com/1200x800?{{ $product->category->category_name }}"
-                            alt="{{ $product->title }}" class="img-fluid">
+                            alt="{{ $product->title }}" class="img-fluid rounded-4">
                     </div>
                 @endif
             </div>
