@@ -45,7 +45,7 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
-        // ddd($request);
+
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'category_id' => 'required|exists:categories,id',
@@ -61,7 +61,8 @@ class AdminProductController extends Controller
         }
 
         $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 100);
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->description), 100);
+        // dd($validatedData);
 
         Product::create($validatedData);
 
@@ -103,6 +104,7 @@ class AdminProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        // dd($request);
         $rules = [
             'title' => 'required|max:255',
             'category_id' => 'required|exists:categories,id',

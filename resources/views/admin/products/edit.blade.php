@@ -54,7 +54,7 @@
                     @enderror
                 </div>
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <label for="bahanbaku" class="form-label">Bahan Baku</label>
                     <input type="text" class="form-control rounded-4 @error('bahanbaku') is-invalid @enderror"
                         id="bahanbaku" name="bahanbaku" required autofocus
@@ -75,9 +75,9 @@
                             {{ $message }}
                         </div>
                     @enderror
-                </div>
+                </div> --}}
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <label for="produsen" class="form-label">Produsen</label>
                     <input type="text" class="form-control rounded-4 @error('produsen') is-invalid @enderror"
                         id="produsen" name="produsen" required autofocus
@@ -87,7 +87,7 @@
                             {{ $message }}
                         </div>
                     @enderror
-                </div>
+                </div> --}}
 
                 <div class="mb-3">
                     <label for="price" class="form-label">Price</label>
@@ -131,18 +131,18 @@
                         value="{{ old('description', $product->description) }}">
                     <trix-editor input="description" class="rounded-4"></trix-editor>
                 </div>
-
-                <button type="submit" class="btn btn-success btn-block btn-lg w-100">Update Post</button>
-                <div class="mb-3" style="visibility: hidden">
+                <div class="" style="visibility: hidden">
                     <label for="slug" class="form-label">Slug</label>
-                    <input type="text" class="form-control rounded-4 @error('slug') is-invalid @enderror"
-                        id="slug" name="slug" readonly required value="{{ old('slug', $product->slug) }}">
+                    <input type="text" class="form-control rounded-4 @error('slug') is-invalid @enderror" id="slug"
+                        name="slug" readonly required value="{{ old('slug', $product->slug) }}">
                     @error('slug')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
+                <button type="submit" class="btn btn-success btn-block btn-lg w-100">Update Post</button>
+
             </div>
         </div>
     </form>

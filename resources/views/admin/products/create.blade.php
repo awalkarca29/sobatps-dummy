@@ -49,7 +49,7 @@
                     @enderror
                 </div>
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <label for="bahanbaku" class="form-label @error('bahanbaku') is-invalid @enderror">Bahan baku</label>
                     <input type="text" class="form-control rounded-4" id="bahanbaku" name="bahanbaku">
                     @error('bahanbaku')
@@ -75,7 +75,7 @@
                             {{ $message }}
                         </div>
                     @enderror
-                </div>
+                </div> --}}
                 <div class="mb-3">
                     <label for="price" class="form-label @error('price') is-invalid @enderror">Price</label>
                     <input type="number" class="form-control rounded-4" id="price" name="price" required
@@ -118,8 +118,7 @@
                     <trix-editor input="description" class="form-control align-items-start rounded-4"></trix-editor>
                 </div>
 
-                <button type="submit" class="btn btn-success btn-lg btn-block w-100 mt-3 mb-5">Buat produk</button>
-                <div class="mb-3" style="visibility: hidden">
+                <div class="" style="visibility: hidden">
                     <label for="slug" class="form-label @error('slug') is-invalid @enderror">Slug</label>
                     <input type="text" class="form-control rounded-4" id="slug" name="slug" required
                         value="{{ old('slug') }}" readonly>
@@ -129,6 +128,8 @@
                         </div>
                     @enderror
                 </div>
+                <button type="submit" class="btn btn-success btn-lg btn-block w-100 mt-3 mb-5">Buat produk</button>
+
             </div>
         </div>
 
