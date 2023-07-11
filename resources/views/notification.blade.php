@@ -102,16 +102,19 @@
                                             <div class="col-lg-2">
                                                 @if ($notification->product->image)
                                                     <img src="{{ asset('storage/' . $notification->product->image) }}"
-                                                        alt="Product Image" class="img-fluid w-100 rounded-4">
+                                                        alt="Product Image" class="img-fluid h-100 rounded-3"
+                                                        style="overflow: hidden">
                                                 @else
                                                     <img src="https://source.unsplash.com/250x140?{{ $notification->product->category->slug }}"
-                                                        alt="Product Image" class="img-fluid  w-100 rounded-4">
+                                                        alt="Product Image" class="img-fluid h-100 rounded-3"
+                                                        style="overflow: hidden">
                                                 @endif
                                             </div>
-                                            <div class="col-lg-3 border border-top-0 border-bottom-0 border-start-0">
-                                                <h4>{{ $notification->product->title }}</h4>
-                                                <a href="/products?category={{ $notification->product->category->slug }}"
-                                                    class="btn btn-sm btn-outline-success mb-3 py-0">{{ $notification->product->category->category_name }}</a>
+                                            <div
+                                                class="col-lg-3 border border-top-0 border-bottom-0 border-start-0 d-flex h-100 flex-column align-items-center">
+                                                <h5>{{ $notification->product->title }}</h5>
+                                                <button
+                                                    class="btn btn-sm btn-outline-success mb-3 py-0">{{ $notification->product->category->category_name }}</button>
                                             </div>
                                             <div
                                                 class="col-lg-2 px-0 pl-2 mt-0 mb-1 d-flex flex-column align-self-start justify-content-end">
@@ -207,16 +210,19 @@
                                             <div class="col-lg-2">
                                                 @if ($notification->product->image)
                                                     <img src="{{ asset('storage/' . $notification->product->image) }}"
-                                                        alt="Product Image" class="img-fluid img-fluid w-100 rounded-4">
+                                                        alt="Product Image" class="img-fluid img-fluid h-100 rounded-3"
+                                                        style="overflow: hidden">
                                                 @else
                                                     <img src="https://source.unsplash.com/250x140?{{ $notification->product->category->slug }}"
-                                                        alt="Product Image" class="img-fluid img-fluid w-100 rounded-4">
+                                                        alt="Product Image" class="img-fluid img-fluid h-100 rounded-3"
+                                                        style="overflow: hidden">
                                                 @endif
                                             </div>
-                                            <div class="col-lg-3 border border-top-0 border-bottom-0 border-start-0">
-                                                <h4>{{ $notification->product->title }}</h4>
-                                                <a href="/products?category={{ $notification->product->category->slug }}"
-                                                    class="btn btn-sm btn-outline-success mb-3 py-0">{{ $notification->product->category->category_name }}</a>
+                                            <div
+                                                class="col-lg-3 border border-top-0 border-bottom-0 border-start-0 d-flex h-100 flex-column align-self-center">
+                                                <h5>{{ $notification->product->title }}</h5>
+                                                <button
+                                                    class="btn btn-sm btn-outline-success mb-3 py-0">{{ $notification->product->category->category_name }}</button>
                                             </div>
                                             <div
                                                 class="col-lg-2 px-0 mt-0 mb-1 d-flex flex-column align-self-start justify-content-end">

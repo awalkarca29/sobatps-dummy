@@ -13,7 +13,6 @@
                             <div class="border-bottom border-success border-3 mt-5"></div>
                         </div>
                     </div>
-
                     @forelse ($transactions as $transaction)
                         @if ($transaction->status == 'done')
                             <div class="card mb-4 rounded-4 mb-3 shadow border-2 border-success">
@@ -22,12 +21,12 @@
                                         <div class="col-3">
                                             @if ($transaction->product->image)
                                                 <img src="{{ asset('storage/' . $transaction->product->image) }}"
-                                                    alt="Product Image" class="img-fluid w-100 ">
+                                                    alt="Product Image" class="img-fluid h-100 rounded-3"
+                                                    style="overflow: hidden">
                                             @else
-                                                <div class="col-lg-4">
-                                                    <img src="https://source.unsplash.com/1200x800?{{ $transaction->product->category->slug }}"
-                                                        alt="Product Image" class="img-fluid w-100">
-                                                </div>
+                                                <img src="https://source.unsplash.com/1200x800?{{ $transaction->product->category->slug }}"
+                                                    alt="Product Image" class="img-fluid h-100 rounded-3"
+                                                    style="overflow: hidden">
                                             @endif
                                         </div>
                                         <div class="col-9">
@@ -82,12 +81,12 @@
                                         <div class="col-3">
                                             @if ($transaction->product->image)
                                                 <img src="{{ asset('storage/' . $transaction->product->image) }}"
-                                                    alt="Product Image" class="img-fluid w-100 ">
+                                                    alt="Product Image" class="img-fluid h-100 rounded-3"
+                                                    style="overflow: hidden">
                                             @else
-                                                <div class="col-lg-4">
-                                                    <img src="https://source.unsplash.com/1200x800?{{ $transaction->product->category->slug }}"
-                                                        alt="Product Image" class="img-fluid w-100">
-                                                </div>
+                                                <img src="https://source.unsplash.com/1200x800?{{ $transaction->product->category->slug }}"
+                                                    alt="Product Image" class="img-fluid h-100 rounded-3"
+                                                    style="overflow: hidden">
                                             @endif
                                         </div>
                                         <div class="col-9">
