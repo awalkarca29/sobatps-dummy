@@ -1,66 +1,66 @@
 <?php
 
-namespace App\Http\Controllers;
+// namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Wishlist;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+// use App\Models\User;
+// use App\Models\Wishlist;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Validator;
 
-class WishlistController extends Controller
-{
-    public function indexAll()
-    {
-        $wishlist = Wishlist::all();
-        return response()->json($wishlist);
-    }
+// class WishlistController extends Controller
+// {
+//     public function indexAll()
+//     {
+//         $wishlist = Wishlist::all();
+//         return response()->json($wishlist);
+//     }
 
-    public function index(Request $request)
-    {
-        $user = auth()->user();
-        $user = User::find($user->id);
+//     public function index(Request $request)
+//     {
+//         $user = auth()->user();
+//         $user = User::find($user->id);
 
-        $wishlist = Wishlist::with('product')->where('user_id', $user->id)->latest()->get();
+//         $wishlist = Wishlist::with('product')->where('user_id', $user->id)->latest()->get();
 
-        return response()->json($wishlist);
-    }
+//         return response()->json($wishlist);
+//     }
 
-    public function store(Request $request)
-    {
-        $validator = Validator::make(request()->all(), [
-            'product_id' => 'required',
-        ]);
+//     public function store(Request $request)
+//     {
+//         $validator = Validator::make(request()->all(), [
+//             'product_id' => 'required',
+//         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->messages(), 422);
-        }
+//         if ($validator->fails()) {
+//             return response()->json($validator->messages(), 422);
+//         }
 
-        $user = auth()->user();
+//         $user = auth()->user();
 
-        $wishlist = Wishlist::create([
-            'user_id' => $user->id,
-            'product_id' => request('product_id'),
-        ]);
+//         $wishlist = Wishlist::create([
+//             'user_id' => $user->id,
+//             'product_id' => request('product_id'),
+//         ]);
 
-        $wishlist->save();
+//         $wishlist->save();
 
-        return response()->json($wishlist);
-    }
+//         return response()->json($wishlist);
+//     }
 
-    public function destroy($id)
-    {
-        $user = auth()->user();
-        $wishlist = Wishlist::find($id);
+//     public function destroy($id)
+//     {
+//         $user = auth()->user();
+//         $wishlist = Wishlist::find($id);
 
-        if ($user->id != $wishlist->user_id) {
-            return response()->json([
-                "success" => false,
-                "message" => "You're not the owner of the Wishlist!",
-            ], 403);
-        }
+//         if ($user->id != $wishlist->user_id) {
+//             return response()->json([
+//                 "success" => false,
+//                 "message" => "You're not the owner of the Wishlist!",
+//             ], 403);
+//         }
 
-        $wishlist->delete();
+//         $wishlist->delete();
 
-        return response()->json($wishlist);
-    }
-}
+//         return response()->json($wishlist);
+//     }
+// }

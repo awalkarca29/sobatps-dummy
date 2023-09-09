@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin 1',
             'address' => 'jl. admin 1',
             'city' => 'Malang',
-            'phone' => '081234567890',
-            'image' => 'https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/UserImages%2Ferik.jpg?alt=media&token=89b54691-39fe-46d4-a103-d7fa5bbd5d97&_gl=1*1skg2xy*_ga*MTk2NzQ1NzczNC4xNjg1NDU3Nzc0*_ga_CW55HF8NVT*MTY4NjEzODc4OC4yOS4xLjE2ODYxMzg5MDMuMC4wLjA.',
+            'phone' => '081111111111',
+            'image' => 'https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/UserImages%2Fadmin1.jpg?alt=media&token=73219a93-0e67-4a40-8662-de4e4dc2c6b3',
         ]);
 
         User::create([
@@ -39,8 +39,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin 2',
             'address' => 'jl. admin 2',
             'city' => 'Makassar',
-            'phone' => '089876543210',
-            'image' => 'https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/UserImages%2Ferik.jpg?alt=media&token=89b54691-39fe-46d4-a103-d7fa5bbd5d97&_gl=1*1skg2xy*_ga*MTk2NzQ1NzczNC4xNjg1NDU3Nzc0*_ga_CW55HF8NVT*MTY4NjEzODc4OC4yOS4xLjE2ODYxMzg5MDMuMC4wLjA.',
+            'phone' => '082222222222',
+            'image' => 'https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/UserImages%2Fadmin2.jpg?alt=media&token=915f7b91-0ccd-4dc7-adc3-ff613c06a85e',
         ]);
 
         Category::create([
@@ -58,10 +58,10 @@ class DatabaseSeeder extends Seeder
             'category' => json_encode([
                 ['id' => 1, 'category_name' => 'Hasil Hutan Bukan Kayu', 'slug' => 'hhbk'],
             ]),
-            'name' => 'produk admin 1',
+            'name' => 'produk admin 1 ke 1',
             'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi, nesciunt.',
-            'price' => 10000,
-            'image' => "https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/ProductImages%2FHITAM.jpg?alt=media&token=2a410084-ee28-4b2f-acd5-f94a38364c42&_gl=1*6wzegx*_ga*MTk2NzQ1NzczNC4xNjg1NDU3Nzc0*_ga_CW55HF8NVT*MTY4NjEzODc4OC4yOS4xLjE2ODYxMzg5NzcuMC4wLjA.",
+            'price' => 11111,
+            'image' => "https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/ProductImages%2Fproduct1.jpg?alt=media&token=baae9814-fae2-4a5f-9e50-bf6dc8777685",
         ]);
 
         Product::create([
@@ -69,21 +69,43 @@ class DatabaseSeeder extends Seeder
             'category' => json_encode([
                 ['id' => 2, 'category_name' => 'Hasil Hutan Kayu', 'slug' => 'hhk'],
             ]),
-            'name' => 'produk admin 1 lagi',
+            'name' => 'produk admin 1 ke 2',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, culpa?',
-            'price' => 11000,
-            'image' => "https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/ProductImages%2FHITAM.jpg?alt=media&token=2a410084-ee28-4b2f-acd5-f94a38364c42&_gl=1*6wzegx*_ga*MTk2NzQ1NzczNC4xNjg1NDU3Nzc0*_ga_CW55HF8NVT*MTY4NjEzODc4OC4yOS4xLjE2ODYxMzg5NzcuMC4wLjA.",
+            'price' => 22222,
+            'image' => "https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/ProductImages%2Fproduct2.jpg?alt=media&token=27f085ee-f137-4131-92a8-30aced13c5d3",
         ]);
 
         Product::create([
-            'user_id' => 2,
+            'user_id' => 1,
             'category' => json_encode([
                 ['id' => 1, 'category_name' => 'Hasil Hutan Bukan Kayu', 'slug' => 'hhbk'],
             ]),
-            'name' => 'produk admin 2',
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, maiores.',
-            'price' => 20000,
-            'image' => "https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/ProductImages%2FHITAM.jpg?alt=media&token=2a410084-ee28-4b2f-acd5-f94a38364c42&_gl=1*6wzegx*_ga*MTk2NzQ1NzczNC4xNjg1NDU3Nzc0*_ga_CW55HF8NVT*MTY4NjEzODc4OC4yOS4xLjE2ODYxMzg5NzcuMC4wLjA.",
+            'name' => 'produk admin 1 ke 3',
+            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, id.',
+            'price' => 33333,
+            'image' => "https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/ProductImages%2Fproduct3.jpg?alt=media&token=f2fdbc3a-855f-4cad-a583-06cf5934fb07",
+        ]);
+
+        Product::create([
+            'user_id' => 1,
+            'category' => json_encode([
+                ['id' => 2, 'category_name' => 'Hasil Hutan Kayu', 'slug' => 'hhk'],
+            ]),
+            'name' => 'produk admin 1 ke 4',
+            'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. In, ea!',
+            'price' => 44444,
+            'image' => "https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/ProductImages%2Fproduct4.jpg?alt=media&token=f68ded8d-1b86-443b-9a5a-a608f09d080c",
+        ]);
+
+        Product::create([
+            'user_id' => 1,
+            'category' => json_encode([
+                ['id' => 1, 'category_name' => 'Hasil Hutan Bukan Kayu', 'slug' => 'hhbk'],
+            ]),
+            'name' => 'produk admin 1 ke 5',
+            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, doloremque?',
+            'price' => 55555,
+            'image' => "https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/ProductImages%2Fproduct5.jpg?alt=media&token=9056cd45-ac71-4b59-aa1c-09913aae4347",
         ]);
 
         Product::create([
@@ -91,10 +113,54 @@ class DatabaseSeeder extends Seeder
             'category' => json_encode([
                 ['id' => 2, 'category_name' => 'Hasil Hutan Kayu', 'slug' => 'hhk'],
             ]),
-            'name' => 'produk admin 2 lagi',
+            'name' => 'produk admin 2 ke 1',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, maiores.',
+            'price' => 66666,
+            'image' => "https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/ProductImages%2Fproduct6.jpg?alt=media&token=67f0f6a5-aff6-4bcd-88a3-1599e991a0c9",
+        ]);
+
+        Product::create([
+            'user_id' => 2,
+            'category' => json_encode([
+                ['id' => 1, 'category_name' => 'Hasil Hutan Bukan Kayu', 'slug' => 'hhbk'],
+            ]),
+            'name' => 'produk admin 2 ke 2',
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, veniam!',
-            'price' => 22000,
-            'image' => "https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/ProductImages%2FHITAM.jpg?alt=media&token=2a410084-ee28-4b2f-acd5-f94a38364c42&_gl=1*6wzegx*_ga*MTk2NzQ1NzczNC4xNjg1NDU3Nzc0*_ga_CW55HF8NVT*MTY4NjEzODc4OC4yOS4xLjE2ODYxMzg5NzcuMC4wLjA.",
+            'price' => 77777,
+            'image' => "https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/ProductImages%2Fproduct7.jpg?alt=media&token=34a4a586-343b-42f7-9e12-c2b2a3304180",
+        ]);
+
+        Product::create([
+            'user_id' => 2,
+            'category' => json_encode([
+                ['id' => 2, 'category_name' => 'Hasil Hutan Kayu', 'slug' => 'hhk'],
+            ]),
+            'name' => 'produk admin 2 ke 3',
+            'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae, vel!',
+            'price' => 88888,
+            'image' => "https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/ProductImages%2Fproduct8.jpg?alt=media&token=461cd3d5-abeb-4f3d-bcfb-d5db1f0b492f",
+        ]);
+
+        Product::create([
+            'user_id' => 2,
+            'category' => json_encode([
+                ['id' => 1, 'category_name' => 'Hasil Hutan Bukan Kayu', 'slug' => 'hhbk'],
+            ]),
+            'name' => 'produk admin 2 ke 4',
+            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, magnam.',
+            'price' => 99999,
+            'image' => "https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/ProductImages%2Fproduct9.jpg?alt=media&token=6f06bf78-7c40-4458-bc11-433c90193160",
+        ]);
+
+        Product::create([
+            'user_id' => 2,
+            'category' => json_encode([
+                ['id' => 2, 'category_name' => 'Hasil Hutan Kayu', 'slug' => 'hhk'],
+            ]),
+            'name' => 'produk admin 2 ke 5',
+            'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt, fugiat.',
+            'price' => 100000,
+            'image' => "https://firebasestorage.googleapis.com/v0/b/firestore-cff6b.appspot.com/o/ProductImages%2Fproduct10.jpg?alt=media&token=c5e58b36-dc72-422a-bcd3-831181ba18fe",
         ]);
     }
 }

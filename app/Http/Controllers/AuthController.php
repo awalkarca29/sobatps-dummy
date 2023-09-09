@@ -117,6 +117,30 @@ class AuthController extends Controller
         return response()->json($user);
     }
 
+    public function changePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'oldPassword' => 'required',
+            'password' => 'required',
+            'confirmPassword' => 'required|same:password',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        $user = auth()->user();
+        $user = User::find($user->id);
+        if (Hash::check($request->oldPassword, $user->password)) {
+            $user->update([
+                'password' => Hash::make($request->password),
+            ]);
+            return response()->json(['message' => 'Password successfully updated']);
+        } else {
+            return response()->json(['message' => 'Old password does not matched'], 400);
+        }
+    }
+
     /**
      * Get the authenticated User.
      *

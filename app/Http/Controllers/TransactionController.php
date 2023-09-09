@@ -87,6 +87,25 @@ class TransactionController extends Controller
         return response()->json($notification);
     }
 
+    public function readNotification($id)
+    {
+
+        $user = auth()->user();
+        $notification = Transaction::find($id);
+
+        if ($user->id != $notification->user_id) {
+            return response()->json([
+                "success" => false,
+                "message" => "You're not the owner of the notification!",
+            ], 403);
+        }
+
+        $notification->isRead = true;
+        $notification->save();
+
+        return response()->json($notification);
+    }
+
     public function index(Request $request)
     {
         $user = auth()->user();

@@ -3,7 +3,6 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +26,7 @@ Route::group(['middleware' => 'api'], function ($router) {
 
     // Update Profil
     Route::post('user/update', [AuthController::class, 'update']);
+    Route::post('user/change-password', [AuthController::class, 'changePassword']);
 
     // List Category
     Route::get('category', [ProductController::class, 'indexCategory']);
@@ -45,12 +45,13 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('user/cart/{id}', [TransactionController::class, 'indexCartDetail']);
     Route::get('user/history', [TransactionController::class, 'indexHistory']);
     Route::get('user/notification', [TransactionController::class, 'indexNotification']);
+    Route::post('user/notification/{id}', [TransactionController::class, 'readNotification']);
 
     // Wishlist
-    Route::get('user/wishlist/all', [WishlistController::class, 'indexAll']);
-    Route::get('user/wishlist', [WishlistController::class, 'index']);
-    Route::post('user/wishlist', [WishlistController::class, 'store']);
-    Route::delete('user/wishlist/{id}', [WishlistController::class, 'destroy']);
+    // Route::get('user/wishlist/all', [WishlistController::class, 'indexAll']);
+    // Route::get('user/wishlist', [WishlistController::class, 'index']);
+    // Route::post('user/wishlist', [WishlistController::class, 'store']);
+    // Route::delete('user/wishlist/{id}', [WishlistController::class, 'destroy']);
 });
 
 // Product
