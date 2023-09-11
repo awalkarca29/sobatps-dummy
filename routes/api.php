@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ApiAuthController;
+use App\Http\Controllers\ApiProductController;
+use App\Http\Controllers\ApiTransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,34 +18,34 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'api'], function ($router) {
     // Auth
-    Route::post('register', [AuthController::class, 'register']);
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::get('user', [AuthController::class, 'user']);
+    Route::post('register', [ApiAuthController::class, 'register']);
+    Route::post('login', [ApiAuthController::class, 'login']);
+    Route::post('logout', [ApiAuthController::class, 'logout']);
+    Route::post('refresh', [ApiAuthController::class, 'refresh']);
+    Route::get('user', [ApiAuthController::class, 'user']);
 
     // Update Profil
-    Route::post('user/update', [AuthController::class, 'update']);
-    Route::post('user/change-password', [AuthController::class, 'changePassword']);
+    Route::post('user/update', [ApiAuthController::class, 'update']);
+    Route::post('user/change-password', [ApiAuthController::class, 'changePassword']);
 
     // List Category
-    Route::get('category', [ProductController::class, 'indexCategory']);
+    Route::get('category', [ApiProductController::class, 'indexCategory']);
 
     // Transaksi
-    Route::get('user/transaction/all', [TransactionController::class, 'indexAll']);
-    Route::get('user/transaction', [TransactionController::class, 'index']);
-    Route::get('user/transaction/{id}', [TransactionController::class, 'show']);
-    Route::post('user/transaction', [TransactionController::class, 'store']);
-    Route::post('user/transaction/{id}', [TransactionController::class, 'update']);
-    Route::delete('user/transaction/{id}', [TransactionController::class, 'destroy']);
-    Route::post('user/transaction/status/{id}', [TransactionController::class, 'updateStatus']);
+    Route::get('user/transaction/all', [ApiTransactionController::class, 'indexAll']);
+    Route::get('user/transaction', [ApiTransactionController::class, 'index']);
+    Route::get('user/transaction/{id}', [ApiTransactionController::class, 'show']);
+    Route::post('user/transaction', [ApiTransactionController::class, 'store']);
+    Route::post('user/transaction/{id}', [ApiTransactionController::class, 'update']);
+    Route::delete('user/transaction/{id}', [ApiTransactionController::class, 'destroy']);
+    Route::post('user/transaction/status/{id}', [ApiTransactionController::class, 'updateStatus']);
 
     // Notif & History & Cart
-    Route::get('user/cart', [TransactionController::class, 'indexCart']);
-    Route::get('user/cart/{id}', [TransactionController::class, 'indexCartDetail']);
-    Route::get('user/history', [TransactionController::class, 'indexHistory']);
-    Route::get('user/notification', [TransactionController::class, 'indexNotification']);
-    Route::post('user/notification/{id}', [TransactionController::class, 'readNotification']);
+    Route::get('user/cart', [ApiTransactionController::class, 'indexCart']);
+    Route::get('user/cart/{id}', [ApiTransactionController::class, 'indexCartDetail']);
+    Route::get('user/history', [ApiTransactionController::class, 'indexHistory']);
+    Route::get('user/notification', [ApiTransactionController::class, 'indexNotification']);
+    Route::post('user/notification/{id}', [ApiTransactionController::class, 'readNotification']);
 
     // Wishlist
     // Route::get('user/wishlist/all', [WishlistController::class, 'indexAll']);
@@ -55,4 +55,4 @@ Route::group(['middleware' => 'api'], function ($router) {
 });
 
 // Product
-Route::apiResource('product', ProductController::class);
+Route::apiResource('product', ApiProductController::class);

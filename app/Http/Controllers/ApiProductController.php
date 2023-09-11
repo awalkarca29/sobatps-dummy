@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class ProductController extends Controller
+class ApiProductController extends Controller
 {
     public function indexCategory()
     {
@@ -64,7 +64,7 @@ class ProductController extends Controller
             return response()->json($validator->messages(), 422);
         }
 
-        $user = auth()->user();
+        $user = auth()->guard('api')->user();
 
         $product = $user->products()->create([
             'categories' => request('categories'),
@@ -131,7 +131,7 @@ class ProductController extends Controller
             return response()->json($validator->messages(), 422);
         }
 
-        $user = auth()->user();
+        $user = auth()->guard('api')->user();
         $product = Product::find($id);
 
         if ($user->id != $product->user_id) {
@@ -189,7 +189,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $user = auth()->user();
+        $user = auth()->guard('api')->user();
         $product = Product::find($id);
 
         if ($user->id != $product->user_id) {

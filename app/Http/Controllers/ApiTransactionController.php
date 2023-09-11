@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class TransactionController extends Controller
+class ApiTransactionController extends Controller
 {
     //! Contoh cara memanggil relasi antar tabel
     // $transaksiId = 1;
@@ -27,7 +27,7 @@ class TransactionController extends Controller
 
     public function indexCart(Request $request)
     {
-        $user = auth()->user();
+        $user = auth()->guard('api')->user();
         $user = User::find($user->id);
 
         $cart = Transaction::with('product.user')
@@ -46,7 +46,7 @@ class TransactionController extends Controller
 
     public function indexCartDetail($id)
     {
-        $user = auth()->user();
+        $user = auth()->guard('api')->user();
         $user = User::find($user->id);
 
         $cart = Transaction::with('product.user')->find($id);
@@ -56,7 +56,7 @@ class TransactionController extends Controller
 
     public function indexHistory()
     {
-        $user = auth()->user();
+        $user = auth()->guard('api')->user();
         $user = User::find($user->id);
 
         $history = Transaction::with('product.user')
@@ -70,7 +70,7 @@ class TransactionController extends Controller
 
     public function indexNotification()
     {
-        $user = auth()->user();
+        $user = auth()->guard('api')->user();
         $user = User::find($user->id);
 
         $notification = Transaction::with('product.user')
@@ -90,7 +90,7 @@ class TransactionController extends Controller
     public function readNotification($id)
     {
 
-        $user = auth()->user();
+        $user = auth()->guard('api')->user();
         $notification = Transaction::find($id);
 
         if ($user->id != $notification->user_id) {
@@ -108,7 +108,7 @@ class TransactionController extends Controller
 
     public function index(Request $request)
     {
-        $user = auth()->user();
+        $user = auth()->guard('api')->user();
         $user = User::find($user->id);
 
         $transaction = Transaction::with('product.user')->where('user_id', $user->id)->latest()->get();
@@ -137,7 +137,7 @@ class TransactionController extends Controller
             return response()->json($validator->messages(), 422);
         }
 
-        $user = auth()->user();
+        $user = auth()->guard('api')->user();
 
         $transaction = Transaction::create([
             'user_id' => $user->id,
@@ -170,7 +170,7 @@ class TransactionController extends Controller
             return response()->json($validator->messages(), 422);
         }
 
-        $user = auth()->user();
+        $user = auth()->guard('api')->user();
         $transaction = Transaction::find($id);
 
         if ($user->id != $transaction->user_id) {
@@ -206,7 +206,7 @@ class TransactionController extends Controller
 
     public function destroy($id)
     {
-        $user = auth()->user();
+        $user = auth()->guard('api')->user();
         $transaction = Transaction::find($id);
 
         if ($user->id != $transaction->user_id) {
