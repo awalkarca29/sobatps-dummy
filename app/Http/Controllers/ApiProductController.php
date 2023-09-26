@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ProductShow;
 use App\Models\Category;
 use App\Models\Product;
-use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class ApiProductController extends Controller
@@ -53,7 +52,7 @@ class ApiProductController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(request()->all(), [
-            'categories' => 'required',
+            'category' => 'required',
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
@@ -66,32 +65,35 @@ class ApiProductController extends Controller
 
         $user = auth()->guard('api')->user();
 
-        $product = $user->products()->create([
-            'categories' => request('categories'),
+        $product = $user->product()->create([
+            'category' => request('category'),
             'name' => request('name'),
             'description' => request('description'),
             'price' => request('price'),
         ]);
 
-        $imageData = $request->input('image');
-        // $base64Image = substr($imageData, strpos($imageData, ',') + 1);
-        $imageData = base64_decode($imageData);
+        $filename = "";
+        if ($request->hasFile('image')) {
+            $filename = $request->file('image')->store('ProductImages', 'public');
+        }
 
-        $fileName = date('Ymdhis') . $product->id . '.jpg';
-        $firebaseStoragePath = "ProductImages/{$fileName}";
+        //!! Firebase
+        // $imageData = $request->input('image');
+        // // $base64Image = substr($imageData, strpos($imageData, ',') + 1);
+        // $imageData = base64_decode($imageData);
+        // $fileName = date('Ymdhis') . $product->id . '.jpg';
+        // $firebaseStoragePath = "ProductImages/{$fileName}";
+        // Storage::disk('local')->put("public/ProductImages/{$fileName}", $imageData);
+        // $uploadedFile = fopen(storage_path("app/public/ProductImages/{$fileName}"), 'r');
+        // app('firebase.storage')->getBucket()->upload($uploadedFile, ['name' => $firebaseStoragePath]);
+        // Storage::disk('local')->delete("public/ProductImages/{$fileName}");
+        // $expiresAt = new DateTime('2030-01-01');
+        // $imageReference = app('firebase.storage')->getBucket()->object($firebaseStoragePath);
+        // $imageUrl = $imageReference->signedUrl($expiresAt);
+        // $product->image = $imageUrl;
+        //!! Firebase
 
-        Storage::disk('local')->put("public/ProductImages/{$fileName}", $imageData);
-
-        $uploadedFile = fopen(storage_path("app/public/ProductImages/{$fileName}"), 'r');
-        app('firebase.storage')->getBucket()->upload($uploadedFile, ['name' => $firebaseStoragePath]);
-
-        Storage::disk('local')->delete("public/ProductImages/{$fileName}");
-
-        $expiresAt = new DateTime('2030-01-01');
-        $imageReference = app('firebase.storage')->getBucket()->object($firebaseStoragePath);
-        $imageUrl = $imageReference->signedUrl($expiresAt);
-
-        $product->image = $imageUrl;
+        $product->image = 'storage/' . $filename;
         $product->save();
 
         return response()->json($product);
@@ -120,7 +122,7 @@ class ApiProductController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make(request()->all(), [
-            'categories' => 'required',
+            'category' => 'required',
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
@@ -141,37 +143,44 @@ class ApiProductController extends Controller
             ], 403);
         }
 
-        if ($request->has('image')) {
+        if ($request->hasFile('image')) {
             if ($product->image) {
-                $oldData = $product->image;
-                $oldUri = explode('/', $oldData);
-                $filename = explode('?', $oldUri[5])[0];
-                $old_firebase_storage_path = $oldUri[4] . '/' . $filename;
-                app('firebase.storage')->getBucket()->object($old_firebase_storage_path)->delete();
+                $destination = public_path($product->image);
+                if (File::exists($destination)) {
+                    File::delete($destination);
+                }
+
+                //!! Firebase
+                // $oldData = $product->image;
+                // $oldUri = explode('/', $oldData);
+                // $filename = explode('?', $oldUri[5])[0];
+                // $old_firebase_storage_path = $oldUri[4] . '/' . $filename;
+                // app('firebase.storage')->getBucket()->object($old_firebase_storage_path)->delete();
+                //!! Firebase
             }
 
-            $imageData = $request->input('image');
-            // $base64Image = substr($imageData, strpos($imageData, ',') + 1);
-            $imageData = base64_decode($imageData);
+            $filename = $request->file('image')->store('ProductImages', 'public');
 
-            $fileName = date('Ymdhis') . $product->id . '.jpg';
-            $firebaseStoragePath = "ProductImages/{$fileName}";
+            //!! Firebase
+            // $imageData = $request->input('image');
+            // // $base64Image = substr($imageData, strpos($imageData, ',') + 1);
+            // $imageData = base64_decode($imageData);
+            // $fileName = date('Ymdhis') . $product->id . '.jpg';
+            // $firebaseStoragePath = "ProductImages/{$fileName}";
+            // Storage::disk('local')->put("public/ProductImages/{$fileName}", $imageData);
+            // $uploadedFile = fopen(storage_path("app/public/ProductImages/{$fileName}"), 'r');
+            // app('firebase.storage')->getBucket()->upload($uploadedFile, ['name' => $firebaseStoragePath]);
+            // Storage::disk('local')->delete("public/ProductImages/{$fileName}");
+            // $expiresAt = new DateTime('2030-01-01');
+            // $imageReference = app('firebase.storage')->getBucket()->object($firebaseStoragePath);
+            // $imageUrl = $imageReference->signedUrl($expiresAt);
+            // $product->image = $imageUrl;
+            //!! Firebase
 
-            Storage::disk('local')->put("public/ProductImages/{$fileName}", $imageData);
-
-            $uploadedFile = fopen(storage_path("app/public/ProductImages/{$fileName}"), 'r');
-            app('firebase.storage')->getBucket()->upload($uploadedFile, ['name' => $firebaseStoragePath]);
-
-            Storage::disk('local')->delete("public/ProductImages/{$fileName}");
-
-            $expiresAt = new DateTime('2030-01-01');
-            $imageReference = app('firebase.storage')->getBucket()->object($firebaseStoragePath);
-            $imageUrl = $imageReference->signedUrl($expiresAt);
-
-            $product->image = $imageUrl;
+            $product->image = 'storage/' . $filename;
         }
 
-        $product->categories = $request->categories;
+        $product->category = $request->category;
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
@@ -200,11 +209,18 @@ class ApiProductController extends Controller
         }
 
         if ($product->image) {
-            $oldData = $product->image;
-            $oldUri = explode('/', $oldData);
-            $filename = explode('?', $oldUri[5])[0];
-            $old_firebase_storage_path = $oldUri[4] . '/' . $filename;
-            app('firebase.storage')->getBucket()->object($old_firebase_storage_path)->delete();
+            $destination = public_path($product->image);
+            if (File::exists($destination)) {
+                File::delete($destination);
+            }
+
+            //!! Firebase
+            // $oldData = $product->image;
+            // $oldUri = explode('/', $oldData);
+            // $filename = explode('?', $oldUri[5])[0];
+            // $old_firebase_storage_path = $oldUri[4] . '/' . $filename;
+            // app('firebase.storage')->getBucket()->object($old_firebase_storage_path)->delete();
+            //!! Firebase
         }
 
         $product->delete();

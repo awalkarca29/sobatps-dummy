@@ -21,8 +21,8 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('register', [ApiAuthController::class, 'register']);
     Route::post('login', [ApiAuthController::class, 'login']);
     Route::post('logout', [ApiAuthController::class, 'logout']);
-    Route::post('refresh', [ApiAuthController::class, 'refresh']);
-    Route::get('user', [ApiAuthController::class, 'user']);
+    Route::post('refresh', [ApiAuthController::class, 'refresh']); //!! ADMIN
+    Route::get('user', [ApiAuthController::class, 'user']); //!! ADMIN
 
     // Update Profil
     Route::post('user/update', [ApiAuthController::class, 'update']);
@@ -32,13 +32,13 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('category', [ApiProductController::class, 'indexCategory']);
 
     // Transaksi
-    Route::get('user/transaction/all', [ApiTransactionController::class, 'indexAll']);
+    Route::get('user/transaction/all', [ApiTransactionController::class, 'indexAll']); //!! ADMIN
     Route::get('user/transaction', [ApiTransactionController::class, 'index']);
     Route::get('user/transaction/{id}', [ApiTransactionController::class, 'show']);
     Route::post('user/transaction', [ApiTransactionController::class, 'store']);
     Route::post('user/transaction/{id}', [ApiTransactionController::class, 'update']);
     Route::delete('user/transaction/{id}', [ApiTransactionController::class, 'destroy']);
-    Route::post('user/transaction/status/{id}', [ApiTransactionController::class, 'updateStatus']);
+    Route::post('user/transaction/status/{id}', [ApiTransactionController::class, 'updateStatus']); //!! ADMIN
 
     // Notif & History & Cart
     Route::get('user/cart', [ApiTransactionController::class, 'indexCart']);
@@ -46,12 +46,6 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('user/history', [ApiTransactionController::class, 'indexHistory']);
     Route::get('user/notification', [ApiTransactionController::class, 'indexNotification']);
     Route::post('user/notification/{id}', [ApiTransactionController::class, 'readNotification']);
-
-    // Wishlist
-    // Route::get('user/wishlist/all', [WishlistController::class, 'indexAll']);
-    // Route::get('user/wishlist', [WishlistController::class, 'index']);
-    // Route::post('user/wishlist', [WishlistController::class, 'store']);
-    // Route::delete('user/wishlist/{id}', [WishlistController::class, 'destroy']);
 });
 
 // Product

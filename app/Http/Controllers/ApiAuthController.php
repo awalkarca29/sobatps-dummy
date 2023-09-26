@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ApiAuthController extends Controller
@@ -78,34 +77,41 @@ class ApiAuthController extends Controller
         $user = auth()->guard('api')->user();
         $user = User::find($user->id);
 
-        if ($request->has('image')) {
+        if ($request->hasFile('image')) {
             if ($user->image) {
-                $oldData = $user->image;
-                $oldUri = explode('/', $oldData);
-                $filename = explode('?', $oldUri[5])[0];
-                $old_firebase_storage_path = $oldUri[4] . '/' . $filename;
-                app('firebase.storage')->getBucket()->object($old_firebase_storage_path)->delete();
+                $destination = public_path($user->image);
+                if (File::exists($destination)) {
+                    File::delete($destination);
+                }
+
+                //!! Firebase
+                // $oldData = $user->image;
+                // $oldUri = explode('/', $oldData);
+                // $filename = explode('?', $oldUri[5])[0];
+                // $old_firebase_storage_path = $oldUri[4] . '/' . $filename;
+                // app('firebase.storage')->getBucket()->object($old_firebase_storage_path)->delete();
+                //!! Firebase
             }
 
-            $imageData = $request->input('image');
-            // $base64Image = substr($imageData, strpos($imageData, ',') + 1);
-            $imageData = base64_decode($imageData);
+            $filename = $request->file('image')->store('UserImages', 'public');
 
-            $fileName = date('Ymdhis') . $user->id . '.jpg';
-            $firebaseStoragePath = "UserImages/{$fileName}";
+            //!! Firebase
+            // $imageData = $request->input('image');
+            // // $base64Image = substr($imageData, strpos($imageData, ',') + 1);
+            // $imageData = base64_decode($imageData);
+            // $fileName = date('Ymdhis') . $user->id . '.jpg';
+            // $firebaseStoragePath = "UserImages/{$fileName}";
+            // Storage::disk('local')->put("public/UserImages/{$fileName}", $imageData);
+            // $uploadedFile = fopen(storage_path("app/public/UserImages/{$fileName}"), 'r');
+            // app('firebase.storage')->getBucket()->upload($uploadedFile, ['name' => $firebaseStoragePath]);
+            // Storage::disk('local')->delete("public/UserImages/{$fileName}");
+            // $expiresAt = new DateTime('2030-01-01');
+            // $imageReference = app('firebase.storage')->getBucket()->object($firebaseStoragePath);
+            // $imageUrl = $imageReference->signedUrl($expiresAt);
+            // $user->image = $imageUrl;
+            //!! Firebase
 
-            Storage::disk('local')->put("public/UserImages/{$fileName}", $imageData);
-
-            $uploadedFile = fopen(storage_path("app/public/UserImages/{$fileName}"), 'r');
-            app('firebase.storage')->getBucket()->upload($uploadedFile, ['name' => $firebaseStoragePath]);
-
-            Storage::disk('local')->delete("public/UserImages/{$fileName}");
-
-            $expiresAt = new DateTime('2030-01-01');
-            $imageReference = app('firebase.storage')->getBucket()->object($firebaseStoragePath);
-            $imageUrl = $imageReference->signedUrl($expiresAt);
-
-            $user->image = $imageUrl;
+            $user->image = 'storage/' . $filename;
         }
 
         $user->name = $request->input('name');
