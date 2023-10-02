@@ -24,14 +24,14 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('refresh', [ApiAuthController::class, 'refresh']); //!! ADMIN
     Route::get('user', [ApiAuthController::class, 'user']); //!! ADMIN
 
-    // Update Profil
+    // Update Profile
     Route::post('user/update', [ApiAuthController::class, 'update']);
     Route::post('user/change-password', [ApiAuthController::class, 'changePassword']);
 
     // List Category
     Route::get('category', [ApiProductController::class, 'indexCategory']);
 
-    // Transaksi
+    // Transaction
     Route::get('user/transaction/all', [ApiTransactionController::class, 'indexAll']); //!! ADMIN
     Route::get('user/transaction', [ApiTransactionController::class, 'index']);
     Route::get('user/transaction/{id}', [ApiTransactionController::class, 'show']);
@@ -40,7 +40,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::delete('user/transaction/{id}', [ApiTransactionController::class, 'destroy']);
     Route::post('user/transaction/status/{id}', [ApiTransactionController::class, 'updateStatus']); //!! ADMIN
 
-    // Notif & History & Cart
+    // Notif, History, & Cart
     Route::get('user/cart', [ApiTransactionController::class, 'indexCart']);
     Route::get('user/cart/{id}', [ApiTransactionController::class, 'indexCartDetail']);
     Route::get('user/history', [ApiTransactionController::class, 'indexHistory']);

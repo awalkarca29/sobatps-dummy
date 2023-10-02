@@ -154,6 +154,8 @@ class ApiTransactionController extends Controller
 
     public function show($id)
     {
+        $user = auth()->guard('api')->user();
+
         $transactions = Transaction::with('product.user')->find($id);
 
         return response()->json(new TransactionShow($transactions));
