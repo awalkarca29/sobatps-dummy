@@ -41,8 +41,6 @@
                                     </div>
                                 @endif
 
-
-
                                 <input class="form-control @error('image') is-invalid @enderror" type="file"
                                     id="image" name="image" onchange="previewImage()" style="visibility:hidden">
 

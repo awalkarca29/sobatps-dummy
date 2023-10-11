@@ -39,7 +39,7 @@
             </div>
             <div class="col-lg-8">
                 <div class="mb-3">
-                    <label for="title" class="form-label @error('title') is-invalid @enderror">Title</label>
+                    <label for="title" class="form-label @error('title') is-invalid @enderror">Nama Produk</label>
                     <input type="text" class="form-control rounded-4" id="title" name="title" required autofocus
                         value="{{ old('title') }}">
                     @error('title')

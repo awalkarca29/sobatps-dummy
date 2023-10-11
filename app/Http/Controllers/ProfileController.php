@@ -115,7 +115,9 @@ class ProfileController extends Controller
 
         User::where('id', Auth::user()->id)->update($validatedData);
 
-        return redirect('profile/' . Auth::user()->username)->with('successUpdate', 'Profile picture has been updated');
+        // return redirect('profile/' . Auth::user()->username)->with('successUpdate', 'Profile picture has been updated');
+
+        return redirect()->back()->with('successUpdate', 'Profile picture has been updated');
     }
 
     /**

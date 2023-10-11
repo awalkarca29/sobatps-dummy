@@ -85,7 +85,7 @@ Route::get('/purchase/product/{product:slug}', [WebProductController::class, 'pu
 Route::get('/purchase/offers', [TransactionController::class, 'buyerOffers'])->middleware('auth');
 // Halaman Daftar pembelian buyer
 Route::get('/purchase/history', [TransactionController::class, 'buyerHistory'])->middleware('auth');
-// Halaman Daftar pembelian buyer
+// Halaman Daftar penjualan operator
 Route::get('/purchase/records', [TransactionController::class, 'adminHistory'])->middleware('auth');
 // Pembelian
 Route::resource('/purchase', TransactionController::class)->middleware('auth');

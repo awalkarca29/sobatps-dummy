@@ -14,25 +14,32 @@
                             <input class="form-label" type="hidden" name="oldImage" value="{{ $user->image }}">
                             @if ($user->image)
                                 <img src="{{ asset('storage/' . $user->image) }}"
-                                    class="img-preview rounded-circle img-fluid mb-3" id="imagePreview"
-                                    style="display:block">
+                                    class="img-preview rounded-circle img-fluid" id="imagePreview" style="display:block">
                             @else
                                 <div>
-                                    <img src="" class="img-preview rounded-circle img-fluid mb-3" id="imagePreview"
+                                    <img src="" class="img-preview rounded-circle img-fluid" id="imagePreview"
                                         style="max-height: 10em; overflow:hidden">
                                 </div>
                             @endif
 
+
                             <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
                                 name="image" onchange="previewImage()" style="visibility:hidden">
 
-                            <div class="border-bottom border-2 mt-2 mb-4"></div>
+                            <label for="image" class="btn btn-outline-success btn-block border-0 form-label">Upload
+                                Photo</label>
+
+                            <button type="submit" class="btn btn-outline-success btn-block border-0 mb-3">Simpan
+                                Foto</button>
 
                             @error('image')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
+
+                            <div class="border-bottom border-2 mt-2"></div>
+
 
                         </form>
                     </div>
@@ -57,7 +64,7 @@
                         </div>
                     @else
                         <div class="col-lg d-flex justify-content-center mb-5 w-100">
-                            <a href="/purchase/records" class="btn btn-outline-success w-100 btn-block border-0"><i
+                            <a href="/purchase/history" class="btn btn-outline-success w-100 btn-block border-0"><i
                                     class="bi bi-receipt-cutoff"></i>Histori
                                 Pembelian</button></a>
                         </div>
