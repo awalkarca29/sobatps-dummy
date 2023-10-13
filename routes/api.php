@@ -21,7 +21,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('register', [ApiAuthController::class, 'register']);
     Route::post('login', [ApiAuthController::class, 'login']);
     Route::post('logout', [ApiAuthController::class, 'logout']);
-    Route::post('refresh', [ApiAuthController::class, 'refresh']); //!! ADMIN
+    // Route::post('refresh', [ApiAuthController::class, 'refresh']); //!! DELETED
     Route::get('user', [ApiAuthController::class, 'user']); //!! ADMIN
 
     // Update Profile
