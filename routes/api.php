@@ -21,7 +21,6 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('register', [ApiAuthController::class, 'register']);
     Route::post('login', [ApiAuthController::class, 'login']);
     Route::post('logout', [ApiAuthController::class, 'logout']);
-    // Route::post('refresh', [ApiAuthController::class, 'refresh']); //!! DELETED
     Route::get('user', [ApiAuthController::class, 'user']); //!! ADMIN
 
     // Update Profile
@@ -31,13 +30,16 @@ Route::group(['middleware' => 'api'], function ($router) {
     // List Category
     Route::get('category', [ApiProductController::class, 'indexCategory']);
 
+    // Update Product
+    Route::post('product/{id}', [ApiProductController::class, 'updateProduct']); //!!ADMIN
+
     // Transaction
     Route::get('user/transaction/all', [ApiTransactionController::class, 'indexAll']); //!! ADMIN
     Route::get('user/transaction', [ApiTransactionController::class, 'index']);
     Route::get('user/transaction/{id}', [ApiTransactionController::class, 'show']);
     Route::post('user/transaction', [ApiTransactionController::class, 'store']);
     Route::post('user/transaction/{id}', [ApiTransactionController::class, 'update']);
-    Route::delete('user/transaction/{id}', [ApiTransactionController::class, 'destroy']);
+    Route::delete('user/transaction/{id}', [ApiTransactionController::class, 'destroy']); //!! ADMIN
     Route::post('user/transaction/status/{id}', [ApiTransactionController::class, 'updateStatus']); //!! ADMIN
 
     // Notif, History, & Cart

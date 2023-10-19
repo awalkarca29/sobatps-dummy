@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Product;
+use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,6 +13,8 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    protected $guarded = [];
 
     /**
      * The attributes that are mass assignable.
@@ -41,12 +45,13 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->getKey();
     }
+
     public function getJWTCustomClaims()
     {
         return [];
     }
 
-    public function product()
+    public function products()
     {
         return $this->hasMany(Product::class);
     }
