@@ -14,7 +14,7 @@ class ApiProductController extends Controller
     public function indexCategory()
     {
         $category = Category::all();
-        return response()->json($category);
+        return response()->json($category, 200);
     }
 
     /**
@@ -40,7 +40,7 @@ class ApiProductController extends Controller
             $products[$key]['category_id'] = json_decode($val['category_id']);
         }
 
-        return response()->json($products);
+        return response()->json($products, 200);
     }
 
     /**
@@ -86,7 +86,7 @@ class ApiProductController extends Controller
         $product->image = $filename;
         $product->save();
 
-        return response()->json($product);
+        return response()->json($product, 200);
     }
 
     /**
@@ -99,60 +99,72 @@ class ApiProductController extends Controller
     {
         $products = Product::find($id);
 
-        return response()->json(new ProductShow($products));
+        if ($products === null) {
+            return response()->json([
+                "success" => false,
+                "message" => "Product not found.",
+            ], 404);
+        }
+
+        return response()->json(new ProductShow($products), 200);
     }
 
     public function updateProduct(Request $request, $id)
     {
-        {
-            $validator = Validator::make(request()->all(), [
-                'category_id' => 'required',
-                'title' => 'required',
-                'description' => 'required',
-                'source' => 'required',
-                'function' => 'required',
-                'stock' => 'required',
-                'price' => 'required',
-                'isSold' => 'required',
-            ]);
+        $validator = Validator::make(request()->all(), [
+            'category_id' => 'required',
+            'title' => 'required',
+            'description' => 'required',
+            'source' => 'required',
+            'function' => 'required',
+            'stock' => 'required',
+            'price' => 'required',
+            'isSold' => 'required',
+        ]);
 
-            if ($validator->fails()) {
-                return response()->json($validator->messages(), 422);
-            }
-
-            $user = auth()->guard('api')->user();
-            $product = Product::find($id);
-
-            if ($user->id != $product->user_id) {
-                return response()->json([
-                    "success" => false,
-                    "message" => "You're not the owner of the product!",
-                ], 403);
-            }
-
-            if ($request->hasFile('image')) {
-                if ($product->image) {
-                    $destination = public_path('img/' . $product->image);
-                    if (File::exists($destination)) {
-                        File::delete($destination);
-                    }
-                }
-                $filename = $request->file('image')->store('product-images', 'public_uploads');
-                $product->image = $filename;
-            }
-
-            $product->category_id = $request->category_id;
-            $product->title = $request->title;
-            $product->description = $request->description;
-            $product->source = $request->source;
-            $product->function = $request->function;
-            $product->stock = $request->stock;
-            $product->price = $request->price;
-            $product->isSold = $request->isSold;
-            $product->save();
-
-            return response()->json($product);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
         }
+
+        $user = auth()->guard('api')->user();
+        $product = Product::find($id);
+
+        if ($product === null) {
+            return response()->json([
+                "success" => false,
+                "message" => "Product not found.",
+            ], 404);
+        }
+
+        if ($user->id != $product->user_id) {
+            return response()->json([
+                "success" => false,
+                "message" => "You're not the owner of the product!",
+            ], 403);
+        }
+
+        if ($request->hasFile('image')) {
+            if ($product->image) {
+                $destination = public_path('img/' . $product->image);
+                if (File::exists($destination)) {
+                    File::delete($destination);
+                }
+            }
+            $filename = $request->file('image')->store('product-images', 'public_uploads');
+            $product->image = $filename;
+        }
+
+        $product->category_id = $request->category_id;
+        $product->title = $request->title;
+        $product->description = $request->description;
+        $product->source = $request->source;
+        $product->function = $request->function;
+        $product->stock = $request->stock;
+        $product->price = $request->price;
+        $product->isSold = $request->isSold;
+        $product->save();
+
+        return response()->json($product, 200);
     }
 
     /**
@@ -165,6 +177,13 @@ class ApiProductController extends Controller
     {
         $user = auth()->guard('api')->user();
         $product = Product::find($id);
+
+        if ($product === null) {
+            return response()->json([
+                "success" => false,
+                "message" => "Product not found.",
+            ], 404);
+        }
 
         if ($user->id != $product->user_id) {
             return response()->json([
@@ -182,6 +201,9 @@ class ApiProductController extends Controller
 
         $product->delete();
 
-        return response()->json($product);
+        return response()->json([
+            "success" => true,
+            "message" => "Successfully deleted",
+        ], 200);
     }
 }

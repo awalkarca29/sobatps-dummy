@@ -34,7 +34,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('product/{id}', [ApiProductController::class, 'updateProduct']); //!!ADMIN
 
     // Transaction
-    Route::get('user/transaction/all', [ApiTransactionController::class, 'indexAll']); //!! ADMIN
+    Route::get('transaction', [ApiTransactionController::class, 'indexAll']); //!! ADMIN
     Route::get('user/transaction', [ApiTransactionController::class, 'index']);
     Route::get('user/transaction/{id}', [ApiTransactionController::class, 'show']);
     Route::post('user/transaction', [ApiTransactionController::class, 'store']);
